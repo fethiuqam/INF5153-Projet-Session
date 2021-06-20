@@ -13,22 +13,26 @@ Le présent document a été rédigé dans le but d'effectuer une brève  prése
  *les disponibilités :* 
 
  *Forces :* 
+
  *faiblesses :*
+
  *compétences techniques :* 
  
 **Hamza Yahi :**
 
- *Code permanent :* 
+ *Code permanent :*  YAHH07019802  
 
- *adresse courriel :* 
+ *adresse courriel :* af491086@ens.uqam.ca
 
- *le meilleur moyen de communication :* 
+ *le meilleur moyen de communication :* courriel, Slack
 
- *les disponibilités :* 
+ *les disponibilités :* Dépend mais en général flexible durant toute la semaine
 
- *Forces :* 
+ *Forces :* rigueur, ponctualité
+
  *faiblesses :*
- *compétences techniques :* 
+
+ *compétences techniques :* conception UI/UX, java, plantUML
  
  **Mohamed Hocine Rehouma :**
 
@@ -68,9 +72,9 @@ Si un membre de l’équipe ne remplie pas ses engagements :
 
 - 1er sanction : Reçoit un avertissement verbale par l’équipe.
 
-- 2e sanction : 
+- 2e sanction : Reçoit dernier avertissement verbale par l’équipe.
 
-- 3e sanction : 
+- 3e sanction : Invocation de l'enseignant.
 
 
 ### Notre définition de "Terminé" :
