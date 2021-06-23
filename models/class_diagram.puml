@@ -1,0 +1,112 @@
+@startuml
+
+class User {
+    - username : String
+    - password : String
+}
+
+class Patient {
+    - nom : String 
+    - prenom : String
+    - dateNaissance : Date 
+    - villeNaissance : String
+    - noAssurance : String
+    + ajouterTraitant(medecin : Medecin)
+    + getTraitants() : List<Medecin>
+}
+
+class Coordonnees {
+    - adresse : String
+    - telephone : String
+    - courriel : String
+    + setAdresse (adresse : String)
+    + setTelephone (Telephone : String )
+    + setCourriel (courriel : String)
+}
+
+enum Genre {
+    MASCULIN
+    FEMININ
+    AUTRE
+}
+
+class Dossier {
+    + creerVisite (medecin: Medecin, date: Date, resume: String)
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + getVisites()
+    + getAntecedents()
+    + getTraitements()
+}
+
+class Visite {
+    - date : Date
+    - resume : String
+    - notes : List<String>
+    + setResume (resume: String)
+    + ajouterDiagnostic(dg: Diagnostic)
+    + ajouterTraitement(trt: Traitement)
+    + ajouterNote(note: String)
+    + supprimerDiagnostic(dg: Diagnostic)
+    + supprimerTraitement(trt: Traitement)
+    + supprimerNote(note: String)
+}
+
+class Antecedent {
+    - debut : Date
+    - fin : Date
+    + setDebut(date : Date)
+    + setFin(date : Date)
+    + setDiagnostic()
+    + setTraitement()
+}
+
+class Diagnostic {
+
+}
+
+class Traitement {
+
+}
+
+class Medecin {
+    - nom : String 
+    - prenom : String
+    - permis : String
+    - specialite : String
+    - etablissement : String
+}
+
+class Modification {
+    - date : Date
+}
+
+class Archive {
+    + creerDossier(nom: String, prenom: String, dateNaiss: Date, villeNaiss: String, noAss: String, genre: Genre)
+    + reconstruireDossier(noAss: String, date: Date)
+    + telechargerDossier(noAss: String)
+}
+
+Medecin --|> User
+
+Patient --|> User
+Patient *--> "1\ndossier" Dossier
+Patient *--> "1\ncoordonnées" Coordonnees
+Patient #--> "0..2\nparents" Patient
+Patient #--> "1\ngenre" Genre
+Patient #-> "*\ntraitants" Medecin
+
+Dossier *--> "*\nvisites" Visite
+Dossier *--> "*\nantécédents" Antecedent
+
+Visite *--> "*\ndiagnostic" Diagnostic
+Visite *--> "*\ntraitement" Traitement
+Visite #--> "1\nmedecin" Medecin
+
+Antecedent #--> "1\ntraitant" Medecin
+Antecedent #--> "1\diagnostic" Diagnostic
+Antecedent #--> "*\ntraitement" Traitement
+
+Modification #-->"1\npatient" Patient
+Archive *-->"*\nenregistrements" Modification
+
+@enduml

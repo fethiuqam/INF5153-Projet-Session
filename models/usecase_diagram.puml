@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+
+actor "User" as user
+actor "Professionnel" as prof 
+actor "Medecin" as med 
+
+actor "System RAMQ" as ramq
+actor "Patient" as pat 
+
+rectangle "Dossier medical" {
+  usecase "consulter l'historique de visites" as UC2
+  usecase "consulter les antécédents" as UC3
+  usecase "consulter les medecins traitants" as UC4
+  usecase "consulter les traitements" as UC5
+  usecase "s'authentifier" as UC6
+  usecase "télécharger le dossier du patient" as UC7
+  usecase "créer nouvelle visite" as UC8
+  usecase "modifier visite" as UC9
+  usecase "modifier antécédent" as UC10
+  usecase "ajouter patient pour suivi" as UC11
+  usecase "annuler modifications" as UC12
+  usecase "ajouter un antecédent" as UC13
+  usecase "créer dossier" as UC14
+  usecase "reconstruire dossier" as UC15
+  usecase "modifier coordonnées" as UC16
+}
+
+prof -|> user
+med -|> prof
+user <|- pat
+
+user -- UC4
+user -- UC5
+user -- UC6
+
+prof -- UC2
+prof -- UC3
+prof -- UC7
+
+med -- UC8
+med -- UC9
+med -- UC10
+med -- UC11
+med -- UC12
+med -- UC13
+
+pat -- UC16
+
+UC14 -- ramq
+UC15 -- ramq
+
+
+@enduml
