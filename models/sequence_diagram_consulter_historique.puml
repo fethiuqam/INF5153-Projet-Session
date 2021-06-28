@@ -1,0 +1,33 @@
+@startuml
+
+title Diagramme de séquence : Consulter l'historique des visites
+hide footbox
+
+actor "Professionnel" as pro
+
+participant "_ : PrincipaleFrame" as pf
+pro -> pf : consulterHistoriqueVisite()
+activate pf
+create participant "historiqueVisite: VisiteHistoriqueFrame" as vhf
+
+pf -> vhf: this()
+activate vhf
+participant "_: Dossier" as d
+    vhf -> d : getVisites()
+    activate d
+    d --> vhf : visites
+    deactivate d
+loop visite in visites
+    create participant "ligneVisite: LigneVisiteFrame" as lvf
+        vhf -> lvf : this(visite)
+        activate lvf
+        lvf --> vhf : ligneVisite
+        deactivate lvf
+    vhf -> vhf : ajouterLigne(ligneVisite)
+end
+vhf --> pf : historiqueVisite
+deactivate vhf
+pf --> pro : historiqueVisite
+deactivate pf
+
+@enduml
