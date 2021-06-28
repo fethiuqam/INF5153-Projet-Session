@@ -13,6 +13,7 @@ class Patient {
     - noAssurance : String
     + ajouterTraitant(medecin : Medecin)
     + getTraitants() : List<Medecin>
+    + getCoordonnees() : Coordonnees
 }
 
 class Coordonnees {
@@ -33,9 +34,9 @@ enum Genre {
 class Dossier {
     + creerVisite (medecin: Medecin, date: Date, resume: String)
     + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
-    + getVisites()
-    + getAntecedents()
-    + getTraitements()
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
 }
 
 class Visite {
@@ -86,6 +87,54 @@ class Archive {
     + telechargerDossier(noAss: String)
 }
 
+class AuthentificationFrame {
+    seConnecter(user : User) : boolean
+    seDeconnecter() : boolean
+}
+
+class VisiteHistoriqueFrame {
+    getVisites() : List<Visite>
+
+}
+
+class VisiteFrame {
+    + ajouterDiagnostic(dg: Diagnostic)
+    + ajouterTraitement(trt: Traitement)
+    + ajouterNote(note: String)
+    + supprimerDiagnostic(dg: Diagnostic)
+    + supprimerTraitement(trt: Traitement)
+    + supprimerNote(note: String)
+}
+
+class NouvelleVisiteFrame {
+    creerVisite(visite : Visite) : boolean
+}
+
+class AntecedentFrame {
+    + getAntecedents() : List<Antecedent>
+}
+
+class NouvelAntecedentFrame {
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+}
+
+class TraitantsFrame {
+    + getTraitants() : List<Medecin>
+}
+
+class MedecinFrame {
+
+}
+
+class TraitementsFrame {
+    + getTraitements() : List<Traitement>
+}
+
+class CoordonneesFrame {
+    + getCoordonnees() : Coordonnees
+}
+
+
 Medecin --|> User
 
 Patient --|> User
@@ -108,5 +157,16 @@ Antecedent #--> "*\ntraitement" Traitement
 
 Modification #-->"1\npatient" Patient
 Archive *-->"*\nenregistrements" Modification
+
+AuthentificationFrame -r-> User
+CoordonneesFrame -l-> Patient
+VisiteHistoriqueFrame -r-> Dossier
+VisiteFrame -l-> Visite
+NouvelleVisiteFrame -l-> Dossier
+AntecedentFrame --> Dossier
+NouvelAntecedentFrame --> Dossier
+TraitantsFrame --> Patient
+MedecinFrame --> Medecin
+TraitementsFrame --> Dossier
 
 @enduml
