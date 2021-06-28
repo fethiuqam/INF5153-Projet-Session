@@ -16,14 +16,15 @@ rectangle "Dossier medical" {
   usecase "s'authentifier" as UC6
   usecase "télécharger le dossier du patient" as UC7
   usecase "créer nouvelle visite" as UC8
-  usecase "modifier visite" as UC9
+  usecase "consulter les coordonnées du patient" as UC9
   usecase "modifier antécédent" as UC10
   usecase "ajouter patient pour suivi" as UC11
   usecase "annuler modifications" as UC12
   usecase "ajouter un antecédent" as UC13
   usecase "créer dossier" as UC14
-  usecase "reconstruire dossier" as UC15
-  usecase "modifier coordonnées" as UC16
+  usecase "reconstruire dossier par modification" as UC15
+  usecase "reconstruire dossier par date" as UC16
+  usecase "modifier coordonnées" as UC17
 }
 
 prof -|> user
@@ -33,6 +34,7 @@ user <|- pat
 user -- UC4
 user -- UC5
 user -- UC6
+user -- UC9
 
 prof -- UC2
 prof -- UC3
@@ -45,10 +47,10 @@ med -- UC11
 med -- UC12
 med -- UC13
 
-pat -- UC16
+pat -- UC17
 
 UC14 -- ramq
 UC15 -- ramq
-
+UC16 -- ramq
 
 @enduml
