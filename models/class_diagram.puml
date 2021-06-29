@@ -1,5 +1,7 @@
 @startuml
 
+
+
 class User {
     - username : String
     - password : String
@@ -52,21 +54,28 @@ class Visite {
     + supprimerNote(note: String)
 }
 
+
 class Antecedent {
     - debut : Date
-    - fin : Date
+    - fin : Date [0..1]
     + setDebut(date : Date)
     + setFin(date : Date)
     + setDiagnostic()
     + setTraitement()
 }
 
-class Diagnostic {
+class HistoriqueTraitement {
 
 }
 
-class Traitement {
+class Diagnostic {
+    - description : String
+}
 
+class Traitement {
+    - description : String
+    - debut : Date
+    - fin : Date [0..1]
 }
 
 class Medecin {
@@ -87,54 +96,6 @@ class Archive {
     + telechargerDossier(noAss: String)
 }
 
-class AuthentificationFrame {
-    seConnecter(user : User) : boolean
-    seDeconnecter() : boolean
-}
-
-class VisiteHistoriqueFrame {
-    getVisites() : List<Visite>
-
-}
-
-class VisiteFrame {
-    + ajouterDiagnostic(dg: Diagnostic)
-    + ajouterTraitement(trt: Traitement)
-    + ajouterNote(note: String)
-    + supprimerDiagnostic(dg: Diagnostic)
-    + supprimerTraitement(trt: Traitement)
-    + supprimerNote(note: String)
-}
-
-class NouvelleVisiteFrame {
-    creerVisite(visite : Visite) : boolean
-}
-
-class AntecedentFrame {
-    + getAntecedents() : List<Antecedent>
-}
-
-class NouvelAntecedentFrame {
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
-}
-
-class TraitantsFrame {
-    + getTraitants() : List<Medecin>
-}
-
-class MedecinFrame {
-
-}
-
-class TraitementsFrame {
-    + getTraitements() : List<Traitement>
-}
-
-class CoordonneesFrame {
-    + getCoordonnees() : Coordonnees
-}
-
-
 Medecin --|> User
 
 Patient --|> User
@@ -153,20 +114,11 @@ Visite #--> "1\nmedecin" Medecin
 
 Antecedent #--> "1\ntraitant" Medecin
 Antecedent #--> "1\diagnostic" Diagnostic
-Antecedent #--> "*\ntraitement" Traitement
+Antecedent #--> "*\ntraitements" HistoriqueTraitement
+HistoriqueTraitement #--> "*\ntraitement" Traitement
+HistoriqueTraitement #--> "1\nprescripteur" Medecin
 
 Modification #-->"1\npatient" Patient
 Archive *-->"*\nenregistrements" Modification
-
-AuthentificationFrame -r-> User
-CoordonneesFrame -l-> Patient
-VisiteHistoriqueFrame -r-> Dossier
-VisiteFrame -l-> Visite
-NouvelleVisiteFrame -l-> Dossier
-AntecedentFrame --> Dossier
-NouvelAntecedentFrame --> Dossier
-TraitantsFrame --> Patient
-MedecinFrame --> Medecin
-TraitementsFrame --> Dossier
 
 @enduml
