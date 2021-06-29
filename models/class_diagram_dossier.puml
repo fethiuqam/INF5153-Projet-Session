@@ -1,0 +1,154 @@
+@startuml
+
+' classes model
+
+class Dossier {
+    + creerVisite (medecin: Medecin, date: Date, resume: String)
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+}
+
+class Visite {
+    - date : Date
+    - resume : String
+    - notes : List<String>
+    + setResume (resume: String)
+    + ajouterDiagnostic(dg: Diagnostic)
+    + ajouterTraitement(trt: Traitement)
+    + ajouterNote(note: String)
+    + supprimerDiagnostic(dg: Diagnostic)
+    + supprimerTraitement(trt: Traitement)
+    + supprimerNote(note: String)
+}
+
+
+class Antecedent {
+    - debut : Date
+    - fin : Date [0..1]
+    + setDebut(date : Date)
+    + setFin(date : Date)
+    + setDiagnostic()
+    + setTraitement()
+}
+
+class HistoriqueTraitement {
+
+}
+
+class Diagnostic {
+    - description : String
+}
+
+class Traitement {
+    - description : String
+    - debut : Date
+    - fin : Date [0..1]
+}
+
+class Medecin {
+    - nom : String 
+    - prenom : String
+    - permis : String
+    - specialite : String
+    - etablissement : String
+}
+
+' classes IHM
+class PrincipaleFrame {
+
+}
+
+class DossierFrame {
+    
+}
+
+class VisiteHistoriqueFrame {
+    getVisites() : List<Visite>
+
+}
+
+class LigneVisiteFrame {
+
+}
+
+class VisiteFrame {
+
+}
+
+class NouvelleVisiteFrame {
+    creerVisite(visite : Visite) : boolean
+}
+
+class AntecedentFrame {
+    + getAntecedents() : List<Antecedent>
+}
+
+class NouvelAntecedentFrame {
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic)
+}
+
+class ListeAntecedentsFrame {
+
+}
+
+class LigneAntecedentFrame {
+
+}
+
+class LigneAntecedentModificationFrame {
+
+}
+
+class TraitementsFrame {
+    + getTraitements() : List<Traitement>
+}
+
+class LigneTraitementFrame {
+
+}
+
+' associations
+
+Dossier *--> "*\nvisites" Visite
+Dossier *--> "*\nantécédents" Antecedent
+
+Visite *--> "*\ndiagnostic" Diagnostic
+Visite *--> "*\ntraitement" Traitement
+Visite #--> "1\nmedecin" Medecin
+
+Antecedent #--> "1\ntraitant" Medecin
+Antecedent #--> "1\diagnostic" Diagnostic
+Antecedent #--> "*\ntraitements" HistoriqueTraitement
+HistoriqueTraitement #--> "*\ntraitement" Traitement
+HistoriqueTraitement #--> "1\nprescripteur" Medecin
+
+PrincipaleFrame --> DossierFrame
+DossierFrame --> Dossier
+
+DossierFrame *-->"0..1\nvisites" VisiteHistoriqueFrame
+DossierFrame *--> "0..1\nnouvelleVisite"NouvelleVisiteFrame
+DossierFrame *--> "0..1\nantecedents"ListeAntecedentsFrame
+DossierFrame *--> "0..1\nnouvelAntededent"NouvelAntecedentFrame
+DossierFrame *--> "0..1\ntraitement"TraitementsFrame
+
+
+
+VisiteHistoriqueFrame *--> "*\nlignes" LigneVisiteFrame
+ListeAntecedentsFrame *--> "*\nlignes" LigneAntecedentFrame
+LigneAntecedentFrame <|--  LigneAntecedentModificationFrame
+TraitementsFrame *--> "*\nlignes" LigneTraitementFrame
+
+
+LigneVisiteFrame *--> "0..1\ndetail"VisiteFrame
+NouvelleVisiteFrame --> NouvelAntecedentFrame
+NouvelleVisiteFrame --> ListeAntecedentsFrame
+LigneAntecedentFrame *--> "0..1\ndetail"AntecedentFrame
+
+Dossier <- NouvelleVisiteFrame
+Dossier <-- NouvelAntecedentFrame
+Dossier <-- AntecedentFrame
+
+
+@enduml
