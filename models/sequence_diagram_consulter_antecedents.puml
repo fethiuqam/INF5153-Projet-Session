@@ -23,11 +23,11 @@ activate pf
     activate laf
     loop antecedent in antecedents
         create participant "ligneAntecedent: LigneAntecedentFrame" as lf
-            laf -> lf : this(visite)
+            laf -> lf : this(antecedent)
             activate lf
             lf --> laf : ligneAntecedent
             deactivate lf
-        laf -> laf : ajouterLigne(ligneVisite)
+        laf -> laf : ajouterLigne(ligneAntecedent)
     end
     laf --> pf : listeAntecedents
     deactivate laf

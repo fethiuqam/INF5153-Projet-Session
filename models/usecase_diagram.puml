@@ -18,7 +18,6 @@ rectangle "Dossier medical" {
   usecase "créer nouvelle visite" as UC8
   usecase "consulter les coordonnées du patient" as UC9
   usecase "modifier antécédent" as UC10
-  usecase "ajouter patient pour suivi" as UC11
   usecase "annuler modifications" as UC12
   usecase "ajouter un antecédent" as UC13
   usecase "créer dossier" as UC14
@@ -43,7 +42,6 @@ prof -- UC7
 med -- UC8
 med -- UC9
 med -- UC10
-med -- UC11
 med -- UC12
 med -- UC13
 

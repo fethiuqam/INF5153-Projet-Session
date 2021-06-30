@@ -1,0 +1,37 @@
+@startuml
+
+title Diagramme de séquence : Consulter les traitements
+hide footbox
+
+actor "Professionnel" as pro
+
+participant "_: PrincipaleFrame " as pf
+pro -> pf : consulterTraitements()
+activate pf
+    participant "_: DossierControleur" as dc
+    pf -> dc : getTraitements()
+    activate dc
+    participant "_: Dossier" as d
+    dc -> d : getTraitements()
+    activate d
+    d --> dc : traitements
+    deactivate d
+    dc --> pf : traitements
+    deactivate dc
+    create participant "listeTraitements: ListTraitementsFrame" as lt
+    pf -> lt: this(traitements)
+    activate lt
+    loop traitement in traitements
+        create participant "ligneTraitement: LigneTraitementFrame" as ltf
+            lt -> ltf : this(traitement)
+            activate ltf
+            ltf --> lt : lignetraitement
+            deactivate ltf
+        lt -> lt : ajouterLigne(ligneVisite)
+    end
+    lt --> pf : listeTraitement
+    deactivate lt
+    pf --> pro : listeTraitements
+deactivate pf
+
+@enduml
