@@ -56,52 +56,60 @@ class Medecin {
 }
 
 ' classes IHM
-class PrincipaleFrame {
+class DossierControleur {
+    + getVisites()
+    + getAntecedents()
 
 }
 
-class DossierFrame {
-    
+class PrincipaleFrame {
+    + consulterHistoriqueVisite()
+    + consulterAntecedents()
 }
 
 class VisiteHistoriqueFrame {
-    getVisites() : List<Visite>
-
+    + this(vistes : List<Visite>)
 }
 
 class LigneVisiteFrame {
-
+    + this(visite : Visite)
+    + afficherDetail()
 }
 
 class VisiteFrame {
-
+    + this(visite : Visite)
 }
 
 class NouvelleVisiteFrame {
-    creerVisite(visite : Visite) : boolean
-}
-
-class AntecedentFrame {
-    + getAntecedents() : List<Antecedent>
-}
-
-class NouvelAntecedentFrame {
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic)
+    
 }
 
 class ListeAntecedentsFrame {
-
+    + this(antecedents : List<Antecedent>)
 }
 
 class LigneAntecedentFrame {
+    + this(antecedent : Antecedent)
+    + afficherDetail()
+}
 
+class AntecedentFrame {
+    + this(antecedent : Antecedent)
+}
+
+class AntecedentModificationFrame {
+
+}
+
+class NouvelAntecedentFrame {
+    
 }
 
 class LigneAntecedentModificationFrame {
 
 }
 
-class TraitementsFrame {
+class ListeTraitementFrame {
     + getTraitements() : List<Traitement>
 }
 
@@ -124,31 +132,40 @@ Antecedent #--> "*\ntraitements" HistoriqueTraitement
 HistoriqueTraitement #--> "*\ntraitement" Traitement
 HistoriqueTraitement #--> "1\nprescripteur" Medecin
 
-PrincipaleFrame --> DossierFrame
-DossierFrame --> Dossier
+PrincipaleFrame --> DossierControleur
+DossierControleur --> Dossier
 
-DossierFrame *-->"0..1\nvisites" VisiteHistoriqueFrame
-DossierFrame *--> "0..1\nnouvelleVisite"NouvelleVisiteFrame
-DossierFrame *--> "0..1\nantecedents"ListeAntecedentsFrame
-DossierFrame *--> "0..1\nnouvelAntededent"NouvelAntecedentFrame
-DossierFrame *--> "0..1\ntraitement"TraitementsFrame
+PrincipaleFrame *-->"0..1\nvisites" VisiteHistoriqueFrame
+PrincipaleFrame *--> "0..1\nnouvelleVisite"NouvelleVisiteFrame
+PrincipaleFrame *--> "0..1\nantecedents"ListeAntecedentsFrame
+PrincipaleFrame *--> "0..1\nnouvelAntededent"NouvelAntecedentFrame
+PrincipaleFrame *--> "0..1\ntraitement"ListeTraitementFrame
 
 
 
 VisiteHistoriqueFrame *--> "*\nlignes" LigneVisiteFrame
 ListeAntecedentsFrame *--> "*\nlignes" LigneAntecedentFrame
-LigneAntecedentFrame <|--  LigneAntecedentModificationFrame
-TraitementsFrame *--> "*\nlignes" LigneTraitementFrame
+LigneAntecedentFrame <|-  LigneAntecedentModificationFrame
+AntecedentFrame <|- AntecedentModificationFrame 
+ListeTraitementFrame *--> "*\nlignes" LigneTraitementFrame
 
 
 LigneVisiteFrame *--> "0..1\ndetail"VisiteFrame
 NouvelleVisiteFrame --> NouvelAntecedentFrame
 NouvelleVisiteFrame --> ListeAntecedentsFrame
 LigneAntecedentFrame *--> "0..1\ndetail"AntecedentFrame
+LigneAntecedentModificationFrame *--> "0..1\ndetail"AntecedentModificationFrame
 
-Dossier <- NouvelleVisiteFrame
-Dossier <-- NouvelAntecedentFrame
-Dossier <-- AntecedentFrame
+LigneAntecedentFrame #--> Antecedent
+AntecedentFrame #--> Antecedent
+LigneVisiteFrame #--> Visite
+VisiteFrame #--> Visite
+LigneTraitementFrame #-->Traitement
+
+
+DossierControleur <- NouvelleVisiteFrame
+DossierControleur <-- NouvelAntecedentFrame
+DossierControleur <-- AntecedentModificationFrame
 
 
 @enduml

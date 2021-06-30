@@ -1,0 +1,47 @@
+@startuml
+
+title Diagramme de séquence : Consulter les antecedents
+hide footbox
+
+actor "Professionnel" as pro
+
+participant "_: PrincipaleFrame " as pf
+pro -> pf : consulterAntecedents()
+activate pf
+    participant "_: DossierControleur" as dc
+    pf -> dc : getAntecedents()
+    activate dc
+    participant "_: Dossier" as d
+    dc -> d : getAntecedents()
+    activate d
+    d --> dc : antecedents
+    deactivate d
+    dc --> pf : antecedents
+    deactivate dc
+    create participant "listeAntecedents: ListAntecedentsFrame" as laf
+    pf -> laf: this(antecedents)
+    activate laf
+    loop antecedent in antecedents
+        create participant "ligneAntecedent: LigneAntecedentFrame" as lf
+            laf -> lf : this(visite)
+            activate lf
+            lf --> laf : ligneAntecedent
+            deactivate lf
+        laf -> laf : ajouterLigne(ligneVisite)
+    end
+    laf --> pf : listeAntecedents
+    deactivate laf
+    pf --> pro : listeAntecedents
+deactivate pf
+
+pro -> laf : afficherDetail()
+activate laf
+create participant "antecedentFrame: AntecedentFrame" as af
+    laf -> af: this(antecedent)
+    deactivate laf
+    activate af
+    af --> pro 
+    deactivate af
+
+
+@enduml
