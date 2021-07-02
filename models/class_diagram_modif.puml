@@ -1,13 +1,22 @@
 @startuml
 
-abstract class Utilisateur {
+abstract Utilisateur {
     - username : String
     - password : String
+    --
+    + {abstract} login() : boolean
+    + consulterVisites() : List<Visite>
+    + consulterAntecedents() : List<Antecedent>
+    + consulterTraitements() : List<Traitement>
 }
 
 class Assure {
+    - nom : String 
+    - prenom : String
+    - dateNaissance : Date 
+    - villeNaissance : String
     - noAssurance : String
-
+    + getCoordonnees() : Coordonnees
 }
 
 class Professionnel {
@@ -15,11 +24,19 @@ class Professionnel {
 }
 
 class Precripteur {
+    - nom : String 
+    - prenom : String
     - permis : String
+    - specialite : String
+    - etablissement : String
+    --
+    + creerVisite (medecin: Medecin, date: Date, resume: String)
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
 }
 
 class Ramq {
-
+    + reconstruireDossierDate (numAss : String, Date date)
+    + reconstruireDossierID(numAss : String, Strind ID)
 }
 
 
