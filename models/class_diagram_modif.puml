@@ -83,9 +83,16 @@ class Prescripteur {
 }
 
 class SourceDonnees {
-    + getUser(user: String , pass: String) : Medecin
-    + getDossier(noAss : String) : Dossier
-    + mettreAJourDossier(Dossier: dossier)
+    
+}
+
+interface Recherchable {
+    + findbyId(id : String) : Optional<T>
+    + findbyUsernameAndPassword (username : String, password: String) : Optional<T>
+}
+
+interface Modifiable {
+    + update(t : T)
 }
 
 class Session {
@@ -97,6 +104,10 @@ class Session {
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
+}
+
+interface authentifiable {
+    + login()
 }
 
 class ConnexionVue {
@@ -151,6 +162,11 @@ Session --> "0..1\ndossier" Dossier
 Session -> SourceDonnees
 Session --> "0..1\nnouvelle visite" Visite
 Session *--> "0..1\nutilisateur" Utilisateur 
+Session .l.|> authentifiable
+
+SourceDonnees .d.|> Modifiable
+SourceDonnees  .|> Recherchable
+
 
 ConnexionVue -- ConnexionControleur
 PatientVue --PatientControleur
