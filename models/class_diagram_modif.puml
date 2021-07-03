@@ -107,7 +107,7 @@ class Session {
 }
 
 interface authentifiable {
-    + login()
+    + login() ; boolean
 }
 
 class ConnexionVue {
