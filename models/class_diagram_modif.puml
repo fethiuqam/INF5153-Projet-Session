@@ -1,53 +1,11 @@
 @startuml
 
-abstract Utilisateur {
-    - username : String
-    - password : String
-    --
-    + {abstract} login() : boolean
-    + consulterVisites() : List<Visite>
-    + consulterAntecedents() : List<Antecedent>
-    + consulterTraitements() : List<Traitement>
-}
-
-class Assure {
-    - nom : String 
-    - prenom : String
-    - dateNaissance : Date 
-    - villeNaissance : String
-    - noAssurance : String
-    + getCoordonnees() : Coordonnees
-}
-
-class Professionnel {
-
-}
-
-class Precripteur {
-    - nom : String 
-    - prenom : String
-    - permis : String
-    - specialite : String
-    - etablissement : String
-    --
-    + creerVisite (medecin: Medecin, date: Date, resume: String)
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
-}
-
-class Ramq {
-    + reconstruireDossierDate (numAss : String, Date date)
-    + reconstruireDossierID(numAss : String, Strind ID)
-}
-
-
 class Patient {
     - nom : String 
     - prenom : String
     - dateNaissance : Date 
     - villeNaissance : String
     - noAssurance : String
-    + ajouterTraitant(medecin : Medecin)
-    + getTraitants() : List<Medecin>
     + getCoordonnees() : Coordonnees
 }
 
@@ -67,8 +25,7 @@ enum Genre {
 }
 
 class Dossier {
-    + getPatient () : patient : Patient
-    + creerVisite (medecin: Medecin, date: Date, resume: String)
+    + AjouterVisite (visite : Visite)
     + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
@@ -85,7 +42,6 @@ class Visite {
     + ajouterNote(note: String)
     +getTraitement () : traitement : Traitement
 }
-
 
 class Antecedent {
     - debut : Date
@@ -113,18 +69,40 @@ class Medecin {
     - etablissement : String
 }
 
+abstract Utilisateur { 
+    - username : String 
+    - password : String 
+    } 
+
+class Prescripteur { 
+    - nom : String 
+    - prenom : String 
+    - permis : String 
+    - specialite : String 
+    - etablissement : String
+}
+
 class SourceDonnees {
-    + getUser(user: String , pass: String) : Utilisateur
+    + getUser(user: String , pass: String) : Medecin
     + getDossier(noAss : String) : Dossier
     + mettreAJourDossier(Dossier: dossier)
 }
 
-class SessionControleur {
+class Session {
     + telechargerDossier(noAss : String)
-    + fermerDossier()
+    + enregistrerDossier()
+    + getPatient () : Patient
+    + creerVisite ()
+    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
 }
 
 class ConnexionVue {
+}
+
+class ConnexionControleur {
     - validerSaisie()
 }
 
@@ -136,15 +114,21 @@ class PrescripteurVue {
 
 }
 
-class HistoriqueVue{
+class HistoriqueVue {
 
 }
 
+class PatientControleur {
 
-Utilisateur <|-- Ramq
-Utilisateur <|-- Precripteur
-Utilisateur <|-- Professionnel
-Utilisateur <|-- Assure
+}
+
+class PrescripteurControleur {
+
+}
+
+class HistoriqueControleur {
+
+}
 
 Patient *--> "1\ncoordonnées" Coordonnees
 Patient #--> "0..2\nparents" Patient
@@ -162,13 +146,23 @@ Antecedent #--> "1\ntraitant" Medecin
 Antecedent #--> "1\diagnostic" Diagnostic
 Antecedent #--> "1\ntraitement" Traitement
 
-SessionControleur *---> Utilisateur
-SessionControleur *---> Dossier
-SessionControleur -> SourceDonnees
+Session --> "0..1\ndossier" Dossier
 
-PatientVue <--* SessionControleur
-PrescripteurVue <--* SessionControleur
-HistoriqueVue <--* SessionControleur
-ConnexionVue  <--* SessionControleur
+Session -> SourceDonnees
+Session --> "0..1\nnouvelle visite" Visite
+Session *--> "0..1\nutilisateur" Utilisateur 
+
+ConnexionVue -- ConnexionControleur
+PatientVue --PatientControleur
+PrescripteurVue -- PrescripteurControleur
+HistoriqueVue -- HistoriqueControleur 
+
+ConnexionControleur --> Session
+PatientControleur --> Session
+PrescripteurControleur --> Session
+HistoriqueControleur --> Session
+
+Utilisateur <|-- Prescripteur 
+
 
 @enduml
