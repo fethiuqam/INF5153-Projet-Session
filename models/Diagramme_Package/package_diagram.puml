@@ -1,0 +1,161 @@
+@startuml
+
+package model {
+
+    class Patient {
+    }
+
+    class Coordonnees {
+
+    }
+
+    enum Genre {
+    
+    }
+
+    class Dossier {
+        
+    }
+
+    class Visite {
+    
+    }
+
+    class Antecedent {
+      
+    }
+
+
+    class Diagnostic {
+       
+    }
+
+    class Traitement {
+     
+    }
+
+    class Medecin {
+        
+    }
+
+    abstract Utilisateur { 
+        
+        } 
+
+    class Prescripteur { 
+        
+    }
+
+    class Session {
+        + telechargerDossier(noAss : String)
+        + enregistrerDossier()
+        + getPatient () : Patient
+        + creerVisite ()
+        + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+        + getVisites() : List<Visite>
+        + getAntecedents() : List<Antecedent>
+        + getTraitements() : List<Traitement>
+    }
+
+    interface authentifiable {
+        + login() ; boolean
+    }
+
+    
+}
+
+package vue {
+    class PatientVue{
+
+    }
+
+    class PrescripteurVue {
+
+    }
+
+    class HistoriqueVue {
+
+    }
+    class ConnexionVue {
+    }
+
+}
+
+package controleur {
+
+    class ConnexionControleur {
+    - validerSaisie()
+    }
+
+    class PatientControleur {
+
+    }
+
+    class PrescripteurControleur {
+
+    }
+
+    class HistoriqueControleur {
+
+    }
+
+}
+
+package connexion {
+    class SourceDonnees {  
+    }
+
+    interface Recherchable {
+    }
+
+    interface Modifiable {
+    }
+}
+
+package main {
+    class Main {
+        + {static} main (args : String[])
+    }
+}
+
+
+Patient *--> "1\ncoordonnées" Coordonnees
+Patient #--> "0..2\nparents" Patient
+Patient #--> "1\ngenre" Genre
+
+Dossier *--> "*\nvisites" Visite
+Dossier *--> "*\nantécédents" Antecedent
+Dossier *--> "1\npatient" Patient
+
+Visite *--> "0..1\ndiagnostic" Diagnostic
+Visite *--> "0..1\ntraitement" Traitement
+Visite #--> "1\nmedecin" Medecin
+
+Antecedent #--> "1\ntraitant" Medecin
+Antecedent #--> "1\diagnostic" Diagnostic
+Antecedent #--> "1\ntraitement" Traitement
+
+Session --> "0..1\ndossier" Dossier
+
+Session --> "0..1\nnouvelle visite" Visite
+Session --> "0..1\nnouvel antecedent" Antecedent
+Session *--> "0..1\nutilisateur" Utilisateur 
+Session .l.|> authentifiable
+
+SourceDonnees .d.|> Modifiable
+SourceDonnees  .|> Recherchable
+
+Utilisateur <|-- Prescripteur 
+
+
+main ..> vue
+main ..> controleur
+main ..> model
+
+vue <..> controleur
+
+controleur ..> model
+
+model ..> connexion
+
+@enduml

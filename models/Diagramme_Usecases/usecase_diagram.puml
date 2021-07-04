@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 
-actor "User" as user
+actor "utilisateur" as user
 actor "Professionnel" as prof 
 actor "Medecin" as med 
 

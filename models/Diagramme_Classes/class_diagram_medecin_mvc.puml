@@ -26,7 +26,7 @@ enum Genre {
 
 class Dossier {
     + AjouterVisite (visite : Visite)
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + AjouterAntecedent (antecedent: Antecedent)
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
@@ -37,10 +37,10 @@ class Visite {
     - resume : String
     - notes : List<String>
     + setResume (resume: String)
-    + ajouterDiagnostic(dg: Diagnostic)
-    + ajouterTraitement(trt: Traitement)
+    + setDiagnostic(dg: Diagnostic)
+    + setTraitement(trt: Traitement)
     + ajouterNote(note: String)
-    +getTraitement () : traitement : Traitement
+    + getTraitement () : Traitement
 }
 
 class Antecedent {
@@ -100,7 +100,9 @@ class Session {
     + enregistrerDossier()
     + getPatient () : Patient
     + creerVisite ()
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + getNouvelleVisite() : Visite
+    + getNouvelAntecedent() : Antecedent
+    + creerAntecedent ()
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
@@ -130,16 +132,25 @@ class HistoriqueVue {
 }
 
 class PatientControleur {
-
+    
 }
 
 class PrescripteurControleur {
-
+    + creerVisite()
+    + enregistrerVisite()
+    + ajouterAntecedent()
+    + enregistrerNouvelAntecedent
 }
 
 class HistoriqueControleur {
-
+    + afficherVisites()
+    + afficherAntecedents()
+    + afficherTraitements()
 }
+
+class Main {
+        + {static} main (args : String[])
+    }
 
 Patient *--> "1\ncoordonnées" Coordonnees
 Patient #--> "0..2\nparents" Patient
@@ -157,10 +168,11 @@ Antecedent #--> "1\ntraitant" Medecin
 Antecedent #--> "1\diagnostic" Diagnostic
 Antecedent #--> "1\ntraitement" Traitement
 
-Session --> "0..1\ndossier" Dossier
+Session *--> "0..1\ndossier" Dossier
 
 Session -> SourceDonnees
-Session --> "0..1\nnouvelle visite" Visite
+Session *--> "0..1\nnouvelle visite" Visite
+Session *--> "0..1\nnouvel antecedent" Antecedent
 Session *--> "0..1\nutilisateur" Utilisateur 
 Session .l.|> authentifiable
 
@@ -173,12 +185,15 @@ PatientVue --PatientControleur
 PrescripteurVue -- PrescripteurControleur
 HistoriqueVue -- HistoriqueControleur 
 
-ConnexionControleur --> Session
-PatientControleur --> Session
-PrescripteurControleur --> Session
-HistoriqueControleur --> Session
+ConnexionControleur #--> Session
+PatientControleur #--> Session
+PrescripteurControleur #--> Session
+HistoriqueControleur #--> Session
 
 Utilisateur <|-- Prescripteur 
 
+Main -> ConnexionVue
+Main --> ConnexionControleur
+Main --> Session
 
 @enduml
