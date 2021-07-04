@@ -21,14 +21,14 @@ activate pc
         dt --> ssn : date
         deactivate dt 
 
-        create participant "visite: Visite " as v
+        create participant "nouvelleVisite: Visite " as v
         ssn -> v : this(date , medecin)
         activate v
         v --> ssn : visite
         deactivate v
     deactivate ssn 
     
-    create participant "nouvelleVisite: NouvelleVisiteVue" as nvf
+    create participant "visiteVue: VisiteVue" as nvf
     pc -> nvf: this()
     activate nvf
     nvf --> pc : nouvelleVisite
@@ -37,6 +37,8 @@ pc --> pv : nouvelleVisite
 deactivate pc
 pv --> med : nouvelleVisite
 deactivate pv
+
+loop
 
 med -> nvf : saisirResume(resume)
 activate nvf
@@ -64,43 +66,48 @@ end
 
 med -> nvf : validerSaisie()
 activate nvf
-    nvf -> pc : enregistrerVisite()
-    deactivate nvf
-    activate pc
-    pc -> v : setResume(resume)
-    activate v 
-    deactivate v
+nvf -> pc : enregistrerVisite()
+deactivate nvf
+activate pc
+pc -> ssn : getNouvelleVisite()
+    activate ssn
+    ssn --> pc : nouvelleVisite
+    deactivate ssn 
+pc -> v : setResume(resume)
+activate v 
+deactivate v
 
-    opt
-    create participant "dg: Diagnostic " as dg
-        pc -> dg : this(diagnostic)
-        activate dg
-        dg --> pc : dg
-        deactivate dg  
-    pc -> v : setDiagnostic(dg)
-    activate v 
-    deactivate v
-    end
+opt
+create participant "dg: Diagnostic " as dg
+    pc -> dg : this(diagnostic)
+    activate dg
+    dg --> pc : dg
+    deactivate dg  
+pc -> v : setDiagnostic(dg)
+activate v 
+deactivate v
+end
 
-    opt
-    create participant "trt: Traitement " as trt
-        pc -> trt : this(traitement)
-        activate trt
-        trt --> pc : trt
-        deactivate trt 
-    pc -> v : setTraitement(trt)
-    activate v 
-    deactivate v
-    end
+opt
+create participant "trt: Traitement " as trt
+    pc -> trt : this(traitement)
+    activate trt
+    trt --> pc : trt
+    deactivate trt 
+pc -> v : setTraitement(trt)
+activate v 
+deactivate v
+end
 
-    opt
-    loop
-    pc -> v : ajouterNote(note)
-    activate v 
-    deactivate v
-    end
-    end
+opt
+loop
+pc -> v : ajouterNote(note)
+activate v 
+deactivate v
+end
+end
+deactivate pc
 
-    deactivate pc
+end
 
 @enduml
