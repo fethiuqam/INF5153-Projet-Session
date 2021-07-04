@@ -1,0 +1,108 @@
+@startuml
+
+title Diagramme de séquence : Créer une nouvelle visite
+hide footbox
+
+actor "Medecin" as med
+
+participant "_: PrescripteurVue " as pv
+med -> pv : creerVisite()
+activate pv
+
+participant "_: PrescripteurControleur " as pc
+pv -> pc : creerVisite()
+activate pc
+    participant "_: Session " as ssn
+    pc -> ssn : creerVisite()
+    activate ssn
+    ssn --> pc : medecin
+        create participant "date: Date " as dt
+        ssn -> dt : this()
+        activate dt
+        dt --> ssn : date
+        deactivate dt 
+
+        create participant "visite: Visite " as v
+        ssn -> v : this(date , medecin)
+        activate v
+        v --> ssn : visite
+        deactivate v
+    deactivate ssn 
+    
+    create participant "nouvelleVisite: NouvelleVisiteVue" as nvf
+    pc -> nvf: this()
+    activate nvf
+    nvf --> pc : nouvelleVisite
+    deactivate nvf
+pc --> pv : nouvelleVisite
+deactivate pc
+pv --> med : nouvelleVisite
+deactivate pv
+
+med -> nvf : saisirResume(resume)
+activate nvf
+deactivate nvf
+
+opt
+med -> nvf : saisirDiagnostic(diagnostic)
+activate nvf
+deactivate nvf
+end
+
+opt
+med -> nvf : saisirTraitement(traitement)
+activate nvf
+deactivate nvf
+end
+
+opt
+loop
+med -> nvf : saisirNote(note)
+activate nvf
+deactivate nvf
+end
+end
+
+med -> nvf : validerSaisie()
+activate nvf
+    nvf -> pc : enregistrerVisite()
+    activate pc
+    pc -> v : setResume(resume)
+    activate v 
+    deactivate v
+
+    opt
+    create participant "dg: Diagnostic " as dg
+        pc -> dg : this(diagnostic)
+        activate dg
+        dg --> pc : dg
+        deactivate dg  
+    pc -> v : setDiagnostic(dg)
+    activate v 
+    deactivate v
+    end
+
+    opt
+    create participant "trt: Traitement " as trt
+        pc -> trt : this(traitement)
+        activate trt
+        trt --> pc : trt
+        deactivate trt 
+    pc -> v : setTraitement(trt)
+    activate v 
+    deactivate v
+    end
+
+    opt
+    loop
+    pc -> v : ajouterNote(note)
+    activate v 
+    deactivate v
+    end
+    end
+
+    deactivate pc
+deactivate nvf
+
+
+@enduml
