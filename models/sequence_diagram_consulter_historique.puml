@@ -5,43 +5,47 @@ hide footbox
 
 actor "Professionnel" as pro
 
-participant "_: PrincipaleFrame " as df
+participant "_: HistoriqueVue " as df
 pro -> df : consulterHistoriqueVisite()
 activate df
-    participant "_: DossierControleur" as dc
-    df -> dc : getVisites()
+    participant "_: HistoriqueControleur" as dc
+    df -> dc : afficherVisites()
     activate dc
-    participant "_: Dossier" as d
+    participant "_: Session" as d
     dc -> d : getVisites()
     activate d
+    participant "_: Dossier" as dsr
+        d -> dsr : getVisites()
+        activate dsr
+        dsr --> d : visites
+        deactivate dsr
     d --> dc : visites
     deactivate d
-    dc --> df : visites
-    deactivate dc
-    create participant "historiqueVisite: VisiteHistoriqueFrame" as vhf
-    df -> vhf: this(visites)
+    create participant "historiqueVisiteVue: VisiteHistoriqueVue" as vhf
+    dc -> vhf: this(visites)
     activate vhf
     loop visite in visites
-        create participant "ligneVisite: LigneVisiteFrame" as lvf
+        create participant "ligneVisite: LigneVisiteVue" as lvf
             vhf -> lvf : this(visite)
             activate lvf
             lvf --> vhf : ligneVisite
             deactivate lvf
         vhf -> vhf : ajouterLigne(ligneVisite)
     end
-    vhf --> df : historiqueVisite
+    vhf --> dc : historiqueVisiteVue
     deactivate vhf
-    df --> pro : historiqueVisite
+    dc --> df : historiqueVisiteVue
+    deactivate dc
+    df --> pro : historiqueVisiteVue
 deactivate df
 
 pro -> lvf : afficherDetail()
 activate lvf
-create participant "visiteFrame: VisiteFrame" as vf
+create participant "visiteVue: VisiteVue" as vf
     lvf -> vf: this(visite)
     deactivate lvf
     activate vf
     vf --> pro 
     deactivate vf
-
 
 @enduml
