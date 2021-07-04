@@ -3,8 +3,8 @@
 ' classes model
 
 class Dossier {
-    + creerVisite (medecin: Medecin, date: Date, resume: String)
-    + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
+    + ajouterVisite(visite : Visite)
+    + AjouterAntecedent (antecedent : Antecedent)
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
@@ -57,14 +57,16 @@ class Medecin {
 
 ' classes IHM
 class DossierControleur {
-    + getVisites()
-    + getAntecedents()
-
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+    + ajouterVisite(visite : Visite)
 }
 
 class PrincipaleFrame {
     + consulterHistoriqueVisite()
     + consulterAntecedents()
+    + consulterTraitements()
 }
 
 class VisiteHistoriqueFrame {
@@ -110,11 +112,11 @@ class LigneAntecedentModificationFrame {
 }
 
 class ListeTraitementFrame {
-    + getTraitements() : List<Traitement>
+    + this(traitements : List<Traitement>)
 }
 
 class LigneTraitementFrame {
-
+    + this(traitement : Traitement)
 }
 
 ' associations
@@ -161,6 +163,7 @@ AntecedentFrame #--> Antecedent
 LigneVisiteFrame #--> Visite
 VisiteFrame #--> Visite
 LigneTraitementFrame #-->Traitement
+NouvelleVisiteFrame *--> Visite
 
 
 DossierControleur <- NouvelleVisiteFrame
