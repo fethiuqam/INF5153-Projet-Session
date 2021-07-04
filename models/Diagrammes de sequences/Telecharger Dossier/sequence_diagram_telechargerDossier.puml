@@ -1,0 +1,49 @@
+@startuml
+
+title Diagramme de séquence : Telecharger Dossier
+hide footbox
+
+actor "Prescripteur" as doc
+
+participant "<<UI>> PrescripteurVue " as pv
+participant "_: PrescripteurControlleur" as pc
+participant "session:Session" as ses
+participant "_:SourceDonnees" as sd
+database "Bd" as bd
+
+activate doc
+doc -> pv : numAssurance
+activate pv
+pv -> pc : numAssurance
+activate pc
+pc -> ses : telechargerDossier (numAssurance)
+activate ses
+ses -> sd : findbyId(numAssurance)
+activate sd
+sd --> bd : requete
+alt requete.next()
+    create participant "dossier:Dossier" as d
+    sd -> d : this()
+    activate d
+    d --> sd
+    deactivate d
+    sd --> ses : dossier
+else pas trouve
+    sd --> ses : dossier.empty()
+    deactivate sd
+end
+
+alt dossier.ifPresent
+    ses --> pc : true
+    pc --> pv
+    pv --> doc 
+else !dossier.ifPresent
+    ses --> pc : false
+    deactivate ses
+    pc --> pv : affichage erreur
+    deactivate pc
+    pv --> doc : erreur
+    deactivate pv
+end
+
+@enduml

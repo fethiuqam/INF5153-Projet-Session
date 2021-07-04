@@ -1,0 +1,52 @@
+@startuml
+
+title Diagramme de séquence : S'authentifier (prescripteur)
+
+hide footbox
+
+actor "User" as usr
+
+participant "<<UI>> ConnexionVue" as cv
+participant "_: ConnexionControlleur" as cc
+participant "session:Session" as ses
+participant "_:sourceDonnees" as sd
+database "Bd" as bd
+
+activate usr
+usr -> cv : username + password
+    activate cv
+    cv -> cc : username + password
+    activate cc
+    cc -> ses : login(username, password)
+    activate ses
+    ses -> sd : findByUsernameAndPassword (username, password)
+    activate sd
+    sd -> bd : requete
+    alt requete.next()
+        create participant "prescripteur:Prescripteur" as pres
+        sd -> pres : this()
+        activate pres
+        pres --> sd
+        deactivate pres
+        sd --> ses : prescripteur
+    else pas trouve
+        sd --> ses : prescripteur.empty()
+        deactivate sd
+    end
+
+    alt prescripteur.ifPresent
+        ses --> cc : true
+        cc -->x cv : <<hide>>
+        cv --> usr
+    else !prescripteur.ifPresent
+        ses --> cc : false
+        deactivate ses
+        cc --> cv : affichage erreur
+        deactivate cc
+        cv --> usr : erreur
+        deactivate cv
+    end
+deactivate usr
+
+
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+
+title Diagramme de séquence : Annuler la modification du dossier courant
+hide footbox
+
+actor "Prescripteur" as doc
+
+participant "<<UI>> PrescripteurVue " as pv
+participant "_: PrescripteurControlleur" as pc
+participant "session:Session" as ses
+participant "dossierCourant:Dossier" as dc
+participant "dossierOriginal:Dossier" as do
+
+activate doc
+doc -> pv : Annuler modification
+activate pv
+pv -> pc : Annuler modification
+activate pc
+pc -> ses : annulerModification()
+activate ses
+ses ->x dc : <<destroy>>
+ses -> ses : retournerADossierOriginal()
+activate ses
+    create participant "nouveauDossierCourant : Dossier" as ndc 
+    ses->ndc : this()
+    activate ndc
+    ndc --> ses
+    deactivate ndc
+    ses ->ses : clonerDossier(dossierOriginal,nouveauDossierCourant)
+    ses --> ses : nouveauDossierCourant
+deactivate ses
+ses --> pc
+deactivate
+pc --> pv
+deactivate pc
+pv --> doc 
+deactivate pv
+
+
+
+
+@enduml
