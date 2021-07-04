@@ -1,37 +1,42 @@
 @startuml
 
-title Diagramme de séquence : Consulter les traitements
+title Diagramme de séquence : Consulter l'historique des visites
 hide footbox
 
 actor "Professionnel" as pro
 
-participant "_: PrincipaleFrame " as pf
-pro -> pf : consulterTraitements()
-activate pf
-    participant "_: DossierControleur" as dc
-    pf -> dc : getTraitements()
+participant "_: HistoriqueVue " as df
+pro -> df : consulterTraitements()
+activate df
+    participant "_: HistoriqueControleur" as dc
+    df -> dc : afficherTraitements()
     activate dc
-    participant "_: Dossier" as d
+    participant "_: Session" as d
     dc -> d : getTraitements()
     activate d
+    participant "_: Dossier" as dsr
+        d -> dsr : getTraitements()
+        activate dsr
+        dsr --> d : traitements
+        deactivate dsr
     d --> dc : traitements
     deactivate d
-    dc --> pf : traitements
-    deactivate dc
-    create participant "listeTraitements: ListTraitementsFrame" as lt
-    pf -> lt: this(traitements)
-    activate lt
+    create participant "listeTraitementsVue: ListeTraitementsVue" as vhf
+    dc -> vhf: this(traitements)
+    activate vhf
     loop traitement in traitements
-        create participant "ligneTraitement: LigneTraitementFrame" as ltf
-            lt -> ltf : this(traitement)
-            activate ltf
-            ltf --> lt : lignetraitement
-            deactivate ltf
-        lt -> lt : ajouterLigne(ligneVisite)
+        create participant "ligneTraitement: LigneTraitementVue" as lvf
+            vhf -> lvf : this(traitement)
+            activate lvf
+            lvf --> vhf : ligneTraitement
+            deactivate lvf
+        vhf -> vhf : ajouterLigne(ligneTraitement)
     end
-    lt --> pf : listeTraitement
-    deactivate lt
-    pf --> pro : listeTraitements
-deactivate pf
+    vhf --> dc : listeTraitementsVue
+    deactivate vhf
+    dc --> df : listeTraitementsVue
+    deactivate dc
+    df --> pro : listeTraitementsVue
+deactivate df
 
 @enduml
