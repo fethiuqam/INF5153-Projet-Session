@@ -9,46 +9,61 @@ actor "System RAMQ" as ramq
 actor "Patient" as pat 
 
 rectangle "Dossier medical" {
-  usecase "consulter l'historique de visites" as UC2
-  usecase "consulter les antécédents" as UC3
-  usecase "consulter les medecins traitants" as UC4
-  usecase "consulter les traitements" as UC5
-  usecase "s'authentifier" as UC6
-  usecase "télécharger le dossier du patient" as UC7
-  usecase "créer nouvelle visite" as UC8
-  usecase "consulter les coordonnées du patient" as UC9
-  usecase "modifier antécédent" as UC10
-  usecase "annuler modifications" as UC12
-  usecase "ajouter un antecédent" as UC13
-  usecase "créer dossier" as UC14
-  usecase "reconstruire dossier par modification" as UC15
-  usecase "reconstruire dossier par date" as UC16
-  usecase "modifier coordonnées" as UC17
+  usecase "consulter l'historique de visites" as UC1
+  usecase "consulter les antécédents" as UC2
+  usecase "consulter les traitements" as UC3
+  usecase "s'authentifier" as UC4
+  usecase "télécharger le dossier du patient" as UC5
+  usecase "créer nouvelle visite" as UC6
+  usecase "consulter les coordonnées du patient" as UC7
+  usecase "modifier antécédent" as UC8
+  usecase "annuler modifications" as UC9
+  usecase "ajouter un antecédent" as UC10
+  usecase "créer dossier" as UC11
+  usecase "reconstruire dossier" as UC15
+  usecase "reconstruire dossier par modification" as UC12
+  usecase "reconstruire dossier par date" as UC13
+  usecase "modifier coordonnées" as UC14
 }
 
 prof -|> user
 med -|> prof
 user <|- pat
 
-user -- UC4
-user -- UC5
-user -- UC6
-user -- UC9
+user -- UC3
+user -- UC7
 
+prof -- UC1
 prof -- UC2
-prof -- UC3
-prof -- UC7
 
+med -- UC6
 med -- UC8
-med -- UC9
-med -- UC10
-med -- UC12
-med -- UC13
 
-pat -- UC17
+UC6 <.. UC10 : <<extends>>
+UC6 <.. UC9 : <<extends>>
+UC10 <. UC9 : <<extends>>
+UC8 <.. UC9 : <<extends>>
 
-UC14 -- ramq
+
+UC6  ..> UC5 : <<include>>
+UC8  ..> UC5 : <<include>>
+UC1  ..> UC5 : <<include>>
+UC2  ..> UC5 : <<include>>
+UC3  ..> UC5 : <<include>>
+UC14  ..> UC5 : <<include>>
+UC7  ..> UC5 : <<include>>
+
+UC5  ..> UC4 : <<include>>
+UC15  ..> UC4 : <<include>>
+UC11  ..> UC4 : <<include>>
+
+
+UC11 ---- ramq
 UC15 -- ramq
-UC16 -- ramq
+
+UC12 --|> UC15
+UC13 --|> UC15
+
+pat -- UC14
 
 @enduml
