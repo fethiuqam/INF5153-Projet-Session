@@ -1,0 +1,74 @@
+@startuml
+
+title Diagramme de séquence : Ajouter un nouvel antécédent
+hide footbox
+
+actor "Medecin" as med
+
+participant "_: PrescripteurVue " as pv
+med -> pv : ajouterAntecedent()
+activate pv
+
+participant "_: PrescripteurControleur " as pc
+pv -> pc : ajouterAntecedent()
+activate pc
+    participant "_: Session " as ssn
+    pc -> ssn : creerAntecedent()
+    activate ssn
+        participant "nouvelleVisite: Visite " as nv
+        ssn -> nv : getDiagnostic()
+        activate nv
+        nv --> ssn : diagnostic
+        deactivate nv
+        ssn -> nv : getTraitement()
+        activate nv
+        nv --> ssn : traitement
+        deactivate nv
+
+        create participant "nouvelAntecedent: Antecedent" as na
+        ssn -> na: this(medecin , diagnostic, traitement)
+
+    deactivate ssn 
+    create participant "antecedentVue: AntecedentVue" as av
+    pc -> av: this()
+    activate av
+    av --> pc : antecedentVue
+    deactivate av
+pc --> pv : antecedentVue
+deactivate pc
+pv --> med : antecedentVue
+deactivate pv
+
+opt
+med -> av : saisirDateDebut(date)
+activate av
+deactivate av
+end
+
+opt
+med -> av : saisirDateFin(date)
+activate av
+deactivate av
+end
+
+med -> av : validerSaisie()
+activate av
+    av -> pc : enregistrerNouvelAntecedent()
+    deactivate av
+    activate pc
+
+    opt
+    pc -> na : setDebut(dateDebut)
+    activate na
+    deactivate na
+    end
+
+    opt
+    pc -> na : setfin(dateFin)
+    activate na
+    deactivate na
+    end
+
+    deactivate pc
+
+@enduml

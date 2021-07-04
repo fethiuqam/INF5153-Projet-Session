@@ -15,7 +15,6 @@ activate pc
     participant "_: Session " as ssn
     pc -> ssn : creerVisite()
     activate ssn
-    ssn --> pc : medecin
         create participant "date: Date " as dt
         ssn -> dt : this()
         activate dt
@@ -66,6 +65,7 @@ end
 med -> nvf : validerSaisie()
 activate nvf
     nvf -> pc : enregistrerVisite()
+    deactivate nvf
     activate pc
     pc -> v : setResume(resume)
     activate v 
@@ -102,7 +102,5 @@ activate nvf
     end
 
     deactivate pc
-deactivate nvf
-
 
 @enduml
