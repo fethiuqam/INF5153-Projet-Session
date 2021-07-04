@@ -5,43 +5,47 @@ hide footbox
 
 actor "Professionnel" as pro
 
-participant "_: PrincipaleFrame " as pf
-pro -> pf : consulterAntecedents()
-activate pf
-    participant "_: DossierControleur" as dc
-    pf -> dc : getAntecedents()
-    activate dc
-    participant "_: Dossier" as d
-    dc -> d : getAntecedents()
-    activate d
-    d --> dc : antecedents
-    deactivate d
-    dc --> pf : antecedents
-    deactivate dc
-    create participant "listeAntecedents: ListAntecedentsFrame" as laf
-    pf -> laf: this(antecedents)
+participant "_: HistoriqueVue " as hv
+pro -> hv : consulterAntecedents()
+activate hv
+    participant "_: HistoriqueControleur" as hc
+    hv -> hc : afficherAntecedents()
+    activate hc
+    participant "_: Session" as ssn
+    hc -> ssn : getAntecedents()
+    activate ssn
+        participant "_: Dossier" as dsr
+        ssn -> dsr : getAntecedents()
+        activate dsr
+        dsr --> ssn : antecedents
+        deactivate dsr
+    ssn --> hc : antecedents
+    deactivate ssn
+    create participant "listeAntecedents: ListAntecedentsVue" as laf
+    hc -> laf: this(antecedents)
     activate laf
     loop antecedent in antecedents
-        create participant "ligneAntecedent: LigneAntecedentFrame" as lf
+        create participant "ligneAntecedent: LigneAntecedentVue" as lf
             laf -> lf : this(antecedent)
             activate lf
             lf --> laf : ligneAntecedent
             deactivate lf
         laf -> laf : ajouterLigne(ligneAntecedent)
     end
-    laf --> pf : listeAntecedents
+    laf --> hc : listeAntecedents
     deactivate laf
-    pf --> pro : listeAntecedents
-deactivate pf
+    hc --> hv : listeAntecedents
+    deactivate hc
+    hv --> pro : listeAntecedents
+deactivate hv
 
-pro -> laf : afficherDetail()
-activate laf
-create participant "antecedentFrame: AntecedentFrame" as af
-    laf -> af: this(antecedent)
-    deactivate laf
+pro -> lf : afficherDetail()
+activate lf
+create participant "antecedentVue: AntecedentVue" as af
+    lf -> af: this(antecedent)
+    deactivate lf
     activate af
     af --> pro 
     deactivate af
-
 
 @enduml
