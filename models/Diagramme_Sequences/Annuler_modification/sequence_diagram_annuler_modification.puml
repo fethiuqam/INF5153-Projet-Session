@@ -28,8 +28,11 @@ activate ses
     deactivate ndc
     ses ->ses : clonerDossier(dossierOriginal,nouveauDossierCourant)
     ses --> ses : nouveauDossierCourant
+
+    ses -> ses : setModified(false)
+    ses --> pc
 deactivate ses
-ses --> pc
+
 deactivate
 pc --> pv
 deactivate pc

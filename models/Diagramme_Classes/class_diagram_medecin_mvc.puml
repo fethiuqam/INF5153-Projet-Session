@@ -96,6 +96,7 @@ interface Modifiable {
 }
 
 class Session {
+    - modified : boolean
     + telechargerDossier(noAss : String)
     + enregistrerDossier()
     + getPatient () : Patient

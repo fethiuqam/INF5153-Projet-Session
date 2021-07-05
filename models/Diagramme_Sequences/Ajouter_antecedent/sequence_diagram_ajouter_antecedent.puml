@@ -27,7 +27,10 @@ activate pc
 
         create participant "nouvelAntecedent: Antecedent" as na
         ssn -> na: this(medecin , diagnostic, traitement)
+        na --> ssn
 
+        ssn -> ssn : setModified(true)
+    ssn --> pc
     deactivate ssn 
     create participant "antecedentVue: AntecedentVue" as av
     pc -> av: this()

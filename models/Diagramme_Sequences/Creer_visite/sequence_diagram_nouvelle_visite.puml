@@ -26,6 +26,8 @@ activate pc
         activate v
         v --> ssn : visite
         deactivate v
+        ssn -> ssn : setModified(true)
+        ssn --> pc
     deactivate ssn 
     
     create participant "visiteVue: VisiteVue" as nvf
