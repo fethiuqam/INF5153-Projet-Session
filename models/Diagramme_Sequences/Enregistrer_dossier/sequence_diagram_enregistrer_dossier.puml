@@ -1,0 +1,45 @@
+@startuml
+
+title Diagramme de séquence : Telecharger Dossier
+hide footbox
+
+actor "Medecin" as doc
+
+participant "<<UI>> PrescripteurVue " as pv
+participant "_: PrescripteurControlleur" as pc
+participant "session: session" as ses
+participant "dossier: Dossier" as do
+participant "_:SourceDonnees" as sd
+database "Bd" as bd
+
+activate doc
+doc -> pv : fermerDossier()
+activate pv
+pv -> pc : fermerDossier()
+activate pc
+pc -> ses : enregistrerDossier ()
+activate ses
+opt modified
+ses -> do : ajouterVisite(nouvelleVisite)
+activate do
+do --> ses
+deactivate do
+ses -> do : ajouterAntecedent(nouvelAntecedent)
+activate do
+do --> ses
+deactivate do
+ses -> sd : update(dossier)
+activate sd
+sd ->> bd : requete
+sd --> ses
+deactivate sd
+end
+
+ses --> pc
+deactivate ses
+pc --> pv 
+deactivate pc
+
+
+
+@enduml
