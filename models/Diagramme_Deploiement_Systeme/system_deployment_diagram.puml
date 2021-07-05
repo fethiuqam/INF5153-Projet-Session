@@ -1,0 +1,42 @@
+@startuml
+node telephoneAndroid <<device>> {
+ artifact dossierMedical.apk <<application Android>>
+}
+
+node telephoneiOS <<device>> {
+ artifact dossierMedical.ipa <<application iOS>>
+}
+
+node PcProfessionel <<device>> {
+ node lecteurPuceCarteP <<device>>
+ artifact consulterDossierProfessionel.jar <<artifact>>
+
+}
+
+node PcMedecin <<device>> {
+ node lecteurPuceCarteM <<device>>
+ artifact gestionDossierMedecin.jar <<artifact>>
+
+}
+
+node PcRAMQ <<device>> {
+ node lecteurPuceCarteR <<device>>
+ artifact consulterDossierRamq.jar <<artifact>>
+
+}
+
+node PcPatient <<device>> {
+    component NagivateurWeb <<component>>
+}
+
+
+node serveurBD <<device>> {
+ database MySQL <<database>>
+}
+
+node serveurWeb <<device>> {
+ artifact siteWeb <<artifact>>
+}
+
+
+@enduml

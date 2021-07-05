@@ -99,13 +99,14 @@ class Session {
     + telechargerDossier(noAss : String)
     + enregistrerDossier()
     + getPatient () : Patient
-    + creerVisite ()
+    + creerVisite()
     + getNouvelleVisite() : Visite
     + getNouvelAntecedent() : Antecedent
-    + creerAntecedent ()
+    + creerAntecedent()
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
+    + annulerModification()
 }
 
 interface authentifiable {
