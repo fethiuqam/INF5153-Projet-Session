@@ -20,7 +20,6 @@ node PcMedecin <<device>> {
 }
 
 node PcRAMQ <<device>> {
- node lecteurPuceCarteR <<device>>
  artifact consulterDossierRamq.jar <<artifact>>
 
 }
@@ -31,7 +30,7 @@ node PcPatient <<device>> {
 
 
 node serveurBD <<device>> {
- database MySQL <<database>>
+ database SQLite3 <<database>>
 }
 
 node serveurWeb <<device>> {
