@@ -1,0 +1,184 @@
+@startuml
+
+class Patient {
+    - nom : String 
+    - prenom : String
+    - dateNaissance : Date 
+    - villeNaissance : String
+    - noAssurance : String
+    + getCoordonnees() : Coordonnees
+}
+
+class Coordonnees {
+    - adresse : String
+    - telephone : String
+    - courriel : String
+    + setAdresse (adresse : String)
+    + setTelephone (Telephone : String )
+    + setCourriel (courriel : String)
+}
+
+enum Genre {
+    MASCULIN
+    FEMININ
+    AUTRE
+}
+
+class Dossier {
+    + AjouterVisite (visite : Visite)
+    + AjouterAntecedent (antecedent: Antecedent)
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+}
+
+class Visite {
+    - date : Date
+    - resume : String
+    - notes : List<String>
+    + setResume (resume: String)
+    + setDiagnostic(dg: Diagnostic)
+    + setTraitement(trt: Traitement)
+    + ajouterNote(note: String)
+    + getTraitement () : Traitement
+}
+
+class Antecedent {
+    - debut : Date
+    - fin : Date [0..1]
+    + setDebut(date : Date)
+    + setFin(date : Date)
+    + setDiagnostic()
+    + setTraitement()
+}
+
+
+class Diagnostic {
+    - description : String
+}
+
+class Traitement {
+    - description : String
+}
+
+class Medecin {
+    - nom : String 
+    - prenom : String
+    - permis : String
+    - specialite : String
+    - etablissement : String
+}
+
+abstract Utilisateur { 
+    - username : String 
+    - password : String 
+    } 
+
+class Professionnel { 
+    - nom : String 
+    - prenom : String 
+    - permis : String 
+    - specialite : String 
+    - etablissement : String
+}
+
+class SourceDonnees {
+    
+}
+
+interface Recherchable {
+    + findbyId(id : String) : Optional<T>
+    + findbyUsernameAndPassword (username : String, password: String) : Optional<T>
+}
+
+interface Modifiable {
+    + update(t : T)
+}
+
+class Session {
+    - modified : boolean
+    + telechargerDossier(noAss : String)
+    + getPatient () : Patient
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+}
+
+interface authentifiable {
+    + login() ; boolean
+}
+
+class ConnexionVue {
+}
+
+class ConnexionControleur {
+    - validerSaisie()
+}
+
+class PatientVue{
+
+}
+
+
+class HistoriqueVue {
+
+}
+
+class PatientControleur {
+    
+}
+
+
+class HistoriqueControleur {
+    + afficherVisites()
+    + afficherAntecedents()
+    + afficherTraitements()
+}
+
+class Main {
+        + {static} main (args : String[])
+    }
+
+Patient *--> "1\ncoordonnées" Coordonnees
+Patient #--> "0..2\nparents" Patient
+Patient #--> "1\ngenre" Genre
+
+Dossier *--> "*\nvisites" Visite
+Dossier *--> "*\nantécédents" Antecedent
+Dossier *--> "1\npatient" Patient
+
+Visite *--> "0..1\ndiagnostic" Diagnostic
+Visite *--> "0..1\ntraitement" Traitement
+Visite #--> "1\nmedecin" Medecin
+
+Antecedent #--> "1\ntraitant" Medecin
+Antecedent #--> "1\diagnostic" Diagnostic
+Antecedent #--> "1\ntraitement" Traitement
+
+Session *--> "0..1\ndossier" Dossier
+
+Session -> SourceDonnees
+Session *--> "0..1\nnouvelle visite" Visite
+Session *--> "0..1\nnouvel antecedent" Antecedent
+Session *--> "0..1\nutilisateur" Utilisateur 
+Session .l.|> authentifiable
+
+SourceDonnees .d.|> Modifiable
+SourceDonnees  .|> Recherchable
+
+
+ConnexionVue -- ConnexionControleur
+PatientVue --PatientControleur
+HistoriqueVue -- HistoriqueControleur 
+
+ConnexionControleur #--> Session
+PatientControleur #--> Session
+HistoriqueControleur #--> Session
+
+Utilisateur <|-- Professionnel
+
+Main -> ConnexionVue
+Main --> ConnexionControleur
+Main --> Session
+
+@enduml
