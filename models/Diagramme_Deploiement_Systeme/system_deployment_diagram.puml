@@ -7,7 +7,7 @@ node telephoneiOS <<device>> {
  artifact dossierMedical.ipa <<application iOS>>
 }
 
-node PcProfessionel <<device>> {
+node PcProfessionnel <<device>> {
  node lecteurPuceCarteP <<device>>
  artifact consulterDossierProfessionel.jar <<artifact>>
 
@@ -37,6 +37,19 @@ node serveurBD <<device>> {
 node serveurWeb <<device>> {
  artifact siteWeb <<artifact>>
 }
+
+
+PcPatient -r-> serveurWeb
+serveurWeb -> serveurBD
+
+telephoneAndroid -l- serveurBD
+telephoneiOS -l- serveurBD
+
+PcProfessionnel -u-> serveurBD
+PcMedecin -u-> serveurBD
+PcRAMQ -u-> serveurBD
+
+
 
 
 @enduml
