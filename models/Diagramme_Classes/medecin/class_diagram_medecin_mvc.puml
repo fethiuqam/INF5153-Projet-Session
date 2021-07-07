@@ -48,13 +48,20 @@ class Antecedent {
     - fin : Date [0..1]
     + setDebut(date : Date)
     + setFin(date : Date)
-    + setDiagnostic()
-    + setTraitement()
+    + setDiagnostic(dg: Diagnostic)
+    + setTraitement(trt: Traitement)
 }
 
+interface IDiagnostic {
+    getDescription(): String
+}
 
 class Diagnostic {
     - description : String
+}
+
+interface ITraitement {
+    getDescription(): String
 }
 
 class Traitement {
@@ -66,23 +73,19 @@ class Medecin {
     - prenom : String
     - permis : String
     - specialite : String
-    - etablissement : String
 }
 
-abstract Utilisateur { 
+class Etablissement {
+    - id : String
+    - description : String
+}
+
+class Utilisateur { 
     - username : String 
     - password : String 
     } 
 
-class Prescripteur { 
-    - nom : String 
-    - prenom : String 
-    - permis : String 
-    - specialite : String 
-    - etablissement : String
-}
-
-class SourceDonnees {
+Interface SourceDonnees {
     
 }
 
@@ -99,15 +102,14 @@ class Session {
     - modified : boolean
     + telechargerDossier(noAss : String)
     + enregistrerDossier()
-    + getPatient () : Patient
     + creerVisite()
-    + getNouvelleVisite() : Visite
-    + getNouvelAntecedent() : Antecedent
     + creerAntecedent()
-    + getVisites() : List<Visite>
-    + getAntecedents() : List<Antecedent>
-    + getTraitements() : List<Traitement>
     + annulerModification()
+    + getVisitesPrescripteur() : List<Visite>
+    + getVisitesHistorique() : List<Visite>
+    + getAntecedentsPrescripteur() : List<Antecedent>
+    + getAntecedentsHistorique() : List<Antecedent>
+    + getTraitements() : List<Traitement>
 }
 
 interface authentifiable {
@@ -119,6 +121,7 @@ class ConnexionVue {
 
 class ConnexionControleur {
     - validerSaisie()
+    + seConnecter()
 }
 
 class PatientVue{
@@ -134,25 +137,28 @@ class HistoriqueVue {
 }
 
 class PatientControleur {
-    
+    + afficherPatient()
+}
+
+abstract class AffichageControleur{
+    + afficherVisites()
+    + afficherAntecedents()
 }
 
 class PrescripteurControleur {
     + creerVisite()
     + enregistrerVisite()
     + ajouterAntecedent()
-    + enregistrerNouvelAntecedent
+    + enregistrerNouvelAntecedent()
 }
 
 class HistoriqueControleur {
-    + afficherVisites()
-    + afficherAntecedents()
     + afficherTraitements()
 }
 
-class Main {
-        + {static} main (args : String[])
-    }
+'class Main {
+'    + {static} main (args : String[])
+'}
 
 Patient *--> "1\ncoordonnées" Coordonnees
 Patient #--> "0..2\nparents" Patient
@@ -162,13 +168,20 @@ Dossier *--> "*\nvisites" Visite
 Dossier *--> "*\nantécédents" Antecedent
 Dossier *--> "1\npatient" Patient
 
-Visite *--> "0..1\ndiagnostic" Diagnostic
-Visite *--> "0..1\ntraitement" Traitement
+Visite *--> "0..1\ndiagnostic" IDiagnostic
+Visite *--> "0..1\ntraitement" ITraitement
 Visite #--> "1\nmedecin" Medecin
 
 Antecedent #--> "1\ntraitant" Medecin
-Antecedent #--> "1\diagnostic" Diagnostic
-Antecedent #--> "1\ntraitement" Traitement
+Antecedent #--> "1\diagnostic" IDiagnostic
+Antecedent #--> "1\ntraitement" ITraitement
+
+IDiagnostic <|.. Diagnostic
+ITraitement <|.. Traitement
+
+Medecin #--> "1\netablissement" Etablissement
+
+
 
 Session *--> "0..1\ndossier" Dossier
 
@@ -177,6 +190,7 @@ Session *--> "0..1\nnouvelle visite" Visite
 Session *--> "0..1\nnouvel antecedent" Antecedent
 Session *--> "0..1\nutilisateur" Utilisateur 
 Session .l.|> authentifiable
+Session #--> "0..1\nprescripteur" Medecin
 
 SourceDonnees .d.|> Modifiable
 SourceDonnees  .|> Recherchable
@@ -192,10 +206,12 @@ PatientControleur #--> Session
 PrescripteurControleur #--> Session
 HistoriqueControleur #--> Session
 
-Utilisateur <|-- Prescripteur 
 
-Main -> ConnexionVue
-Main --> ConnexionControleur
-Main --> Session
+AffichageControleur <|-- PrescripteurControleur
+AffichageControleur <|-- HistoriqueControleur
+
+'Main -> ConnexionVue
+'Main --> ConnexionControleur
+'Main --> Session
 
 @enduml
