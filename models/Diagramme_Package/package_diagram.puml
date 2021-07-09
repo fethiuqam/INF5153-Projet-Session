@@ -2,121 +2,184 @@
 
 package model {
 
-    class Patient {
-    }
+class Patient {
+    - nom : String 
+    - prenom : String
+    - dateNaissance : Date 
+    - villeNaissance : String
+    - noAssurance : String
+    + getCoordonnees() : Coordonnees
+}
 
-    class Coordonnees {
+class Coordonnees {
+    - adresse : String
+    - telephone : String
+    - courriel : String
+    + setAdresse (adresse : String)
+    + setTelephone (Telephone : String )
+    + setCourriel (courriel : String)
+}
 
-    }
+enum Genre {
+    MASCULIN
+    FEMININ
+    AUTRE
+}
 
-    enum Genre {
-    
-    }
+class Dossier {
+    + AjouterVisite (visite : Visite)
+    + AjouterAntecedent (antecedent: Antecedent)
+    + getVisites() : List<Visite>
+    + getAntecedents() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+}
 
-    class Dossier {
-        
-    }
+class Visite {
+    - date : Date
+    - resume : String
+    - notes : List<String>
+    + setResume (resume: String)
+    + setDiagnostic(dg: Diagnostic)
+    + setTraitement(trt: Traitement)
+    + ajouterNote(note: String)
+    + getTraitement () : Traitement
+}
 
-    class Visite {
-    
-    }
+class Antecedent {
+    - debut : Date
+    - fin : Date [0..1]
+    + setDebut(date : Date)
+    + setFin(date : Date)
+    + setDiagnostic(dg: Diagnostic)
+    + setTraitement(trt: Traitement)
+}
 
-    class Antecedent {
-      
-    }
+class Diagnostic {
+    - description : String
+}
 
+class Traitement {
+    - description : String
+}
 
-    class Diagnostic {
-       
-    }
+class Medecin {
+    - nom : String 
+    - prenom : String
+    - permis : String
+    - specialite : String
+}
 
-    class Traitement {
-     
-    }
+class Etablissement {
+    - id : String
+    - description : String
+}
 
-    class Medecin {
-        
-    }
+class Utilisateur { 
+    - username : String 
+    - password : String 
+    } 
 
-    abstract Utilisateur { 
-        
-        } 
+}
 
-    class Prescripteur { 
-        
-    }
+package connexion {
 
-    class Session {
-        + telechargerDossier(noAss : String)
-        + enregistrerDossier()
-        + getPatient () : Patient
-        + creerVisite ()
-        + AjouterAntecedent (medecin: Medecin, dg: Diagnostic, trt: Traitement)
-        + getVisites() : List<Visite>
-        + getAntecedents() : List<Antecedent>
-        + getTraitements() : List<Traitement>
-    }
-
-    interface authentifiable {
-        + login() ; boolean
-    }
-
+Interface SourceDonnees {
     
 }
 
-package vue {
-    class PatientVue{
+interface Recherchable {
+    + findbyId(id : String) : Optional<T>
+    + findbyUsernameAndPassword (username : String, password: String) : Optional<T>
+}
 
-    }
+interface Modifiable {
+    + update(t : T)
+}
 
-    class PrescripteurVue {
-
-    }
-
-    class HistoriqueVue {
-
-    }
-    class ConnexionVue {
-    }
+class SourceDonneesImplem {
+    + ^findbyId(id : String) : Optional<Dossier>
+    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^update(d : Dossier)
+}
 
 }
 
 package controleur {
 
-    class ConnexionControleur {
+class Session {
+    - modified : boolean
+    + telechargerDossier(noAss : String)
+    + enregistrerDossier()
+    + creerVisite()
+    + creerAntecedent()
+    + annulerModification()
+    + getVisitesPrescripteur() : List<Visite>
+    + getVisitesHistorique() : List<Visite>
+    + getAntecedentsPrescripteur() : List<Antecedent>
+    + getAntecedentsHistorique() : List<Antecedent>
+    + getTraitements() : List<Traitement>
+}
+
+interface authentifiable {
+    + login() ; boolean
+}
+
+class ConnexionControleur {
     - validerSaisie()
-    }
+    + seConnecter()
+}
 
-    class PatientControleur {
+class PatientControleur {
+    + afficherPatient()
+}
 
-    }
+class PrescripteurControleur {
+    + afficherVisites()
+    + afficherAntecedents()
+    + creerVisite()
+    + enregistrerVisite()
+    + ajouterAntecedent()
+    + enregistrerNouvelAntecedent()
+}
 
-    class PrescripteurControleur {
-
-    }
-
-    class HistoriqueControleur {
-
-    }
+class HistoriqueControleur {
+    + afficherVisites()
+    + afficherAntecedents()
+    + afficherTraitements()
+}
 
 }
 
-package connexion {
-    class SourceDonnees {  
-    }
+package vue {
 
-    interface Recherchable {
-    }
+class ConnexionVue {
+}
 
-    interface Modifiable {
-    }
+class PatientVue{
+
+}
+
+class PrescripteurVue {
+
+}
+
+class HistoriqueVue {
+
+}
+
 }
 
 package main {
-    class Main {
-        + {static} main (args : String[])
-    }
+
+class Main {
+    + {static} main (args : String[])
 }
+
+}
+
+
+
+
 
 
 Patient *--> "1\ncoordonnées" Coordonnees
@@ -125,7 +188,7 @@ Patient #--> "1\ngenre" Genre
 
 Dossier *--> "*\nvisites" Visite
 Dossier *--> "*\nantécédents" Antecedent
-Dossier *--> "1\npatient" Patient
+Dossier *---> "1\npatient" Patient
 
 Visite *--> "0..1\ndiagnostic" Diagnostic
 Visite *--> "0..1\ntraitement" Traitement
@@ -135,27 +198,28 @@ Antecedent #--> "1\ntraitant" Medecin
 Antecedent #--> "1\diagnostic" Diagnostic
 Antecedent #--> "1\ntraitement" Traitement
 
-Session --> "0..1\ndossier" Dossier
+Medecin #--> "1\netablissement" Etablissement
 
-Session --> "0..1\nnouvelle visite" Visite
-Session --> "0..1\nnouvel antecedent" Antecedent
-Session *--> "0..1\nutilisateur" Utilisateur 
+
 Session .l.|> authentifiable
 
 SourceDonnees .d.|> Modifiable
 SourceDonnees  .|> Recherchable
+SourceDonnees <|.. SourceDonneesImplem
 
-Utilisateur <|-- Prescripteur 
 
+ConnexionControleur #--> Session
+PatientControleur #--> Session
+PrescripteurControleur #--> Session
+HistoriqueControleur #--> Session
 
-main ..> vue
+vue <. main
 main ..> controleur
-main ..> model
 
 vue <..> controleur
 
 controleur ..> model
 
-model ..> connexion
+controleur .> connexion
 
 @enduml

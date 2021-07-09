@@ -13,6 +13,9 @@ class Coordonnees {
     - adresse : String
     - telephone : String
     - courriel : String
+    + setAdresse(adresse : String)
+    + setTelephone(tel : String)
+    + setCourriel(courriel : String)
 }
 
 enum Genre {
@@ -73,16 +76,25 @@ interface Recherchable {
     + findbyUsernameAndPassword (username : String, password: String) : Optional<T>
 }
 
+interface Modifiable {
+    + update(t : T)
+}
+
 class SourceDonneesImplem {
     + ^findbyId(id : String) : Optional<Dossier>
     + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^update(d : Dossier)
 }
 
 class Session {
+    - modified : boolean
     + telechargerDossier(noAss : String)
+    + enregistrerDossier()
+    + annulerModification()
     + getVisites() : List<Visite>
     + getAntecedents() : List<Antecedent>
     + getTraitements() : List<Traitement>
+    + modifierCoordonnees()
 }
 
 interface authentifiable {
@@ -107,6 +119,7 @@ class HistoriqueVue {
 
 class PatientControleur {
     + afficherPatient()
+    + modifierCoordonnees()
 }
 
 class HistoriqueControleur {
@@ -135,15 +148,19 @@ Antecedent #--> "1\ntraitant" Medecin
 Antecedent #--> "1\diagnostic" Diagnostic
 Antecedent #--> "1\ntraitement" Traitement
 
+
+
 Medecin #--> "1\netablissement" Etablissement
+
+
 
 Session *--> "0..1\ndossier" Dossier
 
 Session -> SourceDonnees
-
 Session *--> "0..1\nutilisateur" Utilisateur 
 Session .l.|> authentifiable
 
+SourceDonnees .d.|> Modifiable
 SourceDonnees  .|> Recherchable
 SourceDonnees <|.. SourceDonneesImplem
 

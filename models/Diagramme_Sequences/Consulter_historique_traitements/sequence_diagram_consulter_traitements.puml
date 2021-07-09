@@ -1,6 +1,6 @@
 @startuml
 
-title Diagramme de séquence : Consulter l'historique des visites
+title Diagramme de séquence : Consulter l'historique des traitements
 hide footbox
 
 actor "Professionnel" as pro
