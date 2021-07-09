@@ -52,16 +52,8 @@ class Antecedent {
     + setTraitement(trt: Traitement)
 }
 
-interface IDiagnostic {
-    getDescription(): String
-}
-
 class Diagnostic {
     - description : String
-}
-
-interface ITraitement {
-    getDescription(): String
 }
 
 class Traitement {
@@ -96,6 +88,12 @@ interface Recherchable {
 
 interface Modifiable {
     + update(t : T)
+}
+
+class SourceDonneesImplem {
+    + ^findbyId(id : String) : Optional<Dossier>
+    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^update(d : Dossier)
 }
 
 class Session {
@@ -140,12 +138,9 @@ class PatientControleur {
     + afficherPatient()
 }
 
-abstract class AffichageControleur{
+class PrescripteurControleur {
     + afficherVisites()
     + afficherAntecedents()
-}
-
-class PrescripteurControleur {
     + creerVisite()
     + enregistrerVisite()
     + ajouterAntecedent()
@@ -153,12 +148,14 @@ class PrescripteurControleur {
 }
 
 class HistoriqueControleur {
+    + afficherVisites()
+    + afficherAntecedents()
     + afficherTraitements()
 }
 
-'class Main {
-'    + {static} main (args : String[])
-'}
+class Main {
+    + {static} main (args : String[])
+}
 
 Patient *--> "1\ncoordonnées" Coordonnees
 Patient #--> "0..2\nparents" Patient
@@ -166,18 +163,17 @@ Patient #--> "1\ngenre" Genre
 
 Dossier *--> "*\nvisites" Visite
 Dossier *--> "*\nantécédents" Antecedent
-Dossier *--> "1\npatient" Patient
+Dossier *---> "1\npatient" Patient
 
-Visite *--> "0..1\ndiagnostic" IDiagnostic
-Visite *--> "0..1\ntraitement" ITraitement
+Visite *--> "0..1\ndiagnostic" Diagnostic
+Visite *--> "0..1\ntraitement" Traitement
 Visite #--> "1\nmedecin" Medecin
 
 Antecedent #--> "1\ntraitant" Medecin
-Antecedent #--> "1\diagnostic" IDiagnostic
-Antecedent #--> "1\ntraitement" ITraitement
+Antecedent #--> "1\diagnostic" Diagnostic
+Antecedent #--> "1\ntraitement" Traitement
 
-IDiagnostic <|.. Diagnostic
-ITraitement <|.. Traitement
+
 
 Medecin #--> "1\netablissement" Etablissement
 
@@ -194,7 +190,7 @@ Session #--> "0..1\nprescripteur" Medecin
 
 SourceDonnees .d.|> Modifiable
 SourceDonnees  .|> Recherchable
-
+SourceDonnees <|.. SourceDonneesImplem
 
 ConnexionVue -- ConnexionControleur
 PatientVue --PatientControleur
@@ -207,11 +203,8 @@ PrescripteurControleur #--> Session
 HistoriqueControleur #--> Session
 
 
-AffichageControleur <|-- PrescripteurControleur
-AffichageControleur <|-- HistoriqueControleur
-
-'Main -> ConnexionVue
-'Main --> ConnexionControleur
-'Main --> Session
+ConnexionVue <.. Main
+Main .> ConnexionControleur
+Main ..> Session
 
 @enduml
