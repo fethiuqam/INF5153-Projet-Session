@@ -193,7 +193,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ### Diagramme de séquence : modifier les coordonnées
 
-![Diagramme de séquence modifier les coordonnées]()
+![Diagramme de séquence modifier les coordonnées](Modifier_Coordonnees/modifierCoordonnes_DIAGSEQ.png)
 
 
 <div id='id-section17'/>
@@ -214,7 +214,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ### Diagramme de séquence : Reconstruire le dossier par date
 
-![Diagramme de séquence Reconstruire le dossier par date]()
+![Diagramme de séquence Reconstruire le dossier par date](models/Diagramme_Sequences/Reconstruire_dossier_date/creerDossier_Diagramme.png)
 
 
 <div id='id-section20'/>
