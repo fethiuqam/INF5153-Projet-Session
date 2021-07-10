@@ -48,6 +48,7 @@
     - [Consulter les coordonnées](#id-section13)   
     - [Ajouter une nouvelle visite](#id-section14)   
     - [Ajouter un nouvel antécédent](#id-section15) 
+    - [Modifier un antécédent](#id-section151) 
     - [Modifier les coordonnées ](#id-section16) 
     - [Annuler les modifications ](#id-section17) 
     - [Enregistrer le dossier ](#id-section18) 
@@ -188,6 +189,15 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ![Diagramme de séquence Ajouter un nouvel antécédent](models/Diagramme_Sequences/Ajouter_antecedent/sequence_diagram_ajouter_antecedent.png)
 
+
+<div id='id-section151'/>
+
+### Diagramme de séquence : Modifier antécédent
+
+Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur une ligne d'un ancien antécédent. L'entécédent doit être enregistré auparavant par le même médecin utilisateur. Le résultat obtenu est la modification de l'ancien antecedent au dossier.
+
+
+![Diagramme de séquence Modifier un antécédent](models/Diagramme_Sequences/Modifier_antecedent/sequence_diagram_modifier_antecedent.png)
 
 <div id='id-section16'/>
 

@@ -1,0 +1,66 @@
+@startuml
+
+title Diagramme de séquence : Modifier un antécédent
+hide footbox
+
+actor "Medecin" as med
+participant "ligneAntecedent: LigneAntecedentVue" as lf
+med -> lf : modifier()
+activate lf
+create participant "antecedentVue: AntecedentVue" as av
+    lf -> av: this(antecedent)
+    deactivate lf
+   
+opt
+med -> av : saisirAntecedent(antecedent)
+activate av
+deactivate av
+end
+
+opt
+med -> av : saisirDateDebut(dateDebut)
+activate av
+deactivate av
+end
+
+opt
+med -> av : saisirDateFin(dateFin)
+activate av
+deactivate av
+end
+
+participant "_: PrescripteurControleur " as pc
+participant "_: Antecedent" as na
+
+med -> av : validerSaisie()
+activate av
+    av -> pc : enregistrerAntecedent()
+    deactivate av
+    activate pc
+
+    opt
+    pc -> na : setAntecedent(antecedent)
+    activate na
+    deactivate na
+    end
+
+    opt
+    pc -> na : setDebut(dateDebut)
+    activate na
+    deactivate na
+    end
+
+    opt
+    pc -> na : setfin(dateFin)
+    activate na
+    deactivate na
+    end
+
+    deactivate pc
+
+
+
+
+
+
+@enduml

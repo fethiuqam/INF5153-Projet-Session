@@ -56,7 +56,7 @@ end
 
 med -> av : validerSaisie()
 activate av
-    av -> pc : enregistrerNouvelAntecedent()
+    av -> pc : enregistrerAntecedent()
     deactivate av
     activate pc
 
