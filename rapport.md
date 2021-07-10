@@ -193,7 +193,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ### Diagramme de séquence : modifier les coordonnées
 
-![Diagramme de séquence modifier les coordonnées](Modifier_Coordonnees/modifierCoordonnes_DIAGSEQ.png)
+![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/modifierCoordonnes_DIAGSEQ.png)
 
 
 <div id='id-section17'/>
