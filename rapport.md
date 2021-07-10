@@ -1,4 +1,3 @@
-
 # Rapport de conception détaillée du système dossier médical centralisé
 
 ## présenté à Dogny Gnagnely Serge  et Faidi Sofiane
@@ -23,9 +22,9 @@
  
  **Mohamed Hocine Rehouma :**
 
- *Code permanent :* 
+ *Code permanent :* rehm23029604
 
- *adresse courriel :* 
+ *adresse courriel :* ck191923@ens.uqam.ca
 
 <br>
 
@@ -222,7 +221,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ### Diagramme de séquence : Reconstruire le dossier par modification
 
-![Diagramme de séquence Reconstruire le dossier par modification]()
+![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modificationr/reconstuireDossier_modif_Diag.png)
 
 
 <div id='id-section21'/>
