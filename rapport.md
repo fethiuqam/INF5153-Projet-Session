@@ -72,9 +72,22 @@
 
 ## Diagrammes de classe
 
+Les types d'acteurs qui intéragissent avec le système du dossier médical centralisé se distinguent en 4 catégories :
+
+- Le médecin qui peut consulter et modifier le dossier du patient
+- Le professionnel de la santé autre que le médecin qui ne peut que consulter le dossier du patient
+- L'assuré qui peut consulter son propre dossier médical avec la possibilité de modification des coordonnées
+- Le système RAMQ qui est responsable de la création des dossiers des nouvaux assurés avec la possibilité de reconstruction d'un dossier à une date précise
+
+De ce fait, on modélise un diagramme de classe pour chaque type d'acteur utilisant une application spécifique à son besoin.
+
 <div id='id-section3'/>
 
 ### Diagramme de classe De l'application du medecin
+
+La modélisation de l'application utilisée par le médecin se distingue par la présence des classes PrescripteurVue et PrescripteurControleur.
+
+Ces deux classes permettent à l'utilisateur de modifier certaines données tel que l'ajout d'une nouvelle visite, l'ajout d'un nouvel antécédent et la modification d'un ancien antécédent lié au medecin utilisateur
 
 ![Diagramme de classe du medecin](models/Diagramme_Classes/medecin/class_diagram_medecin_mvc.png)
 
@@ -82,11 +95,17 @@
 
 ### Diagramme de classe De l'application du professionnel
 
+La modélisation de l'application utilisée par le professionnel de santé autre qu'un médecin se distingue par l'absence des classes PrescripteurVue et PrescripteurControleur.
+
+L'utilisateur ne pourra modifier aucune information sur le dossier, mais peut les consulter en lecture seule à travers la classe HistoriqueVue. 
+
 ![Diagramme de classe du professionnel](models/Diagramme_Classes/professionnel/class_diagram_professionnel_mvc.png)
 
 <div id='id-section5'/>
 
 ### Diagramme de classe De l'application de l'assuré (application web et mobile) 
+
+La modélisation de l'application utilisée par l'assuré se distingue aussi par l'absence des classes PrescripteurVue et PrescripteurControleur mais avec une différence pour la classe PatientControleur qui permet à l'utilisateur de modifier ses coordonnées.
 
 ![Diagramme de classe de l'assuré](models/Diagramme_Classes/assure/class_diagram_assure_mvc.png)
 
