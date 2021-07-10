@@ -61,6 +61,8 @@
 
 - [Diagramme de déploiement de système](#id-section23)
 
+- [Justification des responsabilités des classes](#id-section24)
+
 
 <div id='id-section1'/>
 
@@ -134,12 +136,16 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ### Diagramme de séquence : Consulter l'historique des visites
 
+Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage de la liste de l'historique des visites dans la vue Historique. 
+
 ![Diagramme de séquence consulter historique visites](models/Diagramme_Sequences/Consulter_historiqe_visites/sequence_diagram_consulter_historique.png)
 
 
 <div id='id-section11'/>
 
 ### Diagramme de séquence : Consulter l'historique des traitements
+
+Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage de la liste des traitements du patient dans la vue Historique. 
 
 ![Diagramme de séquence Consulter l'historique des traitements](models/Diagramme_Sequences/Consulter_historique_traitements/sequence_diagram_consulter_traitements.png)
 
@@ -148,12 +154,18 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ### Diagramme de séquence : Consulter les antécédents
 
+Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage de la liste des antécédents du patient dans la vue Historique.
+
+
 ![Diagramme de séquence Consulter les antécédents](models/Diagramme_Sequences/Consulter_antecedents/sequence_diagram_consulter_antecedents.png)
 
 
 <div id='id-section13'/>
 
 ### Diagramme de séquence : Consulter les coordonnées
+
+Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage des coordonnées du patient dans la vue Patient.
+
 
 ![Diagramme de séquence Consulter les coordonnées](models/Diagramme_Sequences/Consulter_coordonnees/sequence_diagram_consulter_coordonnees.png)
 
@@ -162,12 +174,18 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ### Diagramme de séquence : Ajouter une nouvelle visite
 
+Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le résultat obtenu est l'ajout d'un nouveau objet visite au dossier.
+
+
 ![Diagramme de séquence Ajouter une nouvelle visite](models/Diagramme_Sequences/Creer_visite/sequence_diagram_nouvelle_visite.png)
 
 
 <div id='id-section15'/>
 
 ### Diagramme de séquence : Ajouter un nouvel antécédent
+
+Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le résultat obtenu est l'ajout d'un nouveau objet antecedent au dossier.
+
 
 ![Diagramme de séquence Ajouter un nouvel antécédent](models/Diagramme_Sequences/Ajouter_antecedent/sequence_diagram_ajouter_antecedent.png)
 
@@ -192,6 +210,7 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ![Diagramme de séquence Enregistrer le dossier](models/Diagramme_Sequences/Enregistrer_dossier/sequence_diagram_enregistrer_dossier.png)
 
+
 <div id='id-section19'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par date
@@ -210,6 +229,14 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ## Diagramme de packages
 
+On peut séparer les classes de notre application en cinq packages différents :
+
+- Le package `main` : ne contient que la classe Main qui est le point d'entrée de l'application.
+- Le  package `vue` : contient toutes les classes générant la vue affichée à l'utilisateur.
+- Le package `controleur` : contient toutes les classes de responsabilité de contrôl.
+- Le package `model` : contient les classes constituants les entités de notre application.
+- Le package `connexion` : contient les classes responsable de la communication avec l'environnement extérne à notre applicattion par des requettes Http ou SQL
+
 ![Diagramme de packages](models/Diagramme_Package/package_diagram.png)
 
 
@@ -225,3 +252,10 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 ## Diagramme de déploiement du système
 
 ![Diagramme de déploiement](models/Diagramme_Deploiement_Systeme/system_deployment_diagram.png)
+
+
+<div id='id-section24'/>
+
+## Justification des responsabilités des classes selon le pattern GRASP
+
+
