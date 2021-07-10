@@ -260,19 +260,48 @@ On peut séparer les classes de notre application en cinq packages différents :
 
 
 
-- La classes ConnexionControleur a la responsabilité de contrôleur qui gère la connexion de l'utilisateur en récupérant les données saisies de la classe ConnexionVue, les valident avec la méthode privée validerSaisie() puis délègue la connexion à la classe Session via la méthode publique login().
+- **La classes ConnexionControleur** : a la responsabilité de contrôleur qui gère la connexion de l'utilisateur en récupérant les données saisies de la classe ConnexionVue, les valident avec la méthode privée validerSaisie() puis délègue la connexion à la classe Session via la méthode publique login().
 
-- La classe PrescripteurControleur présente que dans l'application du médecin a la responsabilité de contrôleur qui gère : 
+- **La classe PrescripteurControleur** : présente que dans l'application du médecin a la responsabilité de contrôleur qui gère : 
     - L'affichage des visites du médecin connecté via la méthode afficherVisites() qui récupère les données via la méthode publique getVisitesPrescripteur() de la classe Session.
     - L'affichage des antécédents du médecin connecté via la méthode afficherAntecedents() qui récupère les données via la méthode publique getAntecedentsPrescripteur() de la classe Session.
     - L'ajout d'une nouvelle visite via la méthode creerVisites() et enregistrerVisite() qui délègue la création de l'objet Visite à la classe Session via sa méthode publique creerVisite().
     - L'ajout d'un nouvel antécédent via la méthode ajouterAntecedent() et enregistrerEntecedent()qui délègue la création de l'objet Antecedent à la classe Session via sa méthode publique creerAntecedent().
 
-- La classe HistoriqueControleur a la responsabilité de contrôleur qui gère : 
+- **La classe HistoriqueControleur** : a la responsabilité de contrôleur qui gère : 
     - L'affichage des visites des médecins autres que le médecin connecté via la méthode afficherVisites() qui récupère les données via la méthode publique getVisitesHistorique() de la classe Session.
     - L'affichage des antécédents des médecins autres que le médecin connecté via la méthode afficherAntecedents() qui récupère les données via la méthode publique getAntecedentsHistorique() de la classe Session.
    - L'affichage des traitements du patient via la méthode afficherTraitements() qui récupère les données via la méthode publique getTraitements() de la classe Session.
 
-- La classe PatientControleur a la responsabilité de contrôleur qui gère : 
+- **La classe PatientControleur** : a la responsabilité de contrôleur qui gère : 
    - L'affichage des coordonnées du patient via la méthode afficherPatient() qui récupère les données via la méthode publique getPatient() de la classe Session.
    - La modification des coordonnées du patient (Application de l'assuré) via la méthode modifierCoordonnees() qui délègue cette opération à la classe Session via sa métode publique modifierCoordonnees()
+
+- **La classe Session :**
+
+    + **telechargerDossier(noAss : String)**<br>
+        Controleur : la classe Session a la responsabilité de gérer le chargement de l'objet Dossier en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyId(id: String).
+
+    + **enregistrerDossier()**<br>
+        Controleur, spécialiste de l'information : la classe Session a la responsabilité de gérer la sauvegarde de l'objet Dossier car elle a l'information de cet objet à sauvegarder, en déléguant cette opération à la classe SourceDonnees via la méthode publique update(d: Dossier).
+
+    + **creerVisite()**<br>
+        Créateur, spécialiste de l'information : la classe Session a la responsabilité de créer un objet Visite en tant que nouvelle visite, et cette information résidera au niveau de la classe Session.
+    
+    + **creerAntecedent()**<br>
+        Créateur, spécialiste de l'information : la classe Session a la responsabilité de créer un objet Antecedent en tant que nouvel antécédent, et cette information résidera au niveau de la classe Session.
+    
+    + **annulerModification()** <br>
+        spécialiste de l'information : la classe Session peut annuler toutes les modifications aportées au dossier car elle détient toute l'information concernant le dossier ouvert ainsi que la nouvelle visite ou le nouvel antécédent créés.
+    
+    + **getVisitesPrescripteur() : List\<Visite>** / **getVisitesHistorique() : List\<Visite>** <br>
+        spécialiste de l'information : la classe Session récupère la liste des objets Visite de la classs Dossier via la méthode publique getVisites() puis filtre cette liste selon l'objet Medecin (le médecin connecté). La classe Session détient l'information du dossier et du médecin connecté.
+
+    + **getAntecedentsPrescripteur() : List\<Antecedent>** / **getAntecedentsHistorique() : List\<Antecedent>** <br>
+        spécialiste de l'information : la classe Session récupère la liste des objets Antecedent de la classs Dossier via la méthode publique getAntecedents() puis filtre cette liste selon l'objet Medecin (le médecin connecté). La classe Session détient l'information du dossier et du médecin connecté.
+    
+    + **getTraitements() : List\<Traitement>** <br>
+        spécialiste de l'information : la classe Session récupère la liste des objets Traitement de la classs Dossier via la méthode publique getTraitements() car elle détient l'information de l'objet Dossier.
+    
+    + **login(user: String, pass: String) : boolean** <br>
+        Controleur : la classe Session est responsable de la gestion de la connexion de l'utilisateur en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyUsernameAndPassword().
