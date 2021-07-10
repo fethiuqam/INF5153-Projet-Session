@@ -221,7 +221,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 ### Diagramme de séquence : Reconstruire le dossier par modification
 
-![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modificationr/reconstuireDossier_modif_Diag.png)
+![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modification/reconstuireDossier_modif_Diag.png)
 
 
 <div id='id-section21'/>
