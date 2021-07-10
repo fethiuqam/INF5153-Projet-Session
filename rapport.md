@@ -226,6 +226,14 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 
 <div id='id-section21'/>
 
+### Diagramme de séquence : Création d'un dossier
+
+![Diagramme de séquence Création d'un dossier](models/Diagramme_Sequences/Creer_Dossier/creerDossier_Diagramme.png)
+
+
+<div id='id-section22'/>
+
+
 ## Diagramme de packages
 
 On peut séparer les classes de notre application en cinq packages différents :
