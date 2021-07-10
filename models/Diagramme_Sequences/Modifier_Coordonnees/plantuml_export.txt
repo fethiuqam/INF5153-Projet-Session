@@ -1,0 +1,37 @@
+@startuml
+title Diagramme de séquence : Modifier les Coordonnées
+
+actor "Patient" as Pat
+
+Pat -> PatientVue: afficherPatient()
+hidefootbox
+activate PatientVue
+
+PatientVue -> PatientControlleur: afficherPatient() 
+activate PatientControlleur
+
+
+PatientControlleur -> Session: getCoordonnees()
+
+activate Session
+Session -> Dossier: getCoordonnees()
+activate Dossier
+Dossier -> Patient: getCoordonnees()
+activate Patient
+
+opt
+Patient -> Coordonnees: setCourriel()
+activate Coordonnees
+end
+
+
+opt
+Patient -> Coordonnees: setAdresse()
+end
+
+opt
+Patient -> Coordonnees: setTelephone()
+end
+
+
+@enduml
