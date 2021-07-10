@@ -304,4 +304,15 @@ On peut séparer les classes de notre application en cinq packages différents :
         spécialiste de l'information : la classe Session récupère la liste des objets Traitement de la classs Dossier via la méthode publique getTraitements() car elle détient l'information de l'objet Dossier.
     
     + **login(user: String, pass: String) : boolean** <br>
-        Controleur : la classe Session est responsable de la gestion de la connexion de l'utilisateur en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyUsernameAndPassword().
+        Controleur : la classe Session implémente l'interface Authentifiable qui est responsable de la gestion de la connexion de l'utilisateur en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyUsernameAndPassword().
+
+- **La classe SourceDonneesImplem :**
+
+    + **update(d : Dossier)**<br>
+        Controleur , spécialiste de l'information: L'interface SourceDonnees implémente l'interface Modifiable qui a la responsabilité de gérer la mise à jour des données du dossier sur la base de données distante car elle détient l'information de connexion et de communication avec cette base de données.
+
+    + **findbyUsernameAndPassword (username : String, password: String) : Optional\<Utilisateur>**<br>
+        Créateur , spécialiste de l'information: L'interface SourceDonnees implémente l'interface Recherchable qui a la responsabilité de créer l'objet Utilisateur à partir la base de données distante car elle détient l'information de connexion et de communication avec cette base de données.
+
+    + **findbyId(id : String) : Optional\<Dossier>**<br>
+        Créateur , spécialiste de l'information: L'interface SourceDonnees implémente l'interface Recherchable qui a la responsabilité de créer l'objet Dossier à partir la base de données distante car elle détient l'information de connexion et de communication avec cette base de données.

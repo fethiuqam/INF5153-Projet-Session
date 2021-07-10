@@ -92,7 +92,7 @@ interface Modifiable {
 
 class SourceDonneesImplem {
     + ^findbyId(id : String) : Optional<Dossier>
-    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Utilisateur>
     + ^update(d : Dossier)
 }
 

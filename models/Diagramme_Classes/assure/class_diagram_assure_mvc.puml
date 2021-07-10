@@ -82,7 +82,7 @@ interface Modifiable {
 
 class SourceDonneesImplem {
     + ^findbyId(id : String) : Optional<Dossier>
-    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Utilisateur>
     + ^update(d : Dossier)
 }
 
@@ -98,7 +98,7 @@ class Session {
 }
 
 interface authentifiable {
-    + login() ; boolean
+    + login(user: String, pass: String) : boolean
 }
 
 class ConnexionVue {

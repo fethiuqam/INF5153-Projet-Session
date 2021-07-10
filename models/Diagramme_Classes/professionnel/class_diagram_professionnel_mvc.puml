@@ -75,7 +75,7 @@ interface Recherchable {
 
 class SourceDonneesImplem {
     + ^findbyId(id : String) : Optional<Dossier>
-    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Dossier>
+    + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Utilisateur>
 }
 
 class Session {
@@ -86,7 +86,7 @@ class Session {
 }
 
 interface authentifiable {
-    + login() ; boolean
+    + login(user: String, pass: String) : boolean
 }
 
 class ConnexionVue {
