@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Rapport de conception détaillée du système dossier médical centralisé <!-- NOTOC -->
 =======
 <center>Université du Québec à Montréal<br><br><br><br><br><br></center>
+=======
+<p align="center">Université du Québec à Montréal<br><br><br><br><br><br>
+>>>>>>> 402fd8f2f995f3cbbbaaaa404f4082c5ecae6667
 Projet de conception<br><br><br><br><br><br>
 Travail présenté à<br><br><br><br><br><br>
 Monsieur Serge Dogny Gnagnely<br><br><br><br><br><br>
@@ -11,6 +15,7 @@ Par
 Mohamed Hocine Rehouma<br>
 Fethi Abi Ayad<br>
 Hamza Yahi<br>
+</p>
 
 
 
