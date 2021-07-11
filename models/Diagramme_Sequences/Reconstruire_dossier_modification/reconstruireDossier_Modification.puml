@@ -1,7 +1,8 @@
 @startuml
-title Diagramme de séquence : Reconstituer dossier par modification
+title Diagramme de sÃ©quence : Reconstituer dossier par modification
 hide footbox
-Actor "RAMQ" as ramq
+actor "RAMQ" as ramq
+-> ramq: ReconstituerDossierModification
 activate ramq
 hide footbox
 ramq -> Session: findById()
@@ -13,15 +14,14 @@ activate Bd
 SourceDonneesImplem -> Bd: findById()
 alt introuvable
 Bd --> SourceDonneesImplem: error()
-else patient trouvé
+else patient trouvÃ©
 Bd --> SourceDonneesImplem:List<Dossier>
 end
 deactivate Bd
 SourceDonneesImplem --> Session: List<Dossier>
 deactivate SourceDonneesImplem
-
+alt modification trouvÃ©e
 Session -> Session: findByModification()
-alt date trouvé
 Session --> ramq: Dossier
 else introuvable
 Session --> ramq: error()
