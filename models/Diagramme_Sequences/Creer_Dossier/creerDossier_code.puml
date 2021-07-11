@@ -1,6 +1,6 @@
 @startuml
-title Diagramme de séquence : Créer un dossier 
-actor "Base de Données RAMQ" as ram 
+title Diagramme de sÃ©quence : CrÃ©er un dossier
+actor "Base de DonnÃ©es RAMQ" as ram
 ram -> Session: informationPatient
 activate Session
 

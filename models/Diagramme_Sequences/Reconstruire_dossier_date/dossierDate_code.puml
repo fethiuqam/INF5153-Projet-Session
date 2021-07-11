@@ -1,0 +1,32 @@
+@startuml
+title Diagramme de sequence : Reconstituer dossier par date
+hide footbox
+Actor "RAMQ" as ramq
+-> ramq: reconstituerDossierDate()
+activate ramq
+hide footbox
+ramq -> Session: findById()
+activate Session
+Session -> SourceDonnees: findById()
+activate SourceDonnees
+database Bd as "bd"
+activate Bd
+SourceDonnees -> Bd: requete
+alt introuvable
+Bd --> SourceDonnees: error()
+else patient trouvé
+Bd --> SourceDonnees:List<Dossier>
+end
+deactivate Bd
+SourceDonnees -> SourceDonnees: findByDate(List<Dossier>)
+alt date.true()
+SourceDonnees -> Session: Dossier
+Session -> ramq: Dossier
+deactivate SourceDonnees
+else aucune date
+SourceDonnees -> ramq: error()
+end
+deactivate Session
+deactivate ramq
+
+@enduml

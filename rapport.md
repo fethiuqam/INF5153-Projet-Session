@@ -250,7 +250,7 @@ On peut séparer les classes de notre application en cinq packages différents :
 
 ## Diagramme de composants
 
-![Diagramme de composants]()
+![Diagramme de composants](models/Diagramme_Composant/diagDeComposant.png)
 
 
 <div id='id-section23'/>
@@ -266,24 +266,24 @@ On peut séparer les classes de notre application en cinq packages différents :
 
 
 
-- **La classes ConnexionControleur** : a la responsabilité de contrôleur qui gère la connexion de l'utilisateur en récupérant les données saisies de la classe ConnexionVue, les valident avec la méthode privée validerSaisie() puis délègue la connexion à la classe Session via la méthode publique login().
+- **ConnexionControleur** : a la responsabilité de contrôleur qui gère la connexion de l'utilisateur en récupérant les données saisies de la classe ConnexionVue, les valident avec la méthode privée validerSaisie() puis délègue la connexion à la classe Session via la méthode publique login().
 
-- **La classe PrescripteurControleur** : présente que dans l'application du médecin a la responsabilité de contrôleur qui gère : 
+- **PrescripteurControleur** : présente que dans l'application du médecin a la responsabilité de contrôleur qui gère : 
     - L'affichage des visites du médecin connecté via la méthode afficherVisites() qui récupère les données via la méthode publique getVisitesPrescripteur() de la classe Session.
     - L'affichage des antécédents du médecin connecté via la méthode afficherAntecedents() qui récupère les données via la méthode publique getAntecedentsPrescripteur() de la classe Session.
     - L'ajout d'une nouvelle visite via la méthode creerVisites() et enregistrerVisite() qui délègue la création de l'objet Visite à la classe Session via sa méthode publique creerVisite().
     - L'ajout d'un nouvel antécédent via la méthode ajouterAntecedent() et enregistrerEntecedent()qui délègue la création de l'objet Antecedent à la classe Session via sa méthode publique creerAntecedent().
 
-- **La classe HistoriqueControleur** : a la responsabilité de contrôleur qui gère : 
+- **HistoriqueControleur** : a la responsabilité de contrôleur qui gère : 
     - L'affichage des visites des médecins autres que le médecin connecté via la méthode afficherVisites() qui récupère les données via la méthode publique getVisitesHistorique() de la classe Session.
     - L'affichage des antécédents des médecins autres que le médecin connecté via la méthode afficherAntecedents() qui récupère les données via la méthode publique getAntecedentsHistorique() de la classe Session.
    - L'affichage des traitements du patient via la méthode afficherTraitements() qui récupère les données via la méthode publique getTraitements() de la classe Session.
 
-- **La classe PatientControleur** : a la responsabilité de contrôleur qui gère : 
+- **PatientControleur** : a la responsabilité de contrôleur qui gère : 
    - L'affichage des coordonnées du patient via la méthode afficherPatient() qui récupère les données via la méthode publique getPatient() de la classe Session.
    - La modification des coordonnées du patient (Application de l'assuré) via la méthode modifierCoordonnees() qui délègue cette opération à la classe Session via sa métode publique modifierCoordonnees()
 
-- **La classe Session :**
+- **Session :**
 
     + **telechargerDossier(noAss : String)**<br>
         Controleur : la classe Session a la responsabilité de gérer le chargement de l'objet Dossier en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyId(id: String).
@@ -312,7 +312,7 @@ On peut séparer les classes de notre application en cinq packages différents :
     + **login(user: String, pass: String) : boolean** <br>
         Controleur : la classe Session implémente l'interface Authentifiable qui est responsable de la gestion de la connexion de l'utilisateur en déléguant cette opération à la classe SourceDonnees via la méthode publique findbyUsernameAndPassword().
 
-- **La classe SourceDonneesImplem :**
+- **SourceDonneesImplem :**
 
     + **update(d : Dossier)**<br>
         Controleur , spécialiste de l'information: L'interface SourceDonnees implémente l'interface Modifiable qui a la responsabilité de gérer la mise à jour des données du dossier sur la base de données distante car elle détient l'information de connexion et de communication avec cette base de données.
@@ -322,3 +322,53 @@ On peut séparer les classes de notre application en cinq packages différents :
 
     + **findbyId(id : String) : Optional\<Dossier>**<br>
         Créateur , spécialiste de l'information: L'interface SourceDonnees implémente l'interface Recherchable qui a la responsabilité de créer l'objet Dossier à partir la base de données distante car elle détient l'information de connexion et de communication avec cette base de données.
+
+- **Dossier :**
+
+    + **AjouterVisite(visite: Visite)**<br>
+        Créateur : La classe dossier a la responsabilité d'ajouter les visites car c'est elle qui contient la liste des visites associées au dossier, c'est a dire que c'est elle qui est <b> composée</b> de "Visite".
+
+
+    + **AjouterAntecedent(antecdent: Antecedent)**<br> 
+        Créateur : La classe dossier a la responsabilité d'ajouter les antecedents car c'est elle qui contient la liste des antecedents associées au dossier, c'est a dire que c'est elle qui est <b> composée</b> de "Antecedents".
+
+
+    + **getVisites(List\<Visite\>)**<br>
+        Specialiste de l'information : La classe dossier a la responsabilité de recupérer les visites car c'est elle qui contient la liste des visites associées au dossier.
+
+    + **getAntecedents(List\<Antecedent\>)**<br>
+        Spécialiste de l'information : La classe dossier a la responsabilité de recuperer les antecedents car c'est elle qui contient la liste des antecedents du patient .
+
+- **Visite :**
+
+    + **Générale**<br>
+        Createur : La classe Visite est composée de traitements,diagnostics et un medecin, elle a donc la responsabilité de creer une nouvelle instance de ces objets lorsque necessaire tel que lors de la recuperation d'un dossier de la base de données.
+    + **setResume (resume: String)**<br>
+        Specialiste de l'information : La classe Visite a la responsabilité de définir le resume d'une visite car c'est elle qui contient la variable "resume".
+    + **setDiagnostic (dg: Diagnostic)**<br>
+        Specialiste de l'information : La classe Visite a la responsabilité de définir le diagnostic d'une visite car c'est elle qui est associée a 0 ou 1 diagnostic.
+    + **setTraitement (dg: Diagnostic)**<br>
+        Specialiste de l'information : La classe Visite a la responsabilité de définir le traitement d'une visite car c'est elle qui est associée à 0 ou 1 traitement .
+
+- **Utilisateur:**
+
+    + **getUsername()**<br>
+        Specialiste de l'information : La classe Utilisateur a la responsabilité de recuperer le username car c'est elle qui contient le username  de l'utilisateur.
+    
+- **Antecedent:**
+
+    + **Générale**<br>
+        Createur : La classe Antecedents est composée de traitements,diagnostics et un medecin, elle a donc la responsabilité de creer une nouvelle instance de ces objets lorsque necessaire tel que lors de la recuperation d'un dossier de la base de données.
+    + **setDebut (date: Date), setFin(date: Date), setDiagnostic(dg: Diagnostic) et setTraitement (trt: Traitement)**<br>
+        Specialiste de l'information : La classe Antecednt a la responsabilité de définir ces valeurs car c'est elle qui contient les variables "debut" et "fin", ainsi que les instances des classes "Diagnostic" et Traitement .
+    
+
+- **Patient**
+
+    + **Générale**<br>
+        Createur : La classe Patient est composée de coordonnées, elle a donc la responsabilité de creer une nouvelle instance de "Coordonnées" lorsque necessaire tel que lors de la récuperation d'un dossier de la base de données.
+    + **getCoordonnées()**<br>
+        Specialiste de l'information : La classe Patient a la responsabilité de recuperer les coordonnées car c'est elle qui contient  une instance d'un objet appartenant a la classe "Coordonnées".
+
+
+
