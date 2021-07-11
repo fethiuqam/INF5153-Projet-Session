@@ -1,27 +1,12 @@
 
 
-<center>Université du Québec à Montréal<br><br><br><br><br><br></center>
-<p align="center">Université du Québec à Montréal<br><br><br><br><br><br>
-Projet de conception<br><br><br><br><br><br>
-Travail présenté à<br><br><br><br><br><br>
-Monsieur Serge Dogny Gnagnely<br><br><br><br><br><br>
-Dans le cadre du cours<br>
-Génie logiciel: conception(INF5153)<br><br><br><br><br><br>
-Par
-Mohamed Hocine Rehouma<br>
-Fethi Abi Ayad<br>
-Hamza Yahi<br>
-</p>
-
-
-
-# Rapport de conception détaillée du système dossier médical centralisé <!-- NOTOC -->
-
-<br>
-
-<br>
-
-## Composition de l'équipe : <!-- NOTOC -->
+<h3>Université du Québec à Montréal</h3><br><br><br><br><br><br>
+<h1>Rapport de conception détaillée du système dossier médical centralisé</h1><br><br><br><br><br><br>
+<h3>Travail présenté à</h3><br><br><br><br><br><br>
+<h2>Monsieur Serge Dogny Gnagnely</h2><br><br><br><br><br><br>
+<h4>Dans le cadre du cours</h4><br>
+<h4>Génie logiciel: conception(INF5153)</h4><br><br><br><br><br><br>
+Par<br> <br>
 
 **Fethi bey Abi ayad :**
 
@@ -43,9 +28,11 @@ Hamza Yahi<br>
 
 <br>
 
-## Table des matières <!-- NOTOC -->
-
 [[_TOC_]]
+
+<h2>Table des matières</h2>
+
+
 
 
 <div id='id-section1'/>
