@@ -159,6 +159,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur
 
 ### Diagramme de séquence : modifier les coordonnées
 
+Ce cas d'utilisation est déclenché par le patient. La saisies des nouvelles données sont envoyées à la vue Coordonnées. Le résultat obtenu est la modification des données du patient.
 ![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/diag_seq_modifier_coordonnees.png)
 
 
