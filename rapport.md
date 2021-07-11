@@ -1,13 +1,26 @@
 
 
-<h3>Université du Québec à Montréal</h3><br><br><br><br><br><br>
-<h1>Rapport de conception détaillée du système dossier médical centralisé</h1><br><br><br><br><br><br>
-<h3>Travail présenté à</h3><br><br><br><br><br><br>
-<h2>Monsieur Serge Dogny Gnagnely</h2><br><br><br><br><br><br>
-<h4>Dans le cadre du cours</h4><br>
-<h4>Génie logiciel: conception(INF5153)</h4><br><br><br><br><br><br>
-Par<br> <br>
+### Université du Québec à Montréal
+{:toc}
+<br>
+# Rapport de conception détaillée du système dossier médical centralisé
+{:toc}
+<br><br><br><br>
 
+
+### Travail présenté à
+{:toc}
+## Monsieur Serge Dogny Gnagnely
+{:toc}
+<br><br>
+
+##### Dans le cadre du cours
+{:toc}
+### Génie logiciel: conception(INF5153)
+{:toc}
+<br><br><br><br>
+par 
+<br><br>
 **Fethi bey Abi ayad :**
 
  *Code permanent :* ABIF10108204
@@ -30,10 +43,8 @@ Par<br> <br>
 
 [[_TOC_]]
 
-<h2>Table des matières</h2>
-
-
-
+## Table des matières
+{:toc}
 
 <div id='id-section1'/>
 
