@@ -1,0 +1,22 @@
+@startuml
+
+interface Recherchable {
+    + findbyIdAndDate(id : String , date : Date) : Optional<String>
+    + findbyIdAndModification(id : String , modification : String) : Optional<String>
+}
+
+class SourceDonnees{
+    + ^findbyIdAndDate(id : String , date : Date) : Optional<String>
+    + ^findbyIdAndModification(id : String , modification : String) : Optional<String>
+    + creerDossier(json : String) : boolean
+}
+
+class Main {
+    + {static} main (args : String[])
+}
+
+SourceDonnees  .|> Recherchable
+
+Main ..> SourceDonnees
+
+@enduml

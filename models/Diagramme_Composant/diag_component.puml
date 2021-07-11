@@ -1,0 +1,22 @@
+@startuml
+
+interface "HTTPS" as ht1
+interface "HTTPS" as ht2
+
+component {
+    ht2 - [serveur REST API]
+    SQL -[SQLite database]
+    [serveur REST API] .> SQL : use
+}
+[navigateur Web]..>  ht1 : use
+
+ht1 - [Serveur Web]
+[Serveur Web] ..> ht2 : use
+
+ht2 <.. [application mobile android]  : use
+ht2 <.. [application mobile IOS]  : use
+
+ht2 <.. [application desktop medecin]  : use
+ht2 <.. [application desktop professionnel]  : use
+
+@enduml
