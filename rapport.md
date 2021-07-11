@@ -261,7 +261,7 @@ On peut séparer les classes de notre application en cinq packages différents :
 
 ## Diagramme de composants
 
-![Diagramme de composants]()
+![Diagramme de composants](models/Diagramme_Composant/diagDeComposant.png)
 
 
 <div id='id-section23'/>
