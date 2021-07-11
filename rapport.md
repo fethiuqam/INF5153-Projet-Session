@@ -64,6 +64,10 @@
 - [Justification des responsabilités des classes](#id-section24)
 
 
+
+[[_TOC_]]
+
+
 <div id='id-section1'/>
 
 ## Diagramme des usecases
@@ -250,7 +254,7 @@ On peut séparer les classes de notre application en cinq packages différents :
 
 ## Diagramme de composants
 
-![Diagramme de composants](models/Diagramme_Composant/diagDeComposant.png)
+![Diagramme de composants](models/Diagramme_Composant/diag_component.png)
 
 
 <div id='id-section23'/>
