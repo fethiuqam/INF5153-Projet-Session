@@ -62,41 +62,6 @@ Hamza Yahi<br>
 <br>
 
 ## Table des matières
-- [Diagramme des usecases](#id-section1)
-
-- [Diagramme de classe](#id-section2)
-
-    - [Diagramme de classe de l'application du medecin](#id-section3)    
-    - [Diagramme de classe de l'application du professionnel](#id-section4)    
-    - [Diagramme de classe de l'application de l'assuré ](#id-section5)    
-    - [Diagramme de classe de l'application de la RAMQ ](#id-section6)   
-
-- [Diagramme de séquence](#id-section7)
-
-    - [S'authentifier](#id-section8)    
-    - [Télécharger dossier](#id-section9)    
-    - [Consulter l'historique des visites](#id-section10)   
-    - [Consulter l'historique des traitements](#id-section11)   
-    - [Consulter les antécédents](#id-section12)   
-    - [Consulter les coordonnées](#id-section13)   
-    - [Ajouter une nouvelle visite](#id-section14)   
-    - [Ajouter un nouvel antécédent](#id-section15) 
-    - [Modifier un antécédent](#id-section151) 
-    - [Modifier les coordonnées ](#id-section16) 
-    - [Annuler les modifications ](#id-section17) 
-    - [Enregistrer le dossier ](#id-section18) 
-    - [Reconstruire le dossier par date](#id-section19) 
-    - [Reconstruire le dossier par modification](#id-section20) 
-
-- [Diagramme de packages](#id-section21)
-
-- [Diagramme de composants](#id-section22)
-
-- [Diagramme de déploiement de système](#id-section23)
-
-- [Justification des responsabilités des classes](#id-section24)
-
-
 
 [[_TOC_]]
 
@@ -268,8 +233,7 @@ Ce cas d'utilisation est déclenché par la RAMQ. Un requête est alors envoyée
 
 ### Diagramme de séquence : Création d'un dossier
 
-![Diagramme de séquence Création d'un dossier](models/Diagramme_Sequences/Creer_Dossier/creerDossier_Diagramme.png)
-
+![Diagramme de séquence Création d'un dossier](models/Diagramme_Sequences/Creer_Dossier/creerDossier_code.png)
 
 <div id='id-section22'/>
 

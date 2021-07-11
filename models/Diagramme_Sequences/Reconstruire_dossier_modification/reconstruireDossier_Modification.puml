@@ -10,16 +10,16 @@ Main -> SourceDonnees: findByIdAndModification()
 activate SourceDonnees
 database Bd as "bd"
 activate Bd
-SourceDonnees -> Bd: requete
+SourceDonnees ->> Bd: requete
 alt introuvable
-Bd --> SourceDonnees: error()
-SourceDonnees --> Main: error()
-Main --> ramq: error()
+Bd --> SourceDonnees: error
+SourceDonnees --> Main: error
+Main --> ramq: error
 else patient trouvé
-Bd --> SourceDonnees:JSON:Dossier
+Bd --> SourceDonnees: dossierJson
 deactivate Bd
-SourceDonnees -> Main: JSON:Dossier
-Main -> ramq: JSON:Dossier
+SourceDonnees --> Main: dossierJson
+Main --> ramq: dossierJson
 end
 deactivate SourceDonnees
 
