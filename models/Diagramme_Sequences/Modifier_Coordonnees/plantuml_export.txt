@@ -1,13 +1,13 @@
 @startuml
-title Diagramme de séquence : Modifier les Coordonnées
+title Diagramme de sï¿½quence : Modifier les Coordonnï¿½es
 
 actor "Patient" as Pat
 
-Pat -> PatientVue: afficherPatient()
+Pat -> PatientVue: modifierCoordonner()
 hidefootbox
 activate PatientVue
 
-PatientVue -> PatientControlleur: afficherPatient() 
+PatientVue -> PatientControlleur: modifierCoordonner() 
 activate PatientControlleur
 
 

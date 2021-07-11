@@ -148,20 +148,7 @@ Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat 
 Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage de la liste des traitements du patient dans la vue Historique. 
 
 ![Diagramme de séquence Consulter l'historique des traitements](models/Diagramme_Sequences/Consulter_historique_traitements/sequence_diagram_consulter_traitements.png)
-
-
-<div id='id-section12'/>
-
-### Diagramme de séquence : Consulter les antécédents
-
-Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage de la liste des antécédents du patient dans la vue Historique.
-
-
-![Diagramme de séquence Consulter les antécédents](models/Diagramme_Sequences/Consulter_antecedents/sequence_diagram_consulter_antecedents.png)
-
-
-<div id='id-section13'/>
-
+git 
 ### Diagramme de séquence : Consulter les coordonnées
 
 Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat obtenu est l'affichage des coordonnées du patient dans la vue Patient.
@@ -216,6 +203,8 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur
 <div id='id-section18'/>
 
 ### Diagramme de séquence : Enregistrer le dossier
+
+Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur . En cas de modification de dossier, le résultat obtenu est la mise à jour du dossier sur la base de données distante avec une création d'une nouvelle ligne sur la table archive incluant un objet json contenant toutes les information de l'objet dossier et correspondant à la date du mise à jour et le numéro d'assurance du patient.
 
 ![Diagramme de séquence Enregistrer le dossier](models/Diagramme_Sequences/Enregistrer_dossier/sequence_diagram_enregistrer_dossier.png)
 

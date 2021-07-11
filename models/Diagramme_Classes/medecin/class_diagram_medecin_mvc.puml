@@ -145,6 +145,7 @@ class PrescripteurControleur {
     + enregistrerVisite()
     + ajouterAntecedent()
     + enregistrerNouvelAntecedent()
+    + fermerDossier()
 }
 
 class HistoriqueControleur {

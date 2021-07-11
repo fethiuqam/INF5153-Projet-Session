@@ -1,6 +1,6 @@
 @startuml
 
-title Diagramme de séquence : Telecharger Dossier
+title Diagramme de séquence : Enregistrer Dossier
 hide footbox
 
 actor "Medecin" as doc
@@ -30,6 +30,8 @@ do --> ses
 deactivate do
 ses -> sd : update(dossier)
 activate sd
+sd ->> bd : requete
+sd -> sd : dossierToJson(dossier)
 sd ->> bd : requete
 sd --> ses
 deactivate sd
