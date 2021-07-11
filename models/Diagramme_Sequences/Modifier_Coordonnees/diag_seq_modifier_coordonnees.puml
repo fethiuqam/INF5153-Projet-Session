@@ -1,0 +1,80 @@
+@startuml
+title Diagramme de séquence : Modifier les coordonnées
+hidefootbox
+
+actor "Patient" as Pat
+participant "_: PatientVue" as pv
+participant "_: PatientControleur" as pc
+participant "_: Session" as ses
+participant "_: Dossier" as dos
+
+Pat -> pv: modifierCoordonnees()
+
+activate pv
+pv -> pc : modifierCoordonnees()
+activate pc
+deactivate pv
+
+pc -> ses : getPatient()
+    activate ses
+    ses -> dos : getPatient()
+    activate dos
+    dos --> ses : patient
+    deactivate dos
+    ses --> pc : patient
+    deactivate ses
+create participant "_: CoordonneesVue" as cv
+pc -> cv : this(patient)
+deactivate pc
+
+opt
+Pat -> cv : saisirAdresse(adresse)
+activate cv
+deactivate cv
+end
+
+opt
+Pat -> cv : saisirTelephone(tel)
+activate cv
+deactivate cv
+end
+
+opt
+Pat -> cv : saisirCourriel(courriel)
+activate cv
+deactivate cv
+end
+
+participant "_: Patient" as pa
+
+Pat -> cv : enregistrerModifications()
+activate cv
+    
+    opt
+    cv -> pa : setAdresse(adresse)
+    activate pa
+    deactivate pa
+    pa --> cv
+    end
+    
+    opt
+    cv -> pa : setTelephone(tel)
+    activate pa
+    deactivate pa
+    pa --> cv
+    end
+
+    opt
+    cv -> pa : setCourriel(courriel)
+    activate pa
+    deactivate pa
+    pa --> cv
+    end
+    deactivate cv
+    
+cv --> Pat : Ok
+
+@enduml
+
+
+@enduml

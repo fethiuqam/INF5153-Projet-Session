@@ -190,7 +190,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur
 
 ### Diagramme de séquence : modifier les coordonnées
 
-![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/modifierCoordonnes_DIAGSEQ.png)
+![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/diag_seq_modifier_coordonnees.png)
 
 
 <div id='id-section17'/>
