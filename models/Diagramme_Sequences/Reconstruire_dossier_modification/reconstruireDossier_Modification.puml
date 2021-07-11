@@ -1,28 +1,29 @@
 @startuml
-title Diagramme de séquence : Reconstituer dossier par modification
+title Diagramme de sequence : Reconstituer dossier par modification
 hide footbox
-actor "RAMQ" as ramq
--> ramq: ReconstituerDossierModification
+Actor "RAMQ" as ramq
 activate ramq
 hide footbox
-ramq -> Session: findById()
-activate Session
-Session -> SourceDonnees: findById()
+ramq -> Main: reconstituerDossierModification()
+activate Main
+Main -> SourceDonnees: findByIdAndModification()
 activate SourceDonnees
 database Bd as "bd"
 activate Bd
-SourceDonnees -> Bd: findById()
+SourceDonnees -> Bd: requete
 alt introuvable
 Bd --> SourceDonnees: error()
+SourceDonnees --> Main: error()
+Main --> ramq: error()
 else patient trouvé
-Bd --> SourceDonnees:List<Dossier>
+Bd --> SourceDonnees:JSON:Dossier
+deactivate Bd
+SourceDonnees -> Main: JSON:Dossier
+Main -> ramq: JSON:Dossier
 end
-SourceDonnees -> SourceDonnees: findByModification(List<Dossier>)
-alt modification trouvé
-SourceDonnees --> Session: Dossier
-Session --> ramq: Dossier
-else aucune modification trouvé
-SourceDonnees --> ramq: error()
-end
+deactivate SourceDonnees
+
+deactivate Main
+deactivate ramq
 
 @enduml

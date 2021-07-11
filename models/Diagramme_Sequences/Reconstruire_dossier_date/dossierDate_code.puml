@@ -2,31 +2,28 @@
 title Diagramme de sequence : Reconstituer dossier par date
 hide footbox
 Actor "RAMQ" as ramq
--> ramq: reconstituerDossierDate()
 activate ramq
 hide footbox
-ramq -> Session: findById()
-activate Session
-Session -> SourceDonnees: findById()
+ramq -> Main: reconstituerDossierDate()
+activate Main
+Main -> SourceDonnees: findByIdAndDate()
 activate SourceDonnees
 database Bd as "bd"
 activate Bd
 SourceDonnees -> Bd: requete
 alt introuvable
 Bd --> SourceDonnees: error()
+SourceDonnees --> Main: error()
+Main --> ramq: error()
 else patient trouvé
-Bd --> SourceDonnees:List<Dossier>
-end
+Bd --> SourceDonnees:JSON:Dossier
 deactivate Bd
-SourceDonnees -> SourceDonnees: findByDate(List<Dossier>)
-alt date.true()
-SourceDonnees -> Session: Dossier
-Session -> ramq: Dossier
-deactivate SourceDonnees
-else aucune date
-SourceDonnees -> ramq: error()
+SourceDonnees -> Main: JSON:Dossier
+Main -> ramq: JSON:Dossier
 end
-deactivate Session
+deactivate SourceDonnees
+
+deactivate Main
 deactivate ramq
 
 @enduml
