@@ -190,6 +190,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur
 
 ### Diagramme de séquence : modifier les coordonnées
 
+Ce cas d'utilisation est déclenché par le patient. La saisies des nouvelles données sont envoyées à la vue Coordonnées. Le résultat obtenu est la modification des données du patient.
 ![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/diag_seq_modifier_coordonnees.png)
 
 
@@ -213,14 +214,14 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur . E
 
 ### Diagramme de séquence : Reconstruire le dossier par date
 
-![Diagramme de séquence Reconstruire le dossier par date](models/Diagramme_Sequences/Reconstruire_dossier_date/creerDossier_Diagramme.png)
+![Diagramme de séquence Reconstruire le dossier par date](models/Diagramme_Sequences/Reconstruire_dossier_date/dossierDate_code.png)
 
 
 <div id='id-section20'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par modification
 
-![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modification/reconstuireDossier_modif_Diag.png)
+![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modification/reconstruireDossier_Modification.png)
 
 
 <div id='id-section21'/>
