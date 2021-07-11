@@ -1,6 +1,5 @@
 
-### Université du Québec à Montréal
-{:.no_toc}
+<span style="font-size:4em;">Université du Québec à Montréal</span>
 
 <br>
 
