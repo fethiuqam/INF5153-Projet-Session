@@ -1,5 +1,5 @@
 
-<span style="font-size:10em;">Université du Québec à Montréal</span>
+<span style="font-size:10em">Université du Québec à Montréal</span>
 
 <br>
 
