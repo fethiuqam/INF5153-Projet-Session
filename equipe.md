@@ -10,13 +10,13 @@ Le présent document a été rédigé dans le but d'effectuer une brève  prése
 
  *le meilleur moyen de communication :* courriel, slack
 
- *les disponibilités :* 
+ *les disponibilités :* tous les jours de 9.00 à 18.00
 
- *Forces :* 
+ *Forces :* organisation, serieux, assiduité. 
 
- *faiblesses :*
+ *faiblesses :* Ui design
 
- *compétences techniques :* 
+ *compétences techniques :* java , sql, javafx
  
 **Hamza Yahi :**
 
