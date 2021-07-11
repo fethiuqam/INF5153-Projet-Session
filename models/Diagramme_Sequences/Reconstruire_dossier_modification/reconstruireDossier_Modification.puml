@@ -7,26 +7,22 @@ activate ramq
 hide footbox
 ramq -> Session: findById()
 activate Session
-Session -> SourceDonneesImplem: findById()
-activate SourceDonneesImplem
+Session -> SourceDonnees: findById()
+activate SourceDonnees
 database Bd as "bd"
 activate Bd
-SourceDonneesImplem -> Bd: findById()
+SourceDonnees -> Bd: findById()
 alt introuvable
-Bd --> SourceDonneesImplem: error()
+Bd --> SourceDonnees: error()
 else patient trouvé
-Bd --> SourceDonneesImplem:List<Dossier>
+Bd --> SourceDonnees:List<Dossier>
 end
-deactivate Bd
-SourceDonneesImplem --> Session: List<Dossier>
-deactivate SourceDonneesImplem
-alt modification trouvée
-Session -> Session: findByModification()
+SourceDonnees -> SourceDonnees: findByModification(List<Dossier>)
+alt modification trouvé
+SourceDonnees --> Session: Dossier
 Session --> ramq: Dossier
-else introuvable
-Session --> ramq: error()
-deactivate Session
-deactivate ramq
+else aucune modification trouvé
+SourceDonnees --> ramq: error()
 end
 
 @enduml

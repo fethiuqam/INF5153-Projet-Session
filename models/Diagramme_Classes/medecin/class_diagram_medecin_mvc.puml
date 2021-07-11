@@ -95,6 +95,7 @@ class SourceDonneesImplem {
     + ^findbyUsernameAndPassword (username : String, password: String) : Optional<Utilisateur>
     + ^update(d : Dossier)
     + findByDate(List<Dossier>)
+    + findByModification(List<Dossier>)
 }
 
 class Session {

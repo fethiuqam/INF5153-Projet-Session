@@ -18,9 +18,10 @@ else patient trouvé
 Bd --> SourceDonnees:List<Dossier>
 end
 deactivate Bd
-alt date.true()
 SourceDonnees -> SourceDonnees: findByDate(List<Dossier>)
+alt date.true()
 SourceDonnees -> Session: Dossier
+Session -> ramq: Dossier
 deactivate SourceDonnees
 else aucune date
 SourceDonnees -> ramq: error()
