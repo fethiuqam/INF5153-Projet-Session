@@ -1,23 +1,22 @@
 
 
 ### Université du Québec à Montréal
-{:toc}
+{:.no_toc}
 <br>
 # Rapport de conception détaillée du système dossier médical centralisé
-{:toc}
-<br><br><br><br>
+{:.no_toc}<br><br><br><br>
 
 
 ### Travail présenté à
-{:toc}
+{:.no_toc}
 ## Monsieur Serge Dogny Gnagnely
-{:toc}
+{:.no_toc}
 <br><br>
 
 ##### Dans le cadre du cours
-{:toc}
+{:.no_toc} 
 ### Génie logiciel: conception(INF5153)
-{:toc}
+{:.no_toc} 
 <br><br><br><br>
 par 
 <br><br>
@@ -44,7 +43,7 @@ par
 [[_TOC_]]
 
 ## Table des matières
-{:toc}
+{:.no_toc} 
 
 <div id='id-section1'/>
 
