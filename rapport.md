@@ -1,4 +1,41 @@
+<<<<<<< HEAD
 # Rapport de conception détaillée du système dossier médical centralisé <!-- NOTOC -->
+=======
+<center>Université du Québec à Montréal<br><br><br><br><br><br></center>
+Projet de conception<br><br><br><br><br><br>
+Travail présenté à<br><br><br><br><br><br>
+Monsieur Serge Dogny Gnagnely<br><br><br><br><br><br>
+Dans le cadre du cours<br>
+Génie logiciel: conception(INF5153)<br><br><br><br><br><br>
+Par
+Mohamed Hocine Rehouma<br>
+Fethi Abi Ayad<br>
+Hamza Yahi<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Rapport de conception détaillée du système dossier médical centralisé
+>>>>>>> 467dcb44230878ff52647258667852277640931b
 
 ## présenté à Dogny Gnagnely Serge  et Faidi Sofiane <!-- NOTOC -->
 
@@ -182,6 +219,7 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur . E
 <div id='id-section19'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par date
+Ce cas d'utilisation est déclenché par la RAMQ. Un requête est alors envoyée à la base de données qui contient l'archive des dossier et effectue une recherche selon la date. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
 
 ![Diagramme de séquence Reconstruire le dossier par date](models/Diagramme_Sequences/Reconstruire_dossier_date/dossierDate_code.png)
 
@@ -189,6 +227,8 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur . E
 <div id='id-section20'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par modification
+Ce cas d'utilisation est déclenché par la RAMQ. Un requête est alors envoyée à la base de données qui contient l'archive des dossier effectue une recherche selon la modification entrée. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
+
 
 ![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modification/reconstruireDossier_Modification.png)
 
