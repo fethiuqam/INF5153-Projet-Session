@@ -38,6 +38,9 @@ usr -> cv : username + password
         ses --> cc : true
         cc -->x cv : <<hide>>
         cv --> usr
+        ref over usr : consulter coordonnées
+        ref over usr : consulter antécédents
+        ref over usr : consulter historique visites
     else !prescripteur.ifPresent
         ses --> cc : false
         deactivate ses
