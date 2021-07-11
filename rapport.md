@@ -1,12 +1,12 @@
-# Rapport de conception détaillée du système dossier médical centralisé
+# Rapport de conception détaillée du système dossier médical centralisé <!-- NOTOC -->
 
-## présenté à Dogny Gnagnely Serge  et Faidi Sofiane
-
-<br>
+## présenté à Dogny Gnagnely Serge  et Faidi Sofiane <!-- NOTOC -->
 
 <br>
 
-## Composition de l'équipe : 
+<br>
+
+## Composition de l'équipe : <!-- NOTOC -->
 
 **Fethi bey Abi ayad :**
 
@@ -28,7 +28,7 @@
 
 <br>
 
-## Table des matières
+## Table des matières <!-- NOTOC -->
 
 [[_TOC_]]
 

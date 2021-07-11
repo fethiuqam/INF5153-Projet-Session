@@ -2,11 +2,11 @@
 title Diagramme de sequence : Reconstituer dossier par date
 hide footbox
 Actor "RAMQ" as ramq
-activate ramq
+
 hide footbox
-ramq -> Main: reconstituerDossierDate()
+ramq -> Main: reconstituerDossierDate(id , date)
 activate Main
-Main -> SourceDonnees: findByIdAndDate()
+Main -> SourceDonnees: findByIdAndDate(id , date)
 activate SourceDonnees
 database Bd as "bd"
 activate Bd
@@ -19,12 +19,12 @@ else patient trouvé
 Bd --> SourceDonnees: dossierJson
 deactivate Bd
 SourceDonnees --> Main: dossierJson
-deactivate Bd
-Main --> ramq: dossierJson
-end
 deactivate SourceDonnees
-
+Main --> ramq: dossierJson
 deactivate Main
-deactivate ramq
+end
+
+
+
 
 @enduml

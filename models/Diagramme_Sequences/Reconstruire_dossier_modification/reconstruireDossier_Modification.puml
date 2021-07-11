@@ -1,12 +1,13 @@
 @startuml
-title Diagramme de sequence : Reconstituer dossier par modification
+
+title Diagramme de sequence : Reconstituer un dossier par modification
 hide footbox
 Actor "RAMQ" as ramq
-activate ramq
+
 hide footbox
-ramq -> Main: reconstituerDossierModification()
+ramq -> Main: reconstituerDossierModification(id , modification)
 activate Main
-Main -> SourceDonnees: findByIdAndModification()
+Main -> SourceDonnees: findByIdAndModification(id , modification)
 activate SourceDonnees
 database Bd as "bd"
 activate Bd
@@ -19,11 +20,9 @@ else patient trouvé
 Bd --> SourceDonnees: dossierJson
 deactivate Bd
 SourceDonnees --> Main: dossierJson
-Main --> ramq: dossierJson
-end
 deactivate SourceDonnees
-
+Main --> ramq: dossierJson
 deactivate Main
-deactivate ramq
+end
 
 @enduml
