@@ -3,7 +3,7 @@
 title Diagramme de séquence : Enregistrer Dossier
 hide footbox
 
-actor "Medecin" as doc
+actor "Medecin/Patient" as doc
 
 participant "<<UI>> PrescripteurVue " as pv
 participant "_: PrescripteurControlleur" as pc
@@ -20,28 +20,31 @@ activate pc
 pc -> ses : enregistrerDossier ()
 activate ses
 opt modified
-ses -> do : ajouterVisite(nouvelleVisite)
-activate do
-do --> ses
-deactivate do
-ses -> do : ajouterAntecedent(nouvelAntecedent)
-activate do
-do --> ses
-deactivate do
-ses -> sd : update(dossier)
-activate sd
-sd ->> bd : requete
-sd -> sd : dossierToJson(dossier)
-sd ->> bd : requete
-sd --> ses
-deactivate sd
+    opt User = Medecin
+        ses -> do : ajouterVisite(nouvelleVisite)
+        activate do
+        do --> ses
+        deactivate do
+        opt
+            ses -> do : ajouterAntecedent(nouvelAntecedent)
+            activate do
+            do --> ses
+            deactivate do
+        end
+    end
+    ses -> sd : update(dossier)
+    activate sd
+    sd ->> bd : requete
+    sd -> sd : dossierToJson(dossier)
+    sd ->> bd : requete
+    sd --> ses
+    deactivate sd
 end
 
 ses --> pc
 deactivate ses
 pc --> pv 
 deactivate pc
-
 
 
 @enduml
