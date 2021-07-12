@@ -3,7 +3,7 @@
 title Diagramme de séquence : Telecharger Dossier
 hide footbox
 
-actor "Prescripteur" as doc
+actor "Utilisateur" as doc
 
 participant "<<UI>> PrescripteurVue " as pv
 participant "_: PrescripteurControlleur" as pc

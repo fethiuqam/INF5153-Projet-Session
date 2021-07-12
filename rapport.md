@@ -42,18 +42,20 @@
 <br>
 
 
-
 **Table des matières**
 
 [[_TOC_]]
 
-<div id='id-section1'/>
 
-## Diagramme des usecases
+
+## Diagramme des cas d'utilisations
+
+On distingue sur ce diagramme 3 types d'acteurs humains qui sont tous des utilisateurs du système, anisi qu'un acteur système qui est la RAMQ.
+
 
 ![Diagramme des usecases](models/Diagramme_Usecases/usecase_diagram.png)
 
-<div id='id-section2'/>
+
 
 ## Diagrammes de classe
 
@@ -66,7 +68,6 @@ Les types d'acteurs qui intéragissent avec le système du dossier médical cent
 
 De ce fait, on modélise un diagramme de classe pour chaque type d'acteur utilisant une application spécifique à son besoin.
 
-<div id='id-section3'/>
 
 ### Diagramme de classe De l'application du medecin
 
@@ -76,7 +77,7 @@ Ces deux classes permettent à l'utilisateur de modifier certaines données tel 
 
 ![Diagramme de classe du medecin](models/Diagramme_Classes/medecin/class_diagram_medecin_mvc.png)
 
-<div id='id-section4'/>
+
 
 ### Diagramme de classe De l'application du professionnel
 
@@ -86,7 +87,6 @@ L'utilisateur ne pourra modifier aucune information sur le dossier, mais peut le
 
 ![Diagramme de classe du professionnel](models/Diagramme_Classes/professionnel/class_diagram_professionnel_mvc.png)
 
-<div id='id-section5'/>
 
 ### Diagramme de classe De l'application de l'assuré (application web et mobile) 
 
@@ -94,28 +94,33 @@ La modélisation de l'application utilisée par l'assuré se distingue aussi par
 
 ![Diagramme de classe de l'assuré](models/Diagramme_Classes/assure/class_diagram_assure_mvc.png)
 
-<div id='id-section6'/>
+
 
 ### Diagramme de classe De l'application de la RAMQ
 
+La modélisation de l'application utilisée par le système RAMQ consiste en une application en ligne de commande, la communication entre le système RAMQ et notre système se fait exclusivement par des objets JSON sous forme de texte.
 
-<div id='id-section7'/>
+![Diagramme de classe de l'assuré](models/Diagramme_Classes/ramq/class_diagram_ramq.png)
+
 
 ## Diagrammes de séquence 
 
-<div id='id-section8'/>
 
 ### Diagramme de séquence : S'authentifier
 
+Ce cas d'utilisation est déclenché par un utilisateur. le résultat obtenu est l'authentification de l'utilisateur sur le système pour accéder à d'autres fonctionnalités. 
+
 ![Diagramme de séquence s'authentifier](models/Diagramme_Sequences/S'authentifier/sequence_diagram_authentifier.png)
 
-<div id='id-section9'/>
+
 
 ### Diagramme de séquence : Télécharger dossier
 
+Ce cas d'utilisation est déclenché par un utilisateur. le résultat obtenu est le chargement du dossier du patient sur le système pour être manipulé ou consulté par l'utilisateur de l'application. 
+
 ![Diagramme de séquence télécharger dossier](models/Diagramme_Sequences/Telecharger_dossier/sequence_diagram_telechargerDossier.png)
 
-<div id='id-section10'/>
+
 
 ### Diagramme de séquence : Consulter l'historique des visites
 
@@ -124,7 +129,6 @@ Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat 
 ![Diagramme de séquence consulter historique visites](models/Diagramme_Sequences/Consulter_historiqe_visites/sequence_diagram_consulter_historique.png)
 
 
-<div id='id-section11'/>
 
 ### Diagramme de séquence : Consulter l'historique des traitements
 
@@ -140,7 +144,6 @@ Ce cas d'utilisation est déclenché par le chargement du dossier. le résultat 
 ![Diagramme de séquence Consulter les coordonnées](models/Diagramme_Sequences/Consulter_coordonnees/sequence_diagram_consulter_coordonnees.png)
 
 
-<div id='id-section14'/>
 
 ### Diagramme de séquence : Ajouter une nouvelle visite
 
@@ -150,7 +153,6 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 ![Diagramme de séquence Ajouter une nouvelle visite](models/Diagramme_Sequences/Creer_visite/sequence_diagram_nouvelle_visite.png)
 
 
-<div id='id-section15'/>
 
 ### Diagramme de séquence : Ajouter un nouvel antécédent
 
@@ -160,7 +162,6 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur. le
 ![Diagramme de séquence Ajouter un nouvel antécédent](models/Diagramme_Sequences/Ajouter_antecedent/sequence_diagram_ajouter_antecedent.png)
 
 
-<div id='id-section151'/>
 
 ### Diagramme de séquence : Modifier antécédent
 
@@ -169,7 +170,6 @@ Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur sur
 
 ![Diagramme de séquence Modifier un antécédent](models/Diagramme_Sequences/Modifier_antecedent/sequence_diagram_modifier_antecedent.png)
 
-<div id='id-section16'/>
 
 ### Diagramme de séquence : modifier les coordonnées
 
@@ -177,14 +177,14 @@ Ce cas d'utilisation est déclenché par le patient. La saisies des nouvelles do
 ![Diagramme de séquence modifier les coordonnées](models/Diagramme_Sequences/Modifier_Coordonnees/diag_seq_modifier_coordonnees.png)
 
 
-<div id='id-section17'/>
 
 ### Diagramme de séquence : Annuler les modifications
+
+Ce cas d'utilisation est déclenché par un médecin. le résultat obtenu est l'annulation de toute les modifications apportées au dossier du patient téléchargé. 
 
 ![Diagramme de séquence Annuler les modifications](models/Diagramme_Sequences/Annuler_modification/sequence_diagram_annuler_modification.png)
 
 
-<div id='id-section18'/>
 
 ### Diagramme de séquence : Enregistrer le dossier
 
@@ -193,30 +193,28 @@ Ce cas d'utilisation est déclenché par le médecin ou patient sur la vue corre
 ![Diagramme de séquence Enregistrer le dossier](models/Diagramme_Sequences/Enregistrer_dossier/sequence_diagram_enregistrer_dossier.png)
 
 
-<div id='id-section19'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par date
-Ce cas d'utilisation est déclenché par la RAMQ. Un requête est alors envoyée à la base de données qui contient l'archive des dossier et effectue une recherche selon la date. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
+Ce cas d'utilisation est déclenché par la RAMQ. Une requête est alors envoyée à la base de données qui contient l'archive des dossier et effectue une recherche selon la date. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
 
 ![Diagramme de séquence Reconstruire le dossier par date](models/Diagramme_Sequences/Reconstruire_dossier_date/dossierDate_code.png)
 
 
-<div id='id-section20'/>
 
 ### Diagramme de séquence : Reconstruire le dossier par modification
-Ce cas d'utilisation est déclenché par la RAMQ. Un requête est alors envoyée à la base de données qui contient l'archive des dossier effectue une recherche selon la modification entrée. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
+Ce cas d'utilisation est déclenché par la RAMQ. Une requête est alors envoyée à la base de données qui contient l'archive des dossier effectue une recherche selon la modification entrée. Une fois le dossier trouvé, un fichier JSON contenant les informations du dossier est retourné à la RAMQ. 
 
 
 ![Diagramme de séquence Reconstruire le dossier par modification](models/Diagramme_Sequences/Reconstruire_dossier_modification/reconstruireDossier_Modification.png)
 
 
-<div id='id-section21'/>
 
 ### Diagramme de séquence : Création d'un dossier
 
+Ce cas d'utilisation est déclenché par la RAMQ. le résultat obtenu est la céation d'un nouveau dossier au niveau de la base de données du système à partir des informations de l'assuré fournies par le système RAMQ dont le numéro d'assurance, nom, prénom, date de naissance ... etc 
+
 ![Diagramme de séquence Création d'un dossier](models/Diagramme_Sequences/Creer_Dossier/creerDossier_code.png)
 
-<div id='id-section22'/>
 
 
 ## Diagramme de packages
@@ -232,21 +230,21 @@ On peut séparer les classes de notre application en cinq packages différents :
 ![Diagramme de packages](models/Diagramme_Package/package_diagram.png)
 
 
-<div id='id-section22'/>
+
 
 ## Diagramme de composants
+
+Ce diagramme nous informe que le système est composé d'un serveur centralisé responsable de la sauvegarde des dossiers des assurées, ainsi que plusieurs types d'applications qui communiquent avec ce serveur par le protocole HTTPS.
 
 ![Diagramme de composants](models/Diagramme_Composant/diag_component.png)
 
 
-<div id='id-section23'/>
 
 ## Diagramme de déploiement du système
 
 ![Diagramme de déploiement](models/Diagramme_Deploiement_Systeme/system_deployment_diagram.png)
 
 
-<div id='id-section24'/>
 
 ## Justification des responsabilités des classes selon le pattern GRASP
 
