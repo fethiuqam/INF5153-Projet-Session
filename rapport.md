@@ -356,5 +356,35 @@ On peut séparer les classes de notre application en cinq packages différents :
     + **getCoordonnées()**<br>
         Specialiste de l'information : La classe Patient a la responsabilité de recuperer les coordonnées car c'est elle qui contient  une instance d'un objet appartenant a la classe "Coordonnées".
 
+- **Coordonnees**
+    
+    + **Générale**<br>
+        Forte Cohésion: cette classe est composée de trois attributs: l’adresse qui est de type String, le téléphone de type string et enfin le courriel qui lui aussi est de type string. Elle possède aussi les méthodes getters et setters qui permettent d’initialiser ces attributs et de les retourner. Tous les éléments qui constituent cette classe sont fortement liés et très ciblé. De plus, cette classe a un faible couplage puisqu’elle est couplée uniquement à la classe Patient. Il est donc facile de comprendre le rôle que joue cette classe dans notre conception et permet ainsi d’orienter les objets de façon correcte. 
+    + **setAdresse()**<br>
+        Spécialiste de l'information : La classe coordonnées a la responsabilité d'attribuer une valeur à l'attribut adresse car c'est elle qui contient la variable adresse.
+    + **setTelephone()**<br>
+        Spécialiste de l'information : La classe coordonnées a la responsabilité d'attribuer une valeur à l'attribut téléphone car c'est elle qui contient la variable téléphone.
+    + **setCourriel()**<br>
+        Spécialiste de l'information : La classe coordonnées a la responsabilité d'attribuer une valeur à l'attribut courriel car c'est elle qui contient la variable courriel.
+
+- **Traitement**
+    
+    + **Générale**<br>
+        Faible couplage: cette classe possède une seule attribut: description qui contient les informations sur le traitement d'un patient. Cet attribut est utilisé par les classe Visite et Antécédents et possède un potentiel de réutilisabilité. Son couplage faible lui permet ne pas impacter les autres classes en cas de changements. 
+
+- **Diagnostic**
+    
+    + **Générale**<br>
+        Faible couplage: cette classe possède une seule attribut: description qui contient les informations sur le diagnostic d'un patient. Cet attribut est utilisé par les classe Visite et Antécédents et possède un potentiel de réutilisabilité. Son couplage faible lui permet ne pas impacter les autres classes en cas de changements. 
+
+- **Médecin**
+    
+    + **Général**<br>
+        Spécialiste de l'information: La classe médecin est composé de quatre attributs: nom, prénom,permis, spécialité. Elle s'occupe d'attribuer une valeur à ces quatre attributs car elle est composée de ceux-ci. 
+
+- **Etablissement**      
+     
+    + **Général**<br>
+         Faible couplage: Cette classe correspond à l'établissment auquel le médecin est assigné et est composée de deux attributs: le numéro d'identifiaction de l'établissement et son nom. Elle est donc seulement couplée à la classe Médecin. 
 
 
