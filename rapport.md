@@ -188,7 +188,7 @@ Ce cas d'utilisation est déclenché par le patient. La saisies des nouvelles do
 
 ### Diagramme de séquence : Enregistrer le dossier
 
-Ce cas d'utilisation est déclenché par le médecin sur la vue Prescripteur . En cas de modification de dossier, le résultat obtenu est la mise à jour du dossier sur la base de données distante avec une création d'une nouvelle ligne sur la table archive incluant un objet json contenant toutes les information de l'objet dossier et correspondant à la date du mise à jour et le numéro d'assurance du patient.
+Ce cas d'utilisation est déclenché par le médecin ou patient sur la vue correspondante au type d'utilisateur . En cas de modification de dossier, le résultat obtenu est la mise à jour du dossier sur la base de données distante avec une création d'une nouvelle ligne sur la table archive incluant un objet json contenant toutes les information de l'objet dossier et correspondant à la date du mise à jour et le numéro d'assurance du patient. Si l'utilisateur utiilise l'application destinée a un patient, il n'y a pas besoin d'intéragir avec le "Dossier" car le dossier a déja ete modifié lors de l'appel "modifierCoordonnées()". Cependant, si il s'agit d'un médecin, la "Visite" et l'"Antecedent" (si applicable) ont seulement été crées, nous devons donc intéragir avec le dossier pour les rajouter avant de mettre a jour les bases de données. 
 
 ![Diagramme de séquence Enregistrer le dossier](models/Diagramme_Sequences/Enregistrer_dossier/sequence_diagram_enregistrer_dossier.png)
 
