@@ -1,4 +1,4 @@
-package com.uqam;
+package com.uqam.main;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

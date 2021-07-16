@@ -1,4 +1,4 @@
-package com.uqam;
+package com.uqam.main;
 
 
 import javafx.application.Application;

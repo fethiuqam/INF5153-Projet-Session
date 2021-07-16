@@ -63,7 +63,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>com.uqam.Main</mainClass>
+                    <mainClass>com.uqam.main.Main</mainClass>
                 </configuration>
             </plugin>
 
@@ -76,7 +76,7 @@
                         <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.uqam.Main</mainClass>
+                            <mainClass>com.uqam.main.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
