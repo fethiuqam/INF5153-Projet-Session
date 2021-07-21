@@ -30,6 +30,14 @@ public class Folder implements Cloneable{
     @JoinColumn(name="folder", referencedColumnName="id")
     private Set<Antecedent> antecedents = new HashSet<>();
 
+    private void addVisit(Visit visite){
+        visits.add(visite);
+    }
+    private void addAntecedent(Antecedent antecedent){
+        antecedents.add(antecedent);
+    }
+
+
     public Patient getPatient() {
         return owner;
     }
