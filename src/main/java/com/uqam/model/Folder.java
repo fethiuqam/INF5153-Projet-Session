@@ -30,7 +30,7 @@ public class Folder implements Cloneable{
     @JoinColumn(name="folder", referencedColumnName="id")
     private Set<Antecedent> antecedents = new HashSet<>();
 
-    public Patient getOwner() {
+    public Patient getPatient() {
         return owner;
     }
 
