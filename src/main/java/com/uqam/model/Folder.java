@@ -8,7 +8,7 @@ public class Folder {
     private List<Visit> visits;
     private List<Antecedent> antecedents;
 
-    public Patient getOwner() {
+    public Patient getPatient() {
         return owner;
     }
 
