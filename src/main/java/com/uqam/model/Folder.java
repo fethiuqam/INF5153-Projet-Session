@@ -8,6 +8,14 @@ public class Folder {
     private List<Visit> visits;
     private List<Antecedent> antecedents;
 
+    private void addVisit(Visit visite){
+        visits.add(visite);
+    }
+    private void addAntecedent(Antecedent antecedent){
+        antecedents.add(antecedent);
+    }
+
+
     public Patient getPatient() {
         return owner;
     }
