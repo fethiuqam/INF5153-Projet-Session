@@ -1,15 +1,35 @@
 package com.uqam.model;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "tVisits")
 public class Visit {
 
+    @Id
+    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    private long id;
+
+    @Column(name = "date_")
     private Date date;
     private String summary;
-    private List<String> notes;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="visit", referencedColumnName="id")
+    private List<Note> notes;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="treatment")
     private Treatment treatment;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="diagnostic")
     private Diagnostic diagnostic;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="doctor")
     private Doctor doctor;
 
     public Date getDate() {
@@ -20,7 +40,7 @@ public class Visit {
         return summary;
     }
 
-    public List<String> getNotes() {
+    public List<Note> getNotes() {
         return notes;
     }
 
@@ -34,5 +54,17 @@ public class Visit {
 
     public Doctor getDoctor() {
         return doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "date=" + date +
+                ", summary='" + summary + '\'' +
+                ", notes=" + notes +
+                ", treatment=" + treatment +
+                ", diagnostic=" + diagnostic +
+                ", doctor=" + doctor +
+                '}';
     }
 }
