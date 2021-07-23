@@ -17,7 +17,9 @@ public class Patient {
     private long id;
     private String firstname;
     private String lastname;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private Date dateOfBirth;
     private String birthCity;
     private String insuranceNumber;
@@ -40,7 +42,7 @@ public class Patient {
         return lastname;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
