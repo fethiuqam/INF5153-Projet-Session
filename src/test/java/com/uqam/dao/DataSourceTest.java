@@ -24,7 +24,7 @@ public class DataSourceTest {
     public void findByUsernameAndPasswordTestSuccess(){
         String username = "docteur01";
         String password = "111111";
-        String expected = "User{username='docteur01', password='111111', " +
+        String expected = "User{username='docteur01', password='3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', " +
                 "doctor=Doctor{firstname='Marsilius', lastname='Dupuis', " +
                 "permit='13698', specialty='médecine de famille', " +
                 "establishment=Establishment{identification='123456', designation='CHUM de montréal'}}}";

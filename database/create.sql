@@ -119,9 +119,9 @@ VALUES
 
 INSERT INTO tUsers (username, password, doctor)
 VALUES
-    ('docteur01', '111111', 1),
-    ('docteur02', '222222', 2),
-    ('docteur03', '333333', 3);
+    ('docteur01', '3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', 1), -- password = 111111
+    ('docteur02', '273a0c7bd3c679ba9a6f5d99078e36e85d02b952', 2), -- password = 222222
+    ('docteur03', '77bce9fb18f977ea576bbcd143b2b521073f0cd6', 3); -- password = 333333
 
 INSERT INTO tContacts (address, phone, email)
 VALUES
