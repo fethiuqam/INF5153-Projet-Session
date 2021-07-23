@@ -1,8 +1,12 @@
 package com.uqam.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tVisits")
@@ -17,8 +21,9 @@ public class Visit {
     private String summary;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name="visit", referencedColumnName="id")
-    private List<Note> notes;
+    private Set<Note> notes = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="treatment")
@@ -40,7 +45,7 @@ public class Visit {
         return summary;
     }
 
-    public List<Note> getNotes() {
+    public Set<Note> getNotes() {
         return notes;
     }
 

@@ -24,4 +24,13 @@ public class Contact {
     public String getEmail() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

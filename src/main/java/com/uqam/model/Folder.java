@@ -1,7 +1,12 @@
 package com.uqam.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
 
 @Entity
 @Table(name = "tFolders")
@@ -16,22 +21,24 @@ public class Folder {
     private Patient owner;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name="folder", referencedColumnName="id")
-    private List<Visit> visits;
+    private Set<Visit> visits = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name="folder", referencedColumnName="id")
-    private List<Antecedent> antecedents;
+    private Set<Antecedent> antecedents = new HashSet<>();
 
     public Patient getOwner() {
         return owner;
     }
 
-    public List<Visit> getVisits() {
+    public Set<Visit> getVisits() {
         return visits;
     }
 
-    public List<Antecedent> getAntecedents() {
+    public Set<Antecedent> getAntecedents() {
         return antecedents;
     }
 
@@ -40,7 +47,7 @@ public class Folder {
         return "Folder{" +
                 "owner=" + owner +
                 ", visits=" + visits +
-                ", antecedents=" + antecedents +
+                ", antecedents=" + antecedents.toString() +
                 '}';
     }
 }

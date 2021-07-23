@@ -11,6 +11,7 @@ public class Antecedent {
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
 
+    @Column(name = "biginning")
     private Date beginning;
 
     @Column(name = "end_")

@@ -1,4 +1,5 @@
 package com.uqam.dao;
+import com.uqam.model.Folder;
 import com.uqam.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,6 +21,23 @@ public class DataSource implements Searchable {
             entityManager = entityManagerFactory.createEntityManager();
             result = entityManager.createQuery("FROM User u WHERE u.username = ?1 and u.password = ?2", User.class)
                     .setParameter(1,username).setParameter(2,password).getSingleResult();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally {
+            if ( entityManager != null ) entityManager.close();
+            if ( entityManagerFactory != null ) entityManagerFactory.close();
+        }
+        return result;
+    }
+
+    @Override
+    public Folder findById(String id) {
+        Folder result = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("database");
+            entityManager = entityManagerFactory.createEntityManager();
+            result = entityManager.createQuery("FROM Folder f WHERE f.owner.insuranceNumber = ?1 ", Folder.class)
+                    .setParameter(1,id).getSingleResult();
         } catch (Exception e){
             System.out.println(e.getMessage());
         } finally {

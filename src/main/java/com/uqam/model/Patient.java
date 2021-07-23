@@ -1,8 +1,12 @@
 package com.uqam.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tPatients")
@@ -13,7 +17,7 @@ public class Patient {
     private long id;
     private String firstname;
     private String lastname;
-    private Gender gender;
+    private String gender;
     private Date dateOfBirth;
     private String birthCity;
     private String insuranceNumber;
@@ -23,9 +27,10 @@ public class Patient {
     private Contact contact;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     @JoinTable( name = "tParents", joinColumns = @JoinColumn( name = "fils" ),
             inverseJoinColumns = @JoinColumn( name = "parent" ) )
-    private List<Patient> parents;
+    private Set<Patient> parents = new HashSet<>();
 
     public String getFirstname() {
         return firstname;
@@ -35,7 +40,7 @@ public class Patient {
         return lastname;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
