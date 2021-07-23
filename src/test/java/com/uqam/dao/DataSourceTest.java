@@ -1,7 +1,10 @@
 package com.uqam.dao;
 
+import com.uqam.model.Folder;
+import com.uqam.model.Patient;
 import com.uqam.model.User;
 import org.junit.jupiter.api.*;
+
 
 public class DataSourceTest {
 
@@ -17,7 +20,7 @@ public class DataSourceTest {
         source = null;
     }
 
-        @Test
+    @Test
     public void findByUsernameAndPasswordTestSuccess(){
         String username = "docteur01";
         String password = "111111";
@@ -37,4 +40,22 @@ public class DataSourceTest {
         Assertions.assertNull(user);
     }
 
+    @Test
+    public void findByIdTestSuccess(){
+        String id = "MORS12452196";
+        String expected = "Patient{firstname='Susan', lastname='Morganti', gender=FEMALE, " +
+                "dateOfBirth=1952-02-03, birthCity='Montreal', insuranceNumber='MORS12452196', " +
+                "contact=Contact{address='2401 rue Ontario Ouest Montreal, QC H2X 1Y8', " +
+                "phone='514-350-9159', email='SusanKMorganti@armyspy.com'}, parents=[]}";
+        Folder folder = source.findById(id);
+        Patient patient = folder.getOwner();
+        Assertions.assertEquals(expected, patient.toString());
+    }
+
+    @Test
+    public void findByIdTestFailed(){
+        String id = "MORS452196";
+        Folder folder = source.findById(id);
+        Assertions.assertNull(folder);
+    }
 }
