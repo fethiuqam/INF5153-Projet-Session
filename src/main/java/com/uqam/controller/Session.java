@@ -36,15 +36,20 @@ public class Session implements Authenticable{
     }
 
     public boolean saveFolder(){
-        return true;
+        boolean result = true ;
+        if (modified && folder != null) {
+            result = dataSource.update(folder)
+                    && dataSource.archiveModification(folder);
+        }
+        return result;
     }
 
-    public boolean cerateNewVisit(){
-        return true;
+    public void cerateNewVisit(){
+        newVisit = new Visit();
     }
 
-    public boolean cerateNewAntecedent(){
-        return true;
+    public void cerateNewAntecedent(){
+        newAntecedent = new Antecedent();
     }
 
     public boolean resetFolder(){
