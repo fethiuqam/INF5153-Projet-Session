@@ -1,20 +1,35 @@
 package com.uqam.controller;
 
+import com.uqam.dao.DataSource;
 import com.uqam.model.Antecedent;
+import com.uqam.model.Folder;
+import com.uqam.model.User;
 import com.uqam.model.Visit;
 
 import java.util.Set;
 
 public class Session implements Authenticable{
 
+    private Visit newVisit;
+    private Antecedent newAntecedent;
+    private User user;
+    private Folder folder;
+    private DataSource dataSource;
+
+    public Session (){
+        dataSource = new DataSource();
+    }
+
+
     @Override
     public boolean login(String username, String password) {
-        return true;
+        user = dataSource.findByUsernameAndPassword(username, password);
+        return user != null;
     }
 
     public boolean downloadFolder(String insuranceNumber){
-
-        return true;
+        folder = dataSource.findById(insuranceNumber);
+        return folder != null;
     }
 
     public boolean saveFolder(){
