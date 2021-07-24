@@ -1,10 +1,9 @@
 package com.uqam.dao;
 import com.uqam.model.Folder;
 import com.uqam.model.User;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import org.hibernate.Session;
+
+import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -76,7 +75,7 @@ public class DataSource implements Searchable, Editable {
             entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
-            entityManager.persist(folder);
+            entityManager.unwrap(Session.class).saveOrUpdate(folder);
             transaction.commit();
         } catch (Exception e){
             System.out.println(e.getMessage());

@@ -1,10 +1,10 @@
 package com.uqam.dao;
 
+import com.uqam.model.Antecedent;
 import com.uqam.model.Folder;
 import com.uqam.model.Patient;
 import com.uqam.model.User;
 import org.junit.jupiter.api.*;
-
 
 public class DataSourceTest {
 
@@ -57,5 +57,23 @@ public class DataSourceTest {
         String id = "MORS452196";
         Folder folder = source.findById(id);
         Assertions.assertNull(folder);
+    }
+
+    @Test
+    public void updateSuccess(){
+        String id = "DONL98632897";
+        String expected1 = "[]";
+        String expected2 = "[Antecedent{beginning=null, end=null, treatment=null, diagnostic=null, prescriber=null}]";
+        Folder folder1 = source.findById(id);
+        Assertions.assertEquals(expected1, folder1.getAntecedents().toString());
+        Antecedent a = new Antecedent();
+        folder1.getAntecedents().add(a);
+        source.update(folder1);
+        Folder folder2 = source.findById(id);
+        Assertions.assertEquals(expected2, folder2.getAntecedents().toString());
+        folder2.getAntecedents().clear();
+        source.update(folder2);
+        Folder folder3 = source.findById(id);
+        Assertions.assertEquals(expected1, folder3.getAntecedents().toString());
     }
 }

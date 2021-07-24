@@ -129,30 +129,25 @@ VALUES
     ('2401 rue Ontario Ouest Montreal, QC H2X 1Y8', '514-698-9412', 'AlexRPokorny@dayrep.com'),
     ('2864 rue Levy Montreal, QC H3C 5K4', '514-926-9832', 'DavidPokorny@yahoo.com'),
     ('1652 Boulevard Cremazie Quebec, QC G1R 1B8', '418-528-6040', 'WilliamS@gmail.com'),
-    ('1109 De la Providence Avenue Hull, QC J8Y 4B1', '819-318-7555', NULL);
+    ('1109 De la Providence Avenue Hull, QC J8Y 4B1', '819-318-7555', NULL),
+    ('3753 Boulevard Laflèche Riviere Du Loup, QC G5R 3Y4', '418-866-4854', 'LuisADonaldson@teleworm.us');
+
 
 
 INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact)
 VALUES
-    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000.1, 'Montreal', 'MORS12452196', 1),
-    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000.1, 'Quebec', 'POKA36952365', 2),
-    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', 'POKD63259145', 3),
-    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000.1, 'Quebec', 'SNIW65971398', 4),
-    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000.1, 'Trois Rivieres', 'LESRW36946970', 5);
+    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000, 'Montreal', 'MORS12452196', 1),
+    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000, 'Quebec', 'POKA36952365', 2),
+    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000, 'Montreal', 'POKD63259145', 3),
+    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000, 'Quebec', 'SNIW65971398', 4),
+    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000, 'Trois Rivieres', 'LESRW36946970', 5),
+    ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000, 'Riviere Du Loup', 'DONL98632897', 6);
 
  INSERT INTO tParents (fils, parent)
  VALUES (3,1), (3,2), (4,5);
 
  INSERT INTO tFolders (owner)
- VALUES (1), (2), (3), (4), (5);
-
-INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact)
-VALUES
-    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000.1, 'Montreal', 'MORS12452196', 1),
-    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000.1, 'Quebec', 'POKA36952365', 2),
-    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', 'POKD63259145', 3),
-    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000.1, 'Quebec', 'SNIW65971398', 4),
-    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000.1, 'Trois Rivieres', 'LESRW36946970', 5);
+ VALUES (1), (2), (3), (4), (5), (6);
 
 INSERT INTO tTreatments (designation)
 VALUES
