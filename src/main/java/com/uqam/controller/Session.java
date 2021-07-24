@@ -74,11 +74,27 @@ public class Session implements Authenticable{
     }
 
     public Set<Visit> getMutableVisits(){
-        return null;
+        Set<Visit> results = new HashSet<>();
+        if(user != null && folder != null){
+            for (Visit v: folder.getVisits()) {
+                if (v.getDoctor().equals(user.getDoctor())){
+                    results.add(v);
+                }
+            }
+        }
+        return results;
     }
 
     public Set<Visit> getImmutableVisits(){
-        return null;
+        Set<Visit> results = new HashSet<>();
+        if(user != null && folder != null){
+            for (Visit v: folder.getVisits()) {
+                if (!v.getDoctor().equals(user.getDoctor())){
+                    results.add(v);
+                }
+            }
+        }
+        return results;
     }
 
 
