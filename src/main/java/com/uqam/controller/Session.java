@@ -6,6 +6,7 @@ import com.uqam.model.Folder;
 import com.uqam.model.User;
 import com.uqam.model.Visit;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Session implements Authenticable{
@@ -49,11 +50,27 @@ public class Session implements Authenticable{
     }
 
     public Set<Antecedent> getMutableAntecedents(){
-        return null;
+        Set<Antecedent> results = new HashSet<>();
+        if(user != null && folder != null){
+            for (Antecedent a: folder.getAntecedents()) {
+                if (a.getPrescriber().equals(user.getDoctor())){
+                    results.add(a);
+                }
+            }
+        }
+        return results;
     }
 
     public Set<Antecedent> getImmutableAntecedents(){
-        return null;
+        Set<Antecedent> results = new HashSet<>();
+        if(user != null && folder != null){
+            for (Antecedent a: folder.getAntecedents()) {
+                if (!a.getPrescriber().equals(user.getDoctor())){
+                    results.add(a);
+                }
+            }
+        }
+        return results;
     }
 
     public Set<Visit> getMutableVisits(){
