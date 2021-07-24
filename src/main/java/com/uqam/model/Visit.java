@@ -1,15 +1,40 @@
 package com.uqam.model;
 
-import java.util.Date;
-import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "tVisits")
 public class Visit {
 
+    @Id
+    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    private long id;
+
+    @Column(name = "date_")
     private Date date;
     private String summary;
-    private List<String> notes;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name="visit", referencedColumnName="id")
+    private Set<Note> notes = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="treatment")
     private Treatment treatment;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="diagnostic")
     private Diagnostic diagnostic;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="doctor")
     private Doctor doctor;
 
     public Date getDate() {
@@ -20,7 +45,7 @@ public class Visit {
         return summary;
     }
 
-    public List<String> getNotes() {
+    public Set<Note> getNotes() {
         return notes;
     }
 
@@ -34,5 +59,17 @@ public class Visit {
 
     public Doctor getDoctor() {
         return doctor;
+    }
+
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "date=" + date +
+                ", summary='" + summary + '\'' +
+                ", notes=" + notes +
+                ", treatment=" + treatment +
+                ", diagnostic=" + diagnostic +
+                ", doctor=" + doctor +
+                '}';
     }
 }
