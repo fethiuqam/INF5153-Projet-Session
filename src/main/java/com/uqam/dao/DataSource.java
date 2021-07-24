@@ -3,17 +3,18 @@ import com.uqam.model.Folder;
 import com.uqam.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class DataSource implements Searchable {
+public class DataSource implements Searchable, Editable {
 
     EntityManagerFactory entityManagerFactory;
     EntityManager entityManager;
-
+    EntityTransaction transaction;
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
@@ -60,6 +61,28 @@ public class DataSource implements Searchable {
                     .setParameter(1,id).getSingleResult();
         } catch (Exception e){
             System.out.println(e.getMessage());
+        } finally {
+            if ( entityManager != null ) entityManager.close();
+            if ( entityManagerFactory != null ) entityManagerFactory.close();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean update(Folder folder) {
+        boolean result = true;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("database");
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(folder);
+            transaction.commit();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            result = false;
+            if (transaction != null)
+                transaction.rollback();
         } finally {
             if ( entityManager != null ) entityManager.close();
             if ( entityManagerFactory != null ) entityManagerFactory.close();

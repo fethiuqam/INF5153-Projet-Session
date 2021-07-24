@@ -16,9 +16,11 @@ public class Session implements Authenticable{
     private User user;
     private Folder folder;
     private DataSource dataSource;
+    private boolean modified;
 
     public Session (){
         dataSource = new DataSource();
+        modified = false;
     }
 
 
