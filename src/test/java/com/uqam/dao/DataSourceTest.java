@@ -6,6 +6,11 @@ import com.uqam.model.Patient;
 import com.uqam.model.User;
 import org.junit.jupiter.api.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 public class DataSourceTest {
 
     private DataSource source;
@@ -76,4 +81,37 @@ public class DataSourceTest {
         Folder folder3 = source.findById(id);
         Assertions.assertEquals(expected1, folder3.getAntecedents().toString());
     }
+
+    @Test
+    public void archiveModificationSuccess(){
+        String id = "DONL98632897";
+        String expected = "{\"id\":6,\"owner\":{\"id\":6,\"firstname\":\"Luis\",\"lastname\":\"Donaldson\"," +
+                "\"gender\":\"MALE\",\"dateOfBirth\":\"1970-05-31\",\"birthCity\":\"Riviere Du Loup\"," +
+                "\"insuranceNumber\":\"DONL98632897\",\"contact\":{\"id\":6," +
+                "\"address\":\"3753 Boulevard Laflèche Riviere Du Loup, QC G5R 3Y4\",\"phone\":\"418-866-4854\"," +
+                "\"email\":\"LuisADonaldson@teleworm.us\"},\"parents\":[]},\"visits\":[],\"antecedents\":[]}";
+        Folder folder = source.findById(id);
+        source.archiveModification(folder);
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        Archive archive = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("database");
+            entityManager = entityManagerFactory.createEntityManager();
+            archive = entityManager.createQuery("FROM Archive a WHERE a.insuranceNumber = ?1", Archive.class)
+                    .setParameter(1, id).getResultList().get(0);
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.remove(archive);
+            transaction.commit();
+            Assertions.assertEquals(expected, archive.getFolder());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (entityManager != null) entityManager.close();
+            if (entityManagerFactory != null) entityManagerFactory.close();
+        }
+    }
+
 }

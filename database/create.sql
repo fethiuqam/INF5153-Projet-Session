@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS tContacts;
 DROP TABLE IF EXISTS tUsers;
 DROP TABLE IF EXISTS tDoctors;
 DROP TABLE IF EXISTS tEstablishments;
+DROP TABLE IF EXISTS tArchive;
 
 --Création des tables
 
@@ -102,7 +103,12 @@ CREATE TABLE IF NOT EXISTS tAntecedents (
 	prescriber INTEGER REFERENCES tDoctors
 );
 
-
+CREATE TABLE IF NOT EXISTS tArchive (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	insuranceNumber TEXT NOT NULL,
+   	modificationDate INTEGER NOT NULL,
+	folder TEXT NOT NULL
+);
 
 --Insertion des données de test
 
