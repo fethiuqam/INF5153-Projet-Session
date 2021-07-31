@@ -17,6 +17,7 @@ public class Session implements Authenticable{
     private Folder folder;
     private DataSource dataSource;
     private boolean modified;
+    private Folder originalFolder;
 
     public Session (){
         dataSource = new DataSource();
@@ -32,6 +33,7 @@ public class Session implements Authenticable{
 
     public boolean downloadFolder(String insuranceNumber){
         folder = dataSource.findById(insuranceNumber);
+        //folder = originalFolder;
         return folder != null;
     }
 
@@ -44,11 +46,11 @@ public class Session implements Authenticable{
         return result;
     }
 
-    public void cerateNewVisit(){
+    public void createNewVisit(){
         newVisit = new Visit();
     }
 
-    public void cerateNewAntecedent(){
+    public void createNewAntecedent(){
         newAntecedent = new Antecedent();
     }
 
