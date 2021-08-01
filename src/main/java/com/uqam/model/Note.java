@@ -12,6 +12,13 @@ public class Note implements Cloneable{
 
     private String content;
 
+    public Note() {
+    }
+
+    public Note(String content) {
+        this.content = content;
+    }
+
     public String getContent() {
         return content;
     }

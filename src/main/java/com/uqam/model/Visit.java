@@ -2,9 +2,9 @@ package com.uqam.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import java.sql.Date;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,26 +37,34 @@ public class Visit implements Cloneable {
     @JoinColumn(name = "doctor")
     private Doctor doctor;
 
+    public Visit() {
+    }
+
+    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+        this.date = date;
+        this.summary = summary;
+        this.notes = notes;
+        this.treatment = treatment;
+        this.diagnostic = diagnostic;
+        this.doctor = doctor;
+    }
+
+
     public Date getDate() {
         return date;
     }
-
     public String getSummary() {
         return summary;
     }
-
     public Set<Note> getNotes() {
         return notes;
     }
-
     public Treatment getTreatment() {
         return treatment;
     }
-
     public Diagnostic getDiagnostic() {
         return diagnostic;
     }
-
     public Doctor getDoctor() {
         return doctor;
     }

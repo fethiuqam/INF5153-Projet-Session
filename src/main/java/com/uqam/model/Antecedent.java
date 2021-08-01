@@ -40,6 +40,8 @@ public class Antecedent implements Cloneable {
         this.prescriber = prescriber;
     }
 
+    //getters
+
     public Date getBeginning() {
         return beginning;
     }
@@ -58,6 +60,28 @@ public class Antecedent implements Cloneable {
 
     public Doctor getPrescriber() {
         return prescriber;
+    }
+
+    //setters
+
+    public void setBeginning(Date beginning) {
+        this.beginning = beginning;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public void setDiagnostic(Diagnostic diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
+    public void setPrescriber(Doctor prescriber) {
+        this.prescriber = prescriber;
     }
 
     @Override

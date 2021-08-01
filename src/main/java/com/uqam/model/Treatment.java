@@ -11,8 +11,17 @@ public class Treatment implements Cloneable{
     private long id;
     private String designation;
 
+    public Treatment() {
+    }
+
     public Treatment(String designation) {
         this.designation = designation;
+    }
+
+    //methode to validate the length of the Treatment to make it suppose to be used
+
+    private boolean validTreatment(String designation){
+        return designation.length()>9;
     }
 
     public String getDesignation() {

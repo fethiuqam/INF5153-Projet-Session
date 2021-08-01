@@ -12,15 +12,22 @@ public class Establishment implements Cloneable{
     private String identification;
     private String designation ;
 
+    public Establishment(){}
+
     public Establishment(String id, String designation) {
         this.identification = id;
         this.designation = designation;
     }
 
+    //method to validate the length of the establishment
+    public boolean validDesignation(String designation){
+        return designation.length()>1;
+    }
+
+    //getters
     public String getId() {
         return identification;
     }
-
     public String getDesignation() {
         return designation;
     }
