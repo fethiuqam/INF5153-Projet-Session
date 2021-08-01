@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tEstablishments")
-public class Establishment {
+public class Establishment implements Cloneable{
 
     @Id @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
@@ -23,6 +23,16 @@ public class Establishment {
 
     public String getDesignation() {
         return designation;
+    }
+
+    @Override
+    protected Establishment clone() {
+        try {
+            return (Establishment) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

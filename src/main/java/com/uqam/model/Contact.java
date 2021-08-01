@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tContacts")
-public class Contact {
+public class Contact implements Cloneable{
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -23,6 +23,16 @@ public class Contact {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    protected Contact clone() {
+        try {
+            return (Contact) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
