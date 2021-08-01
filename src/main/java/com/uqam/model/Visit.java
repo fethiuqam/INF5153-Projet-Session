@@ -10,10 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tVisits")
-public class Visit implements Cloneable{
+public class Visit implements Cloneable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "date_")
@@ -22,19 +22,19 @@ public class Visit implements Cloneable{
 
     @OneToMany(cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    @JoinColumn(name="visit", referencedColumnName="id")
+    @JoinColumn(name = "visit", referencedColumnName = "id")
     private Set<Note> notes = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="treatment")
+    @JoinColumn(name = "treatment")
     private Treatment treatment;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="diagnostic")
+    @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="doctor")
+    @JoinColumn(name = "doctor")
     private Doctor doctor;
 
     public Date getDate() {
@@ -68,7 +68,11 @@ public class Visit implements Cloneable{
             clone.treatment = this.treatment.clone();
             clone.diagnostic = this.diagnostic.clone();
             clone.doctor = this.doctor.clone();
-            clone.notes = new HashSet<>(this.notes);
+            Set<Note> notesClone = new HashSet<>();
+            for (Note n :this.notes) {
+                notesClone.add(n.clone());
+            }
+            clone.notes = notesClone;
             return clone;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();

@@ -47,8 +47,16 @@ public class Folder implements Cloneable{
         try {
             Folder clone = (Folder) super.clone();
             clone.owner = this.owner.clone();
-            clone.visits = new HashSet<>(this.visits);
-            clone.antecedents = new HashSet<>(this.antecedents);
+            Set<Visit> visitsClone = new HashSet<>();
+            for (Visit v :this.visits) {
+                visitsClone.add(v.clone());
+            }
+            clone.visits = visitsClone;
+            Set<Antecedent> antecedentsClone = new HashSet<>();
+            for (Antecedent a :this.antecedents) {
+                antecedentsClone.add(a.clone());
+            }
+            clone.antecedents = antecedentsClone;
             return clone;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
