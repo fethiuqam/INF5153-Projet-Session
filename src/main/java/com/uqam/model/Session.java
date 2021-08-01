@@ -1,10 +1,6 @@
-package com.uqam.controller;
+package com.uqam.model;
 
 import com.uqam.dao.DataSource;
-import com.uqam.model.Antecedent;
-import com.uqam.model.Folder;
-import com.uqam.model.User;
-import com.uqam.model.Visit;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +15,8 @@ public class Session implements Authenticable {
     private boolean modified;
     private Folder originalFolder;
 
-    public Session() {
-        dataSource = new DataSource();
+    public Session(DataSource dataSource) {
+        this.dataSource = dataSource;
         modified = false;
     }
 
