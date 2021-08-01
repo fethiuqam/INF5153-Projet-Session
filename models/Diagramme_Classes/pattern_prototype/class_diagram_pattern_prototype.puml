@@ -1,0 +1,23 @@
+@startuml
+
+skinparam nodesep 75
+
+
+class Session {
+   }
+
+
+class Dossier <<Prototype>> {
+
+  + this()
+  - this(d : Dossier)
+  + <<clone>> duplicate(): Student
+  + setName(String)
+  + registerTo(String)
+}
+
+Session --> "1\ndossier original"Dossier
+Session --> "1\ndossier courant"Dossier
+
+
+@enduml
