@@ -11,6 +11,10 @@ public class Treatment {
     private long id;
     private String designation;
 
+    public Treatment(String designation) {
+        this.designation = designation;
+    }
+
     public String getDesignation() {
         return designation;
     }

@@ -29,6 +29,16 @@ public class Antecedent {
     @JoinColumn(name="prescriber")
     private Doctor prescriber;
 
+    public Antecedent(){};
+
+    public Antecedent(Date debut, Date fin, Diagnostic diagnostic, Treatment treatment, Doctor prescriber) {
+        this.beginning = debut;
+        this.end = fin;
+        this.diagnostic = diagnostic;
+        this.treatment = treatment;
+        this.prescriber = prescriber;
+    }
+
     public Date getBeginning() {
         return beginning;
     }

@@ -12,6 +12,11 @@ public class Establishment {
     private String identification;
     private String designation ;
 
+    public Establishment(String id, String designation) {
+        this.identification = id;
+        this.designation = designation;
+    }
+
     public String getId() {
         return identification;
     }

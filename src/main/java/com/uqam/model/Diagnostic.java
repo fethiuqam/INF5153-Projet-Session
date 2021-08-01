@@ -13,6 +13,11 @@ public class Diagnostic {
     @Column(name = "designation")
     private String designation;
 
+    public Diagnostic(String designation) {
+        this.designation = designation;
+    }
+
+
     public String getDesignation() {
         return designation;
     }
