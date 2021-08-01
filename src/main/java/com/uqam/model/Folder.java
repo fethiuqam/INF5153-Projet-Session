@@ -43,7 +43,7 @@ public class Folder implements Cloneable{
     }
 
     @Override
-    protected Folder clone() {
+    public Folder clone() {
         try {
             Folder clone = (Folder) super.clone();
             clone.owner = this.owner.clone();
