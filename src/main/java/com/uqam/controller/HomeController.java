@@ -1,4 +1,4 @@
-package com.uqam.controleur;
+package com.uqam.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HomeControleur {
+public class HomeController {
 
 
     @FXML
@@ -50,5 +50,12 @@ public class HomeControleur {
         }else {
             scannerActivated.setVisible(true);
         }
+    }
+
+    public void newVisite(MouseEvent mouseEvent) throws IOException {
+        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/patientView.fxml"));
+        var scene = new Scene(newRoot);
+        Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+        mainStage.setScene(scene);
     }
 }

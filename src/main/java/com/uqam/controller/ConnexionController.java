@@ -1,4 +1,4 @@
-package com.uqam.controleur;
+package com.uqam.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +10,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class ConnexionControleur {
+public class ConnexionController {
 
     @FXML
     private TextField usrename;

@@ -19,6 +19,14 @@ public class Doctor {
     @JoinColumn( name="establishment" )
     private Establishment establishment;
 
+    public Doctor(String firstname, String lastname, String permit, String specialty, Establishment establishment) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.permit = permit;
+        this.speciality = specialty;
+        this.establishment = establishment;
+    }
+
     public Establishment getEstablishment() {
         return establishment;
     }
