@@ -16,6 +16,15 @@ public class User {
     @JoinColumn( name="doctor")
     private Doctor doctor;
 
+    public User() {
+    }
+
+    public User(String username, String password, Doctor doctor) {
+        this.username = username;
+        this.password = password;
+        this.doctor = doctor;
+    }
+
     public String getUsername() {
         return username;
     }

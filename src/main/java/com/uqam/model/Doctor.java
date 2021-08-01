@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tDoctors")
-public class Doctor {
+public class Doctor implements Cloneable {
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -45,6 +45,18 @@ public class Doctor {
 
     public String getSpecialty() {
         return speciality;
+    }
+
+    @Override
+    protected Doctor clone() {
+        try {
+            Doctor clone = (Doctor) super.clone();
+            clone.establishment = this.establishment.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

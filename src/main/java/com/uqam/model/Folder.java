@@ -10,7 +10,7 @@ import java.util.SortedSet;
 
 @Entity
 @Table(name = "tFolders")
-public class Folder {
+public class Folder implements Cloneable{
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -40,6 +40,28 @@ public class Folder {
 
     public Set<Antecedent> getAntecedents() {
         return antecedents;
+    }
+
+    @Override
+    public Folder clone() {
+        try {
+            Folder clone = (Folder) super.clone();
+            clone.owner = this.owner.clone();
+            Set<Visit> visitsClone = new HashSet<>();
+            for (Visit v :this.visits) {
+                visitsClone.add(v.clone());
+            }
+            clone.visits = visitsClone;
+            Set<Antecedent> antecedentsClone = new HashSet<>();
+            for (Antecedent a :this.antecedents) {
+                antecedentsClone.add(a.clone());
+            }
+            clone.antecedents = antecedentsClone;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

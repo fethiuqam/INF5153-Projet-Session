@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tPatients")
-public class Patient {
+public class Patient implements Cloneable {
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -60,6 +60,18 @@ public class Patient {
 
     public Contact getContact() {
         return contact;
+    }
+
+    @Override
+    protected Patient clone() {
+        try {
+            Patient clone = (Patient) super.clone();
+            clone.contact = this.contact.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
