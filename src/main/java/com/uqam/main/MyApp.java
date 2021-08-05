@@ -27,7 +27,7 @@ public class MyApp extends Application {
 
         connectSession(fxmlLoader, session);
 
-
+        Parent connexionRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
         var scene = new Scene(connexionRoot);
         stage.getIcons().add(new Image("/images/windowIcon.png"));
         stage.setTitle("CentRAMQ Accès Médecin");

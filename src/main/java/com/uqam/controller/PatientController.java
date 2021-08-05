@@ -142,7 +142,14 @@ public class PatientController implements Initializable {
         currentPatient = new Patient("Azadeh", "Rackley", Gender.FEMALE, debut, "Blackwater", "867173283", patientContactInformation, null );
         // ********* SAMPLE DATA *********
 
+        HashSet<Antecedent> databaseList = new HashSet<Antecedent>();
+        databaseList.add(new Antecedent(debut, fin, diagnostic1, treatment1,doctor1));
+        databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment1,doctor2));
+        databaseList.add(new Antecedent(debut, fin, diagnostic1, treatment2,doctor2));
+        databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment2,doctor1));
 
+
+        antecedentsObservableList = FXCollections.observableArrayList(databaseList);
 
 
 

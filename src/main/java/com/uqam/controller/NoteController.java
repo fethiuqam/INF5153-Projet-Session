@@ -13,9 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+<<<<<<< HEAD
 import java.util.Iterator;
 import java.util.Set;
 
+=======
+>>>>>>> 13de7fc... Recuperation des informations du patient courant, antecedents, anciennes visites fontionnel avec donnees locales
 public class NoteController {
 
     @FXML

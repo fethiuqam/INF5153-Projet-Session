@@ -23,7 +23,7 @@ public class Visit {
     @OneToMany(cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name="visit", referencedColumnName="id")
-    private Set<Note> notes;
+    private Note notes;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="treatment")
@@ -33,15 +33,9 @@ public class Visit {
     @JoinColumn(name="diagnostic")
     private Diagnostic diagnostic;
 
-    public Visit() {}
+    public Visit(){}
 
-    public Visit(Date date, Doctor doctor){
-        this.date = date;
-        this.doctor = doctor;
-    }
-
-    // For testing purposes
-    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit(Date date, String summary, Note notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
@@ -62,10 +56,9 @@ public class Visit {
         return summary;
     }
 
-    public Set<Note> getNotes() {
+    public Note getNotes() {
         return notes;
     }
-
 
     public Treatment getTreatment() {
         return treatment;
@@ -77,22 +70,6 @@ public class Visit {
 
     public Doctor getDoctor() {
         return doctor;
-    }
-
-    public void setDiagnostic(Diagnostic diagnostic) {
-        this.diagnostic = diagnostic;
-    }
-
-    public void setTreatment(Treatment treatment) {
-        this.treatment = treatment;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public void setNotes( Set<Note> notes) {
-        this.notes = notes;
     }
 
     @Override

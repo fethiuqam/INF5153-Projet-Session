@@ -53,17 +53,11 @@ public class Session implements Authenticable{
         return result;
     }
 
-    public Visit createNewVisit(){
-
-        long millis=System.currentTimeMillis();
-        Date date = new Date(millis);
-
-        newVisit = new Visit(date,user.getDoctor());
-
-        return newVisit;
+    public void createNewVisit(){
+        newVisit = new Visit();
     }
 
-    public void createNewAntecedent(){
+    public void cerateNewAntecedent(){
         newAntecedent = new Antecedent();
     }
 
