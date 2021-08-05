@@ -34,6 +34,17 @@ public class Patient {
             inverseJoinColumns = @JoinColumn( name = "parent" ) )
     private Set<Patient> parents = new HashSet<>();
 
+    public Patient(String firstname, String lastname, Gender gender, Date dateOfBirth, String birthCity, String insuranceNumber, Contact contact, Set<Patient> parents) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.birthCity = birthCity;
+        this.insuranceNumber = insuranceNumber;
+        this.contact = contact;
+        this.parents = parents;
+    }
+
     public String getFirstname() {
         return firstname;
     }

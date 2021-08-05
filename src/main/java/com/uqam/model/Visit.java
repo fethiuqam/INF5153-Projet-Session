@@ -23,7 +23,7 @@ public class Visit {
     @OneToMany(cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name="visit", referencedColumnName="id")
-    private Set<Note> notes = new HashSet<>();
+    private Note notes;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="treatment")
@@ -32,6 +32,17 @@ public class Visit {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="diagnostic")
     private Diagnostic diagnostic;
+
+    public Visit(){}
+
+    public Visit(Date date, String summary, Note notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+        this.date = date;
+        this.summary = summary;
+        this.notes = notes;
+        this.treatment = treatment;
+        this.diagnostic = diagnostic;
+        this.doctor = doctor;
+    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="doctor")
@@ -45,7 +56,7 @@ public class Visit {
         return summary;
     }
 
-    public Set<Note> getNotes() {
+    public Note getNotes() {
         return notes;
     }
 

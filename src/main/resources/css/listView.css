@@ -6,3 +6,33 @@
 .list-cell:odd {
   -fx-background-color: #F8F8F8;
 }
+
+
+.list-view .scroll-bar:horizontal ,
+.list-view  .scroll-bar:vertical {
+    -fx-background-color:transparent;
+}
+
+
+.list-view .increment-button ,
+.list-view .decrement-button {
+    -fx-background-color:#F8F8F8;
+	-fx-border-color:#F8F8F8;
+}
+
+
+.list-view .scroll-bar:horizontal .track ,
+.list-view .scroll-bar:vertical .track {
+     -fx-background-color: #DDEEFF;
+	 -fx-border-color:transparent;
+	 -fx-background-radius: 10em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.list-view .scroll-bar:horizontal .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color:#9BC9F6;
+	-fx-background-insets: 0, 0, 0;
+	-fx-background-radius: 10em;
+}
+

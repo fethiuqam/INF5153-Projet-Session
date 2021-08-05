@@ -44,11 +44,11 @@ public class Session implements Authenticable{
         return result;
     }
 
-    public void cerateNewVisit(){
+    public void createNewVisit(){
         newVisit = new Visit();
     }
 
-    public void cerateNewAntecedent(){
+    public void createNewAntecedent(){
         newAntecedent = new Antecedent();
     }
 

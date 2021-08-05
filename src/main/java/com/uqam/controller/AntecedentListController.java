@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-
 import java.io.IOException;
 
 public class AntecedentListController extends ListCell<Antecedent> {
@@ -30,6 +29,10 @@ public class AntecedentListController extends ListCell<Antecedent> {
 
     @FXML
     private Text dateFin;
+
+    //datepicker java
+    //LocalDate locald = LocalDate.of(1967, 06, 22);
+    //Date date = Date.valueOf(locald); // Magic happens here!
 
     @Override
     protected void updateItem(Antecedent antecedent, boolean empty) {
