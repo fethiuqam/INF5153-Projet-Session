@@ -9,55 +9,33 @@
 
 <AnchorPane fx:id="antecedentCell" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox maxWidth="1.7976931348623157E308" prefHeight="83.0" prefWidth="335.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER">
+            <HBox prefHeight="100.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox>
+                        <HBox spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Traitement: ">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medecin traitant">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Text>
-                              <Text fx:id="traitement" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
+                              <Text fx:id="medecinTraitant" strokeType="OUTSIDE" strokeWidth="0.0" text="PLACEHOLDER" wrappingWidth="100.0" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostique: ">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font></Text>
-                              <Text fx:id="diagnostique" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <HBox>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medecin traitant: ">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font></Text>
-                              <Text fx:id="medecinTraitant" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Debut: ">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Debut">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Text>
                               <Text fx:id="dateDebut" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
                            </children>
                         </HBox>
-                        <HBox>
+                        <HBox spacing="5.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fin: ">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fin">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Text>
@@ -66,9 +44,31 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Traitement">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
+                              <Text fx:id="traitement" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" wrappingWidth="100.0" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostique">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Text>
+                              <Text fx:id="diagnostique" strokeType="OUTSIDE" strokeWidth="0.0" text="PLACEHOLDER" wrappingWidth="90.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
-            <Pane prefHeight="5.0" style="-fx-background-color: #ADADAD; -fx-background-radius: 100;" />
+            <Pane prefHeight="5.0" style="-fx-background-color: #D3D3D3; -fx-background-radius: 100;" />
          </children>
       </VBox>
    </children>

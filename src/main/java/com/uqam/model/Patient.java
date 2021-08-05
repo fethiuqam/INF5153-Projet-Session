@@ -36,7 +36,7 @@ public class Patient implements Cloneable {
     public Patient() {
     }
 
-    public Patient(String firstname, String lastname, Gender gender, Date date, String birthCity, String insuranceNumber, Contact contact){
+    public Patient(String firstname, String lastname, Gender gender, Date date, String birthCity, String insuranceNumber, Contact contact, Set<Patient> parents){
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
@@ -44,6 +44,7 @@ public class Patient implements Cloneable {
         this.birthCity = birthCity;
         this.insuranceNumber = insuranceNumber;
         this.contact = contact;
+        this.parents = parents;
     }
 
     //method to add patient.
@@ -120,6 +121,17 @@ public class Patient implements Cloneable {
     }
 
     //getters
+    public Patient(String firstname, String lastname, Gender gender, Date dateOfBirth, String birthCity, String insuranceNumber, Contact contact, Set<Patient> parents) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.birthCity = birthCity;
+        this.insuranceNumber = insuranceNumber;
+        this.contact = contact;
+        this.parents = parents;
+    }
+
     public String getFirstname() {
         return firstname;
     }

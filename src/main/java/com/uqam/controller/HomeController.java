@@ -38,7 +38,7 @@ public class HomeController {
 
 
     public void logout(MouseEvent mouseEvent) throws IOException {
-        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
+        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
         var scene = new Scene(newRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
@@ -53,7 +53,7 @@ public class HomeController {
     }
 
     public void newVisite(MouseEvent mouseEvent) throws IOException {
-        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/patientView.fxml"));
+        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/patient.fxml"));
         var scene = new Scene(newRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);

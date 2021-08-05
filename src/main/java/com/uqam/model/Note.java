@@ -23,6 +23,10 @@ public class Note implements Cloneable{
         return content;
     }
 
+    public void setContent(String newContent) {
+        this.content = newContent;
+    }
+
     @Override
     protected Note clone() {
         try {

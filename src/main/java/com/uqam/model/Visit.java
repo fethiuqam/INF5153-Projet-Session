@@ -33,14 +33,9 @@ public class Visit implements Cloneable {
     @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "doctor")
-    private Doctor doctor;
+    public Visit(){}
 
-    public Visit() {
-    }
-
-    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit(Date date, String summary, Note notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
@@ -49,6 +44,9 @@ public class Visit implements Cloneable {
         this.doctor = doctor;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor")
+    private Doctor doctor;
 
     public Date getDate() {
         return date;
