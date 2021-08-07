@@ -1,7 +1,7 @@
 --Suppressions des tables
 
 DROP TABLE IF EXISTS tAntecedents;
-DROP TABLE IF EXISTS tNotes;
+--DROP TABLE IF EXISTS tNotes;
 DROP TABLE IF EXISTS tVisits;
 DROP TABLE IF EXISTS tDiagnostics;
 DROP TABLE IF EXISTS tTreatments;
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS tDiagnostics (
 CREATE TABLE IF NOT EXISTS tVisits (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	summary TEXT NOT NULL,
+   	notes TEXT NOT NULL,
 	date_ INTEGER NOT NULL,
 	treatment INTEGER REFERENCES tTreatments,
 	diagnostic INTEGER REFERENCES tDiagnostics,
@@ -87,11 +88,11 @@ CREATE TABLE IF NOT EXISTS tVisits (
 	doctor INTEGER REFERENCES tDoctors
 );
 
-CREATE TABLE IF NOT EXISTS tNotes (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-   	content TEXT NOT NULL,
-   	visit INTEGER REFERENCES tVisits
-);
+--CREATE TABLE IF NOT EXISTS tNotes (
+--	id INTEGER PRIMARY KEY AUTOINCREMENT,
+--   	content TEXT NOT NULL,
+--   	visit INTEGER REFERENCES tVisits
+--);
 
 CREATE TABLE IF NOT EXISTS tAntecedents (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -176,25 +177,24 @@ VALUES
     ('hypothyroidie'),
     ('épilepsie');
 
-INSERT INTO tVisits (summary, date_, treatment, diagnostic, folder, doctor)
+INSERT INTO tVisits (summary,notes, date_, treatment, diagnostic, folder, doctor)
 VALUES
-    ('après consultation de la glycémie du patient ', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
-    ('controle médicale après 3 mois de prise d''insuline', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
-    ('', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
-    ('', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
-    ('', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
-    ('', strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
-    ('', strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
-    ('', strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
-    ('', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
-    ('', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
+    ('après consultation de la glycémie du patient ','note 1 pour visite 1', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
+    ('controle médicale après 3 mois de prise d''insuline', 'note 1 pour visite 2', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
+    ('', '', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
+    ('', '', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
+    ('', '', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
+    ('', '', strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
+    ('', '', strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
+    ('', '', strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
+    ('', '', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
+    ('', '', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
 
 
-INSERT INTO tNotes (content, visit)
-VALUES
-    ('note 1 pour visite 1', 1),
-    ('note 2 pour visite 1', 1),
-    ('note 1 pour visite 2', 2);
+--INSERT INTO tNotes (content, visit)
+--VALUES
+--    ('note 1 pour visite 1', 1),
+--    ('note 1 pour visite 2', 2);
 
 
 INSERT INTO tAntecedents (biginning, end_, treatment, diagnostic, folder, prescriber)

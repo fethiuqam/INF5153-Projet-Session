@@ -31,9 +31,7 @@ public class FolderTest {
         diagnostic = new Diagnostic("Covid-19");
         establishment = new Establishment("Hosp1234","Hopital juif");
         doctor = new Doctor("Pablo","Escobar","A45123654","Doctor", establishment);
-        Set<Note> notes = new HashSet<>();
-        notes.add(new Note("patient is old"));
-        visit = new Visit(date,"Patient is suffering from covid-19",notes,treatment,diagnostic,doctor);
+        visit = new Visit(date,"Patient is suffering from covid-19","patient is old",treatment,diagnostic,doctor);
 
 
     }

@@ -18,12 +18,9 @@ public class Visit implements Cloneable {
 
     @Column(name = "date_")
     private Date date;
-    private String summary;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    @JoinColumn(name = "visit", referencedColumnName = "id")
-    private Set<Note> notes = new HashSet<>();
+    private String summary;
+    private String notes ;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "treatment")
@@ -40,7 +37,7 @@ public class Visit implements Cloneable {
     public Visit() {
     }
 
-    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit(Date date, String summary, String notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
@@ -56,7 +53,7 @@ public class Visit implements Cloneable {
     public String getSummary() {
         return summary;
     }
-    public Set<Note> getNotes() {
+    public String getNotes() {
         return notes;
     }
     public Treatment getTreatment() {
@@ -76,11 +73,6 @@ public class Visit implements Cloneable {
             clone.treatment = this.treatment.clone();
             clone.diagnostic = this.diagnostic.clone();
             clone.doctor = this.doctor.clone();
-            Set<Note> notesClone = new HashSet<>();
-            for (Note n :this.notes) {
-                notesClone.add(n.clone());
-            }
-            clone.notes = notesClone;
             return clone;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
