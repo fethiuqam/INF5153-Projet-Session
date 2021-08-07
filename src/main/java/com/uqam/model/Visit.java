@@ -67,6 +67,31 @@ public class Visit implements Cloneable {
         return doctor;
     }
 
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
+    public void setDiagnostic(Diagnostic diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     @Override
     protected Visit clone() {
         try {
