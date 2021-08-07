@@ -2,6 +2,7 @@ package com.uqam.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "tAntecedents")
@@ -42,12 +43,12 @@ public class Antecedent implements Cloneable {
 
     //getters
 
-    public Date getBeginning() {
-        return beginning;
+    public Optional getBeginning() {
+        return Optional.ofNullable(beginning);
     }
 
-    public Date getEnd() {
-        return end;
+    public Optional getEnd() {
+        return Optional.ofNullable(end);
     }
 
     public Diagnostic getDiagnostic() {
@@ -55,7 +56,7 @@ public class Antecedent implements Cloneable {
     }
 
     public Treatment getTreatment() {
-        return treatment;
+        return Optional.ofNullable(treatment).orElse(new Treatment("Ne s'applique pas"));
     }
 
     public Doctor getPrescriber() {
@@ -88,7 +89,7 @@ public class Antecedent implements Cloneable {
     protected Antecedent clone() {
         try {
             Antecedent clone = (Antecedent) super.clone();
-            clone.treatment = this.treatment.clone();
+            clone.treatment = this.beginning != null ? this.treatment.clone() : null;
             clone.diagnostic = this.diagnostic.clone();
             clone.prescriber = this.prescriber.clone();
             return clone;

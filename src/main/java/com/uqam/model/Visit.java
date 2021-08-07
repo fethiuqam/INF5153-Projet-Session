@@ -6,6 +6,7 @@ import java.sql.Date;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -57,10 +58,10 @@ public class Visit implements Cloneable {
         return notes;
     }
     public Treatment getTreatment() {
-        return treatment;
+        return Optional.ofNullable(treatment).orElse(new Treatment("Ne s'applique pas"));
     }
     public Diagnostic getDiagnostic() {
-        return diagnostic;
+        return Optional.ofNullable(diagnostic).orElse(new Diagnostic("Ne s'applique pas"));
     }
     public Doctor getDoctor() {
         return doctor;
@@ -70,8 +71,8 @@ public class Visit implements Cloneable {
     protected Visit clone() {
         try {
             Visit clone = (Visit) super.clone();
-            clone.treatment = this.treatment.clone();
-            clone.diagnostic = this.diagnostic.clone();
+            clone.treatment = this.treatment != null ? this.treatment.clone(): null;
+            clone.diagnostic = this.diagnostic != null ? this.diagnostic.clone() : null;
             clone.doctor = this.doctor.clone();
             return clone;
         } catch (CloneNotSupportedException e) {

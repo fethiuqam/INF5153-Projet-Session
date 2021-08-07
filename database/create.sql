@@ -28,14 +28,14 @@ CREATE TABLE IF NOT EXISTS tDoctors (
 	lastname TEXT NOT NULL,
 	permit TEXT NOT NULL UNIQUE,
 	speciality TEXT NOT NULL,
-	establishment INTEGER REFERENCES tEstablishments
+	establishment INTEGER NOT NULL REFERENCES tEstablishments
 );
 
 CREATE TABLE IF NOT EXISTS tUsers (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	username TEXT NOT NULL UNIQUE,
 	password TEXT NOT NULL,
-	doctor INTEGER REFERENCES tDoctors
+	doctor INTEGER NOT NULL REFERENCES tDoctors
 );
 
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS tPatients (
 
 CREATE TABLE IF NOT EXISTS tFolders (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	owner INTEGER REFERENCES tPatients
+	owner INTEGER NOT NULL REFERENCES tPatients
 );
 
 CREATE TABLE IF NOT EXISTS tTreatments (
@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS tVisits (
 	date_ INTEGER NOT NULL,
 	treatment INTEGER REFERENCES tTreatments,
 	diagnostic INTEGER REFERENCES tDiagnostics,
-	folder INTEGER REFERENCES tFolders,
-	doctor INTEGER REFERENCES tDoctors
+	folder INTEGER NOT NULL REFERENCES tFolders,
+	doctor INTEGER NOT NULL REFERENCES tDoctors
 );
 
 --CREATE TABLE IF NOT EXISTS tNotes (
@@ -98,10 +98,10 @@ CREATE TABLE IF NOT EXISTS tAntecedents (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	biginning INTEGER,
 	end_ INTEGER,
-	treatment INTEGER REFERENCES tTreatments,
-	diagnostic INTEGER REFERENCES tDiagnostics,
-	folder INTEGER REFERENCES tFolders,
-	prescriber INTEGER REFERENCES tDoctors
+	treatment INTEGER  REFERENCES tTreatments,
+	diagnostic INTEGER NOT NULL REFERENCES tDiagnostics,
+	folder INTEGER NOT NULL REFERENCES tFolders,
+	prescriber INTEGER NOT NULL REFERENCES tDoctors
 );
 
 CREATE TABLE IF NOT EXISTS tArchive (

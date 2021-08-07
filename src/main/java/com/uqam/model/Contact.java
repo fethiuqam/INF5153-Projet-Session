@@ -1,6 +1,7 @@
 package com.uqam.model;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "tContacts")
@@ -48,13 +49,13 @@ public class Contact implements Cloneable{
 
     //getters
     public String getAddress() {
-        return address;
+        return Optional.ofNullable(address).orElse("Non spécifié");
     }
     public String getPhone() {
-        return phone;
+        return Optional.ofNullable(phone).orElse("Non spécifié");
     }
     public String getEmail() {
-        return email;
+        return Optional.ofNullable(email).orElse("Non spécifié");
     }
 
     @Override
