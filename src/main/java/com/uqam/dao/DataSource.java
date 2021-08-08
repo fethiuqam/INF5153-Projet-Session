@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.uqam.model.Folder;
 import com.uqam.model.User;
+import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;

@@ -23,11 +23,11 @@ public class Visit implements Cloneable {
     private String summary;
     private String notes ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "treatment")
     private Treatment treatment;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 

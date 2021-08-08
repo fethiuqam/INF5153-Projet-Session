@@ -1,7 +1,6 @@
 --Suppressions des tables
 
 DROP TABLE IF EXISTS tAntecedents;
---DROP TABLE IF EXISTS tNotes;
 DROP TABLE IF EXISTS tVisits;
 DROP TABLE IF EXISTS tDiagnostics;
 DROP TABLE IF EXISTS tTreatments;
@@ -84,15 +83,9 @@ CREATE TABLE IF NOT EXISTS tVisits (
 	date_ INTEGER NOT NULL,
 	treatment INTEGER REFERENCES tTreatments,
 	diagnostic INTEGER REFERENCES tDiagnostics,
-	folder INTEGER NOT NULL REFERENCES tFolders,
-	doctor INTEGER NOT NULL REFERENCES tDoctors
+	folder INTEGER  REFERENCES tFolders,
+	doctor INTEGER REFERENCES tDoctors
 );
-
---CREATE TABLE IF NOT EXISTS tNotes (
---	id INTEGER PRIMARY KEY AUTOINCREMENT,
---   	content TEXT NOT NULL,
---   	visit INTEGER REFERENCES tVisits
---);
 
 CREATE TABLE IF NOT EXISTS tAntecedents (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -100,8 +93,8 @@ CREATE TABLE IF NOT EXISTS tAntecedents (
 	end_ INTEGER,
 	treatment INTEGER  REFERENCES tTreatments,
 	diagnostic INTEGER NOT NULL REFERENCES tDiagnostics,
-	folder INTEGER NOT NULL REFERENCES tFolders,
-	prescriber INTEGER NOT NULL REFERENCES tDoctors
+	folder INTEGER  REFERENCES tFolders,
+	prescriber INTEGER REFERENCES tDoctors
 );
 
 CREATE TABLE IF NOT EXISTS tArchive (
@@ -163,10 +156,25 @@ VALUES
     ('corticoides'),
     ('anti-inflammatoires non steroidiens'),
     ('thyroxine'),
+    ('acide valproique'),
+    ('insuline'),
+    ('hypoglycemiant oral'),
+    ('corticoides'),
+    ('anti-inflammatoires non steroidiens'),
+    ('thyroxine'),
     ('acide valproique');
 
 INSERT INTO tDiagnostics (designation)
 VALUES
+    ('diabète type I'),
+    ('diabète type II'),
+    ('sclérose en plaques'),
+    ('troubles du spectre de l''autisme'),
+    ('gastro-entérite'),
+    ('allergie aux pénicillines'),
+    ('maladie de crohn'),
+    ('hypothyroidie'),
+    ('épilepsie'),
     ('diabète type I'),
     ('diabète type II'),
     ('sclérose en plaques'),
@@ -190,22 +198,15 @@ VALUES
     ('', '', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
     ('', '', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
 
-
---INSERT INTO tNotes (content, visit)
---VALUES
---    ('note 1 pour visite 1', 1),
---    ('note 1 pour visite 2', 2);
-
-
 INSERT INTO tAntecedents (biginning, end_, treatment, diagnostic, folder, prescriber)
 VALUES
-    (strftime ('%s', '2021-01-06') * 1000.1, NULL, 1, 1, 1, 1 ),
-    (strftime ('%s', '2021-02-01') * 1000.1, NULL, 2, 2, 3, 2 ),
-    (strftime ('%s', '2020-11-03') * 1000.1, NULL, 3, 3, 5, 3 ),
+    (strftime ('%s', '2021-01-06') * 1000.1, NULL, 7, 10, 1, 1 ),
+    (strftime ('%s', '2021-02-01') * 1000.1, NULL, 8, 11, 3, 2 ),
+    (strftime ('%s', '2020-11-03') * 1000.1, NULL, 9, 12, 5, 3 ),
     (NULL, NULL, NULL, 4, 4, 2 ),
-    (strftime ('%s', '2021-05-05') * 1000.1, NULL, 6, 9, 4, 2 ),
-    (strftime ('%s', '2021-06-02') * 1000.1, NULL, NULL, 6, 3, 1 ),
-    (strftime ('%s', '2020-10-06') * 1000.1, NULL, 4, 7, 2, 1 ),
-    (strftime ('%s', '2021-05-03') * 1000.1, NULL, 5, 8, 1, 1 );
+    (strftime ('%s', '2021-05-05') * 1000.1, NULL, 12, 18, 4, 2 ),
+    (strftime ('%s', '2021-06-02') * 1000.1, NULL, NULL, 15, 3, 1 ),
+    (strftime ('%s', '2020-10-06') * 1000.1, NULL, 10, 16, 2, 1 ),
+    (strftime ('%s', '2021-05-03') * 1000.1, NULL, 11, 17, 1, 1 );
 
 

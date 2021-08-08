@@ -18,11 +18,11 @@ public class Antecedent implements Cloneable {
     @Column(name = "end_")
     private Date end;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "treatment")
     private Treatment treatment;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 

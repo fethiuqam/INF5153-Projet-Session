@@ -1,9 +1,6 @@
 package com.uqam.dao;
 
-import com.uqam.model.Antecedent;
-import com.uqam.model.Folder;
-import com.uqam.model.Patient;
-import com.uqam.model.User;
+import com.uqam.model.*;
 import org.junit.jupiter.api.*;
 
 import javax.persistence.EntityManager;
@@ -68,10 +65,12 @@ public class DataSourceTest {
     public void updateSuccess(){
         String id = "DONL98632897";
         String expected1 = "[]";
-        String expected2 = "[Antecedent{beginning=null, end=null, treatment=null, diagnostic=null, prescriber=null}]";
+        String expected2 = "[Antecedent{beginning=null, end=null, treatment=null, " +
+                "diagnostic=Diagnostic{designation='Diabete'}, prescriber=null}]";
         Folder folder1 = source.findById(id);
         Assertions.assertEquals(expected1, folder1.getAntecedents().toString());
         Antecedent a = new Antecedent();
+        a.setDiagnostic(new Diagnostic("Diabete"));
         folder1.getAntecedents().add(a);
         source.update(folder1);
         Folder folder2 = source.findById(id);

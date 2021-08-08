@@ -18,12 +18,12 @@ public class Folder implements Cloneable{
     @JoinColumn( name="owner")
     private Patient owner;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name="folder", referencedColumnName="id")
     private Set<Visit> visits = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name="folder", referencedColumnName="id")
     private Set<Antecedent> antecedents = new HashSet<>();
