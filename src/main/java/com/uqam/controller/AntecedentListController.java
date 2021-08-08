@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+
 import java.io.IOException;
 
 public class AntecedentListController extends ListCell<Antecedent> {
@@ -29,10 +30,6 @@ public class AntecedentListController extends ListCell<Antecedent> {
 
     @FXML
     private Text dateFin;
-
-    //datepicker java
-    //LocalDate locald = LocalDate.of(1967, 06, 22);
-    //Date date = Date.valueOf(locald); // Magic happens here!
 
     @Override
     protected void updateItem(Antecedent antecedent, boolean empty) {
@@ -58,30 +55,19 @@ public class AntecedentListController extends ListCell<Antecedent> {
             }
 
             if (diagnostique != null)
-                diagnostique.setText(antecedent.getDiagnostic().getDesignation());
+            diagnostique.setText(antecedent.getDiagnostic().getDesignation());
 
-            if (traitement != null){
-                if (antecedent.getTreatment() != null){
-                    traitement.setText(antecedent.getTreatment().getDesignation());
-                }
-            }
+            if (traitement !=null)
+            traitement.setText(antecedent.getTreatment().getDesignation());
 
-            if (medecinTraitant != null){
-                if (antecedent.getPrescriber() != null){
-                    medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
-                }
-            }
+            if (medecinTraitant != null)
+            medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
 
+            if (dateDebut != null)
+            dateDebut.setText(antecedent.getBeginning().toString());
 
-            if (dateDebut != null){
-                if (antecedent.getBeginning() != null)
-                    dateDebut.setText(antecedent.getBeginning().toString());
-            }
-
-            if (dateFin != null){
-                if (antecedent.getEnd()!= null)
-                    dateFin.setText(antecedent.getEnd().toString());
-            }
+            if (dateFin != null)
+            dateFin.setText(antecedent.getEnd().toString());
 
             setText(null);
             setGraphic(antecedentCell);
