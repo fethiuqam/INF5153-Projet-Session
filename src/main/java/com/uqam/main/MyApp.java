@@ -1,9 +1,8 @@
 package com.uqam.main;
 
-
 import com.uqam.controller.ConnexionController;
-import com.uqam.model.Session;
 import com.uqam.dao.DataSource;
+import com.uqam.model.Session;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
