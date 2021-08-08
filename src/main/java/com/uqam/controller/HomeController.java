@@ -1,9 +1,16 @@
 package com.uqam.controller;
 
+import com.uqam.model.AppException;
+import com.uqam.model.Doctor;
+import com.uqam.model.Session;
+import com.uqam.model.User;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,10 +43,49 @@ public class HomeController {
     @FXML
     private Button searchButton;
 
+    @FXML
+    private TextField insuranceSearchQuery;
+
+    @FXML
+    private Label firstName;
+
+    @FXML
+    private Label lastName;
+
+    @FXML
+    private Label permitNumber;
+
+    private Session session;
+
+    public void initialize() {
+
+        Platform.runLater(() -> {
+
+            // Doctor information
+            User user = session.getUser();
+            Doctor doctor = user.getDoctor();
+
+            firstName.setText(doctor.getFirstname());
+            lastName.setText(doctor.getLastname());
+            permitNumber.setText(doctor.getPermit());
+
+
+        });
+
+
+
+    }
+
 
     public void logout(MouseEvent mouseEvent) throws IOException {
-        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
-        var scene = new Scene(newRoot);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+        Parent loginRoot = (Parent) fxmlLoader.load();
+
+        ConnexionController controller = fxmlLoader.getController();
+        controller.setSession(session);
+
+        var scene = new Scene(loginRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
     }
@@ -52,10 +98,32 @@ public class HomeController {
         }
     }
 
-    public void newVisite(MouseEvent mouseEvent) throws IOException {
-        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/patientView.fxml"));
-        var scene = new Scene(newRoot);
-        Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-        mainStage.setScene(scene);
+    public void newVisite(MouseEvent mouseEvent) throws IOException, AppException {
+
+        boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
+        if (successful){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
+            Parent patientRoot = (Parent) fxmlLoader.load();
+
+            connectSession(fxmlLoader, session);
+
+            var scene = new Scene(patientRoot);
+            Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+            mainStage.setScene(scene);
+        }
+
+
+
+
+    }
+
+    public void setSession (Session session){
+        this.session = session;
+    }
+
+    public void connectSession (FXMLLoader fxmlLoader, Session session){
+        //add session to controller
+        PatientController controller = fxmlLoader.getController();
+        controller.setSession(session);
     }
 }

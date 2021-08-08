@@ -132,14 +132,12 @@ public class PatientController implements Initializable {
         Establishment etablissement2 = new Establishment("2323330213", "Hopital 2");
         doctor1 = new Doctor("Jean", "Dubois", "JDB89019229030", "specialite", etablissement1);
         Doctor doctor2 = new Doctor("Michael", "Desjardins", "MDJ89019229030", "specialite", etablissement2);
-        String noteContent1 = "Maecenas et ligula sit amet elit molestie facilisis. Sed massa erat, pharetra non vestibulum ut, ullamcorper at ex. Nam ullamcorper justo semper, tincidunt libero at, eleifend felis. Cras vitae quam vel massa porta volutpat. Duis malesuada massa in mauris consequat, non malesuada magna ornare. Ut et vulputate nisi, elementum molestie ipsum. Pellentesque a gravida arcu. Vestibulum condimentum orci eu orci congue, ac bibendum sapien elementum. Nulla sed nunc laoreet, commodo eros sit amet, pretium massa. Nullam interdum efficitur consequat. Morbi sit amet luctus nulla, ut iaculis mi. Praesent at leo eget risus maximus vestibulum ac vitae purus. Phasellus dignissim sem eget nisi tempor cursus. Quisque sagittis sem id mauris efficitur varius. Phasellus dignissim volutpat rutrum. ";
-        String noteContent2 = "Amet duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus sed. Pulvinar ut bibendum amet fames vulputate.";
-        String noteContent3 = "Troisieme type de Note duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie";
-//        Note note1 = new Note(noteContent1);
-//        Note note2 = new Note(noteContent2);
-//        Note note3 = new Note(noteContent3);
+        String note1 = "Maecenas et ligula sit amet elit molestie facilisis. Sed massa erat, pharetra non vestibulum ut, ullamcorper at ex. Nam ullamcorper justo semper, tincidunt libero at, eleifend felis. Cras vitae quam vel massa porta volutpat. Duis malesuada massa in mauris consequat, non malesuada magna ornare. Ut et vulputate nisi, elementum molestie ipsum. Pellentesque a gravida arcu. Vestibulum condimentum orci eu orci congue, ac bibendum sapien elementum. Nulla sed nunc laoreet, commodo eros sit amet, pretium massa. Nullam interdum efficitur consequat. Morbi sit amet luctus nulla, ut iaculis mi. Praesent at leo eget risus maximus vestibulum ac vitae purus. Phasellus dignissim sem eget nisi tempor cursus. Quisque sagittis sem id mauris efficitur varius. Phasellus dignissim volutpat rutrum. ";
+        String note2 = "Amet duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus sed. Pulvinar ut bibendum amet fames vulputate.";
+        String note3 = "Troisieme type de Note duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie";
+
         Contact patientContactInformation = new Contact("8774 Merry Meadow", "(623) 488-8798", "Azadeh.Rackley@gmail.com");
-        currentPatient = new Patient("Azadeh", "Rackley", Gender.FEMALE, debut, "Blackwater", "867173283", patientContactInformation );
+        currentPatient = new Patient("Azadeh", "Rackley", Gender.FEMALE, debut, "Blackwater", "867173283", patientContactInformation);
         // ********* SAMPLE DATA *********
 
         HashSet<Antecedent> databaseList = new HashSet<Antecedent>();
@@ -147,13 +145,7 @@ public class PatientController implements Initializable {
         databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment1,doctor2));
         databaseList.add(new Antecedent(debut, fin, diagnostic1, treatment2,doctor2));
         databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment2,doctor1));
-
-
         antecedentsObservableList = FXCollections.observableArrayList(databaseList);
-
-
-
-
 
     }
 
@@ -202,13 +194,8 @@ public class PatientController implements Initializable {
 
             visitObservableList = FXCollections.observableArrayList(visitSet);
             visitListView.setItems(visitObservableList);
-//            visitListView.setCellFactory(visitList -> new visitListController());
-
-
+            visitListView.setCellFactory(visitList -> new visitListController());
         });
-
-
-
     }
 
 
@@ -228,10 +215,6 @@ public class PatientController implements Initializable {
         String summary = visitSummary.getText();
 
         String notesInput = visitNotes.getText();
-//        Set<Note> noteSet = new HashSet<Note>();
-//        Note note = new Note(notesInput);
-
-//        noteSet.add(note);
 
         Visit visit = session.createNewVisit();
 
@@ -263,7 +246,7 @@ public class PatientController implements Initializable {
     public void connectSession (FXMLLoader fxmlLoader, Session session){
         //add session to controller
         HomeController controller = fxmlLoader.getController();
-//        controller.setSession(session);
+        controller.setSession(session);
     }
 
 }
