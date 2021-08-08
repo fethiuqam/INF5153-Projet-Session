@@ -23,7 +23,7 @@ public class DataSourceTest {
     }
 
     @Test
-    public void findByUsernameAndPasswordTestSuccess(){
+    public void findByUsernameAndPasswordTestSuccess() throws AppException {
         String username = "docteur01";
         String password = "111111";
         String expected = "User{username='docteur01', password='3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', " +
@@ -35,7 +35,7 @@ public class DataSourceTest {
     }
 
     @Test
-    public void findByUsernameAndPasswordTestFailed(){
+    public void findByUsernameAndPasswordTestFailed() throws AppException {
         String username = "docteur01";
         String password = "123451335";
         User user = source.findByUsernameAndPassword(username, password);
@@ -43,7 +43,7 @@ public class DataSourceTest {
     }
 
     @Test
-    public void findByIdTestSuccess(){
+    public void findByIdTestSuccess() throws AppException{
         String id = "MORS12452196";
         String expected = "Patient{firstname='Susan', lastname='Morganti', gender=FEMALE, " +
                 "dateOfBirth=1952-02-03, birthCity='Montreal', insuranceNumber='MORS12452196', " +
@@ -55,14 +55,14 @@ public class DataSourceTest {
     }
 
     @Test
-    public void findByIdTestFailed(){
+    public void findByIdTestFailed() throws AppException{
         String id = "MORS452196";
         Folder folder = source.findById(id);
         Assertions.assertNull(folder);
     }
 
     @Test
-    public void updateSuccess(){
+    public void updateSuccess() throws AppException{
         String id = "DONL98632897";
         String expected1 = "[]";
         String expected2 = "[Antecedent{beginning=null, end=null, treatment=null, " +
@@ -82,7 +82,7 @@ public class DataSourceTest {
     }
 
     @Test
-    public void archiveModificationSuccess(){
+    public void archiveModificationSuccess() throws AppException{
         String id = "DONL98632897";
         String expected = "{\"id\":6,\"owner\":{\"id\":6,\"firstname\":\"Luis\",\"lastname\":\"Donaldson\"," +
                 "\"gender\":\"MALE\",\"dateOfBirth\":\"1970-05-31\",\"birthCity\":\"Riviere Du Loup\"," +

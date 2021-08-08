@@ -57,7 +57,7 @@ class SessionTest {
     }
 
     @Test
-    public void loginTestTrue() {
+    public void loginTestTrue() throws AppException {
 
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
         Session session = new Session(dataSourceMock);
@@ -67,7 +67,7 @@ class SessionTest {
     }
 
     @Test
-    public void loginTestFalse() {
+    public void loginTestFalse() throws AppException {
         when(dataSourceMock.findByUsernameAndPassword("user01", "pass")).thenReturn(null);
         Session session = new Session(dataSourceMock);
         boolean result = session.login("user01", "pass");
@@ -76,7 +76,7 @@ class SessionTest {
     }
 
     @Test
-    public void downloadFolderTestTrue() {
+    public void downloadFolderTestTrue() throws AppException{
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
         Session session = new Session(dataSourceMock);
         boolean result = session.downloadFolder("MORS12452196");
@@ -85,7 +85,7 @@ class SessionTest {
     }
 
     @Test
-    public void downloadFolderTestFalse() {
+    public void downloadFolderTestFalse() throws AppException{
         when(dataSourceMock.findById("ABCD12345678")).thenReturn(null);
         Session session = new Session(dataSourceMock);
         boolean result = session.downloadFolder("ABCD12345678");

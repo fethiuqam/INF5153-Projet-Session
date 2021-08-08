@@ -50,19 +50,19 @@ public class Session implements Authenticable {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws AppException {
         user = dataSource.findByUsernameAndPassword(username, password);
         return user != null;
     }
 
-    public boolean downloadFolder(String insuranceNumber) {
+    public boolean downloadFolder(String insuranceNumber) throws AppException {
         originalFolder = dataSource.findById(insuranceNumber);
         if (originalFolder != null)
             currentFolder = originalFolder.clone();
         return currentFolder != null;
     }
 
-    public boolean saveFolder() {
+    public boolean saveFolder() throws AppException {
         boolean result = true;
         if (modified && currentFolder != null) {
             if (newVisit != null) {

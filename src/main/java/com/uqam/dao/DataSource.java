@@ -2,16 +2,15 @@ package com.uqam.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.uqam.model.AppException;
 import com.uqam.model.Folder;
 import com.uqam.model.User;
-import org.hibernate.Session;
-
+import org.hibernate.exception.JDBCConnectionException;
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
-
 
 public class DataSource implements Searchable, Editable {
 
@@ -19,7 +18,7 @@ public class DataSource implements Searchable, Editable {
     EntityManager entityManager;
 
     @Override
-    public User findByUsernameAndPassword(String username, String password) {
+    public User findByUsernameAndPassword(String username, String password) throws AppException {
 
         User result = null;
         try {
@@ -27,8 +26,12 @@ public class DataSource implements Searchable, Editable {
             entityManager = entityManagerFactory.createEntityManager();
             result = entityManager.createQuery("FROM User u WHERE u.username = ?1 and u.password = ?2", User.class)
                     .setParameter(1, username).setParameter(2, encryptPasswordToSHA1(password)).getSingleResult();
+        }catch (JDBCConnectionException e){
+            throw new AppException("Erreur de connection avec la base de données");
+        }catch (NoResultException e){
+            result = null;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -54,15 +57,19 @@ public class DataSource implements Searchable, Editable {
     }
 
     @Override
-    public Folder findById(String id) {
+    public Folder findById(String id) throws AppException{
         Folder result = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("database");
             entityManager = entityManagerFactory.createEntityManager();
             result = entityManager.createQuery("FROM Folder f WHERE f.owner.insuranceNumber = ?1 ", Folder.class)
                     .setParameter(1, id).getSingleResult();
+        }catch (JDBCConnectionException e){
+            throw new AppException("Erreur de connection avec la base de données");
+        }catch (NoResultException e){
+            result = null;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -71,7 +78,7 @@ public class DataSource implements Searchable, Editable {
     }
 
     @Override
-    public boolean update(Folder folder) {
+    public boolean update(Folder folder) throws AppException{
         boolean result = true;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("database");
@@ -82,11 +89,13 @@ public class DataSource implements Searchable, Editable {
             entityManager.merge(folder);
 
             entityManager.getTransaction().commit();
+        }catch (JDBCConnectionException e){
+            throw new AppException("Erreur de connection avec la base de données");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             result = false;
             if (entityManager != null)
                 entityManager.getTransaction().rollback();
+            throw new AppException("Echec de la mise à jour du dossier sur la base de données");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -94,7 +103,7 @@ public class DataSource implements Searchable, Editable {
         return result;
     }
 
-    public boolean archiveModification(Folder folder) {
+    public boolean archiveModification(Folder folder) throws AppException{
         boolean result = true;
         Gson json = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String jsonFolder = json.toJson(folder);
@@ -107,11 +116,13 @@ public class DataSource implements Searchable, Editable {
             entityManager.getTransaction().begin();
             entityManager.persist(archive);
             entityManager.getTransaction().commit();
+        }catch (JDBCConnectionException e){
+            throw new AppException("Erreur de connection avec la base de données");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             result = false;
             if (entityManager != null)
                 entityManager.getTransaction().rollback();
+            throw new AppException("Echec de l'archivage du dossier sur la base de données");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
