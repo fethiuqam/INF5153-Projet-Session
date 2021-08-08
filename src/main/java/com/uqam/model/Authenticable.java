@@ -1,4 +1,4 @@
-package com.uqam.controller;
+package com.uqam.model;
 
 public interface Authenticable {
 

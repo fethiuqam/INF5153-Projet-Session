@@ -4,10 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tDoctors")
-public class Doctor {
+public class Doctor implements Cloneable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String firstname;
@@ -15,11 +15,12 @@ public class Doctor {
     private String permit;
     private String speciality;
 
-    @ManyToOne (cascade = CascadeType.ALL)
-    @JoinColumn( name="establishment" )
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "establishment")
     private Establishment establishment;
 
-    public Doctor() {}
+    public Doctor() {
+    }
 
     public Doctor(String firstname, String lastname, String permit, String specialty, Establishment establishment) {
         this.firstname = firstname;
@@ -29,6 +30,19 @@ public class Doctor {
         this.establishment = establishment;
     }
 
+
+    //Method to validate both first and last name. Length of name must be higher than 1
+    public boolean validName(String name) {
+        return firstname.length() > 1;
+    }
+
+    //method to validate the speciality of the doctor. Length must be at least 6.
+    public boolean validSpeciality(String specialty) {
+        return specialty.length() > 7;
+    }
+
+
+    //getters
     public Establishment getEstablishment() {
         return establishment;
     }
@@ -47,6 +61,18 @@ public class Doctor {
 
     public String getSpecialty() {
         return speciality;
+    }
+
+    @Override
+    protected Doctor clone() {
+        try {
+            Doctor clone = (Doctor) super.clone();
+            clone.establishment = this.establishment.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
