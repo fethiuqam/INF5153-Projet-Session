@@ -2,18 +2,18 @@ package com.uqam.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import java.sql.Date;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tVisits")
-public class Visit {
+public class Visit implements Cloneable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "date_")
@@ -22,20 +22,25 @@ public class Visit {
 
     @OneToMany(cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    @JoinColumn(name="visit", referencedColumnName="id")
-    private Note notes;
+    @JoinColumn(name = "visit", referencedColumnName = "id")
+    private Set<Note> notes = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="treatment")
+    @JoinColumn(name = "treatment")
     private Treatment treatment;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="diagnostic")
+    @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 
-    public Visit(){}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor")
+    private Doctor doctor;
 
-    public Visit(Date date, String summary, Note notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit() {
+    }
+
+    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
@@ -44,32 +49,43 @@ public class Visit {
         this.doctor = doctor;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="doctor")
-    private Doctor doctor;
 
     public Date getDate() {
         return date;
     }
-
     public String getSummary() {
         return summary;
     }
-
-    public Note getNotes() {
+    public Set<Note> getNotes() {
         return notes;
     }
-
     public Treatment getTreatment() {
         return treatment;
     }
-
     public Diagnostic getDiagnostic() {
         return diagnostic;
     }
-
     public Doctor getDoctor() {
         return doctor;
+    }
+
+    @Override
+    protected Visit clone() {
+        try {
+            Visit clone = (Visit) super.clone();
+            clone.treatment = this.treatment.clone();
+            clone.diagnostic = this.diagnostic.clone();
+            clone.doctor = this.doctor.clone();
+            Set<Note> notesClone = new HashSet<>();
+            for (Note n :this.notes) {
+                notesClone.add(n.clone());
+            }
+            clone.notes = notesClone;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

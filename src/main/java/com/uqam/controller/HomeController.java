@@ -36,38 +36,10 @@ public class HomeController {
     @FXML
     private Button searchButton;
 
-    @FXML
-    private TextField insuranceSearchQuery;
-
-    public void initialize() {
-
-        Platform.runLater(() -> {
-
-            // Doctor information
-            User user = session.getUser();
-            Doctor doctor = user.getDoctor();
-
-            firstName.setText(doctor.getFirstname());
-            lastName.setText(doctor.getLastname());
-            permitNumber.setText(doctor.getPermit());
-
-
-        });
-
-
-
-    }
-
 
     public void logout(MouseEvent mouseEvent) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent loginRoot = (Parent) fxmlLoader.load();
-
-        ConnexionController controller = fxmlLoader.getController();
-        controller.setSession(session);
-
-        var scene = new Scene(loginRoot);
+        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
+        var scene = new Scene(newRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
     }
@@ -81,31 +53,9 @@ public class HomeController {
     }
 
     public void newVisite(MouseEvent mouseEvent) throws IOException {
-
-        boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
-        if (successful){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
-            Parent patientRoot = (Parent) fxmlLoader.load();
-
-            connectSession(fxmlLoader, session);
-
-            var scene = new Scene(patientRoot);
-            Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-            mainStage.setScene(scene);
-        }
-
-
-
-
-    }
-
-    public void setSession (Session session){
-        this.session = session;
-    }
-
-    public void connectSession (FXMLLoader fxmlLoader, Session session){
-        //add session to controller
-        PatientController controller = fxmlLoader.getController();
-        controller.setSession(session);
+        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/patientView.fxml"));
+        var scene = new Scene(newRoot);
+        Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+        mainStage.setScene(scene);
     }
 }
