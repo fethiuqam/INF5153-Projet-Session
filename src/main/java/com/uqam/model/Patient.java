@@ -1,11 +1,8 @@
 package com.uqam.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import java.sql.Date;
+import java.util.Optional;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "tPatients")
@@ -27,11 +24,8 @@ public class Patient implements Cloneable {
     @JoinColumn( name="contact")
     private Contact contact;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    @JoinTable( name = "tParents", joinColumns = @JoinColumn( name = "fils" ),
-            inverseJoinColumns = @JoinColumn( name = "parent" ) )
-    private Set<Patient> parents = new HashSet<>();
+    private String father;
+    private String mother;
 
     public Patient() {
     }
@@ -46,10 +40,7 @@ public class Patient implements Cloneable {
         this.contact = contact;
     }
 
-    //method to add patient.
-    public void addPatient(Patient patient){
-        parents.add(patient);
-    }
+
 
     //methode to validate the length of a name
     public boolean validName(String name){
@@ -141,6 +132,13 @@ public class Patient implements Cloneable {
     public Contact getContact() {
         return contact;
     }
+    public String getFather() {
+        return Optional.ofNullable(father).orElse("Non spécifié");
+    }
+
+    public String getMother() {
+        return Optional.ofNullable(mother).orElse("Non spécifié");
+    }
 
     @Override
     protected Patient clone() {
@@ -164,7 +162,8 @@ public class Patient implements Cloneable {
                 ", birthCity='" + birthCity + '\'' +
                 ", insuranceNumber='" + insuranceNumber + '\'' +
                 ", contact=" + contact +
-                ", parents=" + parents +
+                ", father='" + father + '\'' +
+                ", mother='" + mother + '\'' +
                 '}';
     }
 }

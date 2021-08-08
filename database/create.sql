@@ -6,7 +6,6 @@ DROP TABLE IF EXISTS tDiagnostics;
 DROP TABLE IF EXISTS tTreatments;
 DROP TABLE IF EXISTS tFolders;
 DROP TABLE IF EXISTS tPatients;
-DROP TABLE IF EXISTS tParents;
 DROP TABLE IF EXISTS tContacts;
 DROP TABLE IF EXISTS tUsers;
 DROP TABLE IF EXISTS tDoctors;
@@ -45,11 +44,6 @@ CREATE TABLE IF NOT EXISTS tContacts (
 	email TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tParents (
-    fils   INTEGER NOT NULL REFERENCES tPatients,
-    parent   INTEGER NOT NULL REFERENCES tPatients
-);
-
 CREATE TABLE IF NOT EXISTS tPatients (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	firstname TEXT NOT NULL,
@@ -58,6 +52,8 @@ CREATE TABLE IF NOT EXISTS tPatients (
     dateOfBirth INTEGER NOT NULL,
     birthCity TEXT NOT NULL,
     insuranceNumber TEXT NOT NULL,
+    father TEXT,
+    mother TEXT,
 	contact INTEGER REFERENCES tContacts
 );
 
@@ -134,17 +130,15 @@ VALUES
 
 
 
-INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact)
+INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact, father, mother)
 VALUES
-    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000, 'Montreal', 'MORS12452196', 1),
-    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000, 'Quebec', 'POKA36952365', 2),
-    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000, 'Montreal', 'POKD63259145', 3),
-    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000, 'Quebec', 'SNIW65971398', 4),
-    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000, 'Trois Rivieres', 'LESRW36946970', 5),
-    ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000, 'Riviere Du Loup', 'DONL98632897', 6);
+    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000.1, 'Montreal', 'MORS12452196', 1, null, null),
+    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000.1, 'Quebec', 'POKA36952365', 2, null, null),
+    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', 'POKD63259145', 3, 'Alex Pokorny', 'Susan Morganti'),
+    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000.1, 'Quebec', 'SNIW65971398', 4, null, 'Regina Leslie'),
+    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000.1, 'Trois Rivieres', 'LESRW36946970', 5, null, null),
+    ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000.1, 'Riviere Du Loup', 'DONL98632897', 6, null, null);
 
- INSERT INTO tParents (fils, parent)
- VALUES (3,1), (3,2), (4,5);
 
  INSERT INTO tFolders (owner)
  VALUES (1), (2), (3), (4), (5), (6);

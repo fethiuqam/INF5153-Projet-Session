@@ -47,8 +47,8 @@ public class DataSourceTest {
         String id = "MORS12452196";
         String expected = "Patient{firstname='Susan', lastname='Morganti', gender=FEMALE, " +
                 "dateOfBirth=1952-02-03, birthCity='Montreal', insuranceNumber='MORS12452196', " +
-                "contact=Contact{address='2401 rue Ontario Ouest Montreal, QC H2X 1Y8', " +
-                "phone='514-350-9159', email='SusanKMorganti@armyspy.com'}, parents=[]}";
+                "contact=Contact{address='2401 rue Ontario Ouest Montreal, QC H2X 1Y8', phone='514-350-9159', " +
+                "email='SusanKMorganti@armyspy.com'}, father='null', mother='null'}";
         Folder folder = source.findById(id);
         Patient patient = folder.getOwner();
         Assertions.assertEquals(expected, patient.toString());
@@ -88,7 +88,7 @@ public class DataSourceTest {
                 "\"gender\":\"MALE\",\"dateOfBirth\":\"1970-05-31\",\"birthCity\":\"Riviere Du Loup\"," +
                 "\"insuranceNumber\":\"DONL98632897\",\"contact\":{\"id\":6," +
                 "\"address\":\"3753 Boulevard Laflèche Riviere Du Loup, QC G5R 3Y4\",\"phone\":\"418-866-4854\"," +
-                "\"email\":\"LuisADonaldson@teleworm.us\"},\"parents\":[]},\"visits\":[],\"antecedents\":[]}";
+                "\"email\":\"LuisADonaldson@teleworm.us\"}},\"visits\":[],\"antecedents\":[]}";
         Folder folder = source.findById(id);
         source.archiveModification(folder);
         EntityManagerFactory entityManagerFactory = null;
