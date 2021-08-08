@@ -35,7 +35,7 @@ public class Visit {
 
     public Visit() {}
 
-    public Visit(Date date, Doctor doctor){
+    public Visit(Date date , Doctor doctor){
         this.date = date;
         this.doctor = doctor;
     }
