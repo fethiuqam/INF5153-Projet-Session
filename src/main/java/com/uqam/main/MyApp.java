@@ -2,7 +2,7 @@ package com.uqam.main;
 
 
 import com.uqam.controller.ConnexionController;
-import com.uqam.controller.Session;
+import com.uqam.model.Session;
 import com.uqam.dao.DataSource;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -18,12 +18,11 @@ public class MyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent connexionRoot = (Parent) fxmlLoader.load();
 
         //create session
 
         //Session session = new Session(new DataSource()) sinon Session session = new Session(DataSource.getInstance());
-        Session session = new Session();
+        Session session = new Session(new DataSource());
 
         connectSession(fxmlLoader, session);
 

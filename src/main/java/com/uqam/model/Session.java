@@ -33,7 +33,7 @@ public class Session implements Authenticable {
         return user;
     }
 
-    Folder getCurrentFolder() {
+    public Folder getCurrentFolder() {
         return currentFolder;
     }
 

@@ -1,5 +1,6 @@
 package com.uqam.controller;
 
+import com.uqam.model.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,5 +29,8 @@ public class ConnexionController {
         var scene = new Scene(newRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
+    }
+
+    public void setSession(Session session) {
     }
 }
