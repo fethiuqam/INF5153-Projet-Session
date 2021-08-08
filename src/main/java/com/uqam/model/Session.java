@@ -1,17 +1,13 @@
 package com.uqam.model;
 
 import com.uqam.dao.DataSource;
-
-import java.sql.Date;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Session implements Authenticable {
 
     private Visit newVisit;
-    private Antecedent newAntecedent;
+    private Set<Antecedent> newAntecedents;
     private User user;
     private Folder currentFolder;
     private DataSource dataSource;
@@ -20,9 +16,38 @@ public class Session implements Authenticable {
 
     public Session(DataSource dataSource) {
         this.dataSource = dataSource;
+        newAntecedents = new HashSet<>();
         modified = false;
     }
 
+
+    Visit getNewVisit() {
+        return newVisit;
+    }
+
+    Set<Antecedent> getNewAntecedents() {
+        return newAntecedents;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    Folder getCurrentFolder() {
+        return currentFolder;
+    }
+
+    DataSource getDataSource() {
+        return dataSource;
+    }
+
+    boolean isModified() {
+        return modified;
+    }
+
+    Folder getOriginalFolder() {
+        return originalFolder;
+    }
 
     @Override
     public boolean login(String username, String password) {
@@ -40,11 +65,11 @@ public class Session implements Authenticable {
     public boolean saveFolder() {
         boolean result = true;
         if (modified && currentFolder != null) {
-            if (newVisit != null){
+            if (newVisit != null) {
                 currentFolder.getVisits().add(newVisit);
             }
-            if (newAntecedent != null){
-                currentFolder.getAntecedents().add(newAntecedent);
+            if (newAntecedents.size() > 0) {
+                currentFolder.getAntecedents().addAll(newAntecedents);
             }
             result = dataSource.update(currentFolder)
                     && dataSource.archiveModification(currentFolder);
@@ -55,23 +80,16 @@ public class Session implements Authenticable {
 
     public Visit createNewVisit() {
         newVisit = new Visit();
-        newVisit.setDate(new Date(new java.util.Date().getTime()));
-        newVisit.setDoctor(this.user.getDoctor());
+//        newVisit.setDate(new Date(new java.util.Date().getTime()));  // a mettre dans le builder
+//        newVisit.setDoctor(this.user.getDoctor());
         modified = true;
         return newVisit;
     }
 
     public Antecedent createNewAntecedent() {
-        newAntecedent = new Antecedent();
-        newAntecedent.setPrescriber(this.user.getDoctor());
-        if (newVisit != null){
-            if(newVisit.getDiagnostic() != null){
-                newAntecedent.setDiagnostic(newVisit.getDiagnostic());
-            }
-            if(newVisit.getTreatment() != null){
-                newAntecedent.setTreatment(newVisit.getTreatment());
-            }
-        }
+        Antecedent newAntecedent = new Antecedent();
+//        newAntecedent.setPrescriber(this.user.getDoctor()); // a mettre dans le builder
+        newAntecedents.add(newAntecedent);
         modified = true;
         return newAntecedent;
     }
@@ -82,70 +100,12 @@ public class Session implements Authenticable {
         return true;
     }
 
-    public Set<Antecedent> getMutableAntecedents() {
-        Set<Antecedent> results = new HashSet<>();
-        if (user != null && currentFolder != null) {
-            for (Antecedent a : currentFolder.getAntecedents()) {
-                if (a.getPrescriber().equals(user.getDoctor())) {
-                    results.add(a);
-                }
-            }
-        }
-        return results;
+    public Set<Antecedent> getAntecedents() {
+        return currentFolder.getAntecedents();
     }
 
-    public Set<Antecedent> getImmutableAntecedents() {
-        Set<Antecedent> results = new HashSet<>();
-        if (user != null && currentFolder != null) {
-            for (Antecedent a : currentFolder.getAntecedents()) {
-                if (!a.getPrescriber().equals(user.getDoctor())) {
-                    results.add(a);
-                }
-            }
-        }
-        return results;
+    public Set<Visit> getVisits() {
+        return currentFolder.getVisits();
     }
-
-    public Set<Visit> getMutableVisits() {
-        Set<Visit> results = new HashSet<>();
-        if (user != null && currentFolder != null) {
-            for (Visit v : currentFolder.getVisits()) {
-                if (v.getDoctor().equals(user.getDoctor())) {
-                    results.add(v);
-                }
-            }
-        }
-        return results;
-    }
-
-    public Set<Visit> getImmutableVisits() {
-        Set<Visit> results = new HashSet<>();
-        if (user != null && currentFolder != null) {
-            results = currentFolder.getVisits().stream()
-                    .filter(v -> !v.getDoctor().equals(user.getDoctor()))
-                    .collect(Collectors.toSet());
-        }
-
-//        if (user != null && currentFolder != null) {
-//            for (Visit v : currentFolder.getVisits()) {
-//                if (!v.getDoctor().equals(user.getDoctor())) {
-//                    results.add(v);
-//                }
-//            }
-//        }
-        return results;
-    }
-
-    public Set<Treatment> getTreatments() {
-        Set<Treatment> results = new HashSet<>();
-        if (user != null && currentFolder != null) {
-            results = currentFolder.getVisits().stream()
-                    .map(v -> v.getTreatment())
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toSet());
-        }
-        return results;
-    }
-
 
 }

@@ -38,7 +38,7 @@ public class Visit implements Cloneable {
     public Visit() {
     }
 
-    public Visit(Date date, String summary, String notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit(Date date, String summary, String notes, Diagnostic diagnostic, Treatment treatment, Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
