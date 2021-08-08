@@ -58,19 +58,30 @@ public class AntecedentListController extends ListCell<Antecedent> {
             }
 
             if (diagnostique != null)
-            diagnostique.setText(antecedent.getDiagnostic().getDesignation());
+                diagnostique.setText(antecedent.getDiagnostic().getDesignation());
 
-            if (traitement !=null)
-            traitement.setText(antecedent.getTreatment().getDesignation());
+            if (traitement != null){
+                if (antecedent.getTreatment() != null){
+                    traitement.setText(antecedent.getTreatment().getDesignation());
+                }
+            }
 
-            if (medecinTraitant != null)
-            medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
+            if (medecinTraitant != null){
+                if (antecedent.getPrescriber() != null){
+                    medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
+                }
+            }
 
-            if (dateDebut != null)
-            dateDebut.setText(antecedent.getBeginning().toString());
 
-            if (dateFin != null)
-            dateFin.setText(antecedent.getEnd().toString());
+            if (dateDebut != null){
+                if (antecedent.getBeginning() != null)
+                    dateDebut.setText(antecedent.getBeginning().toString());
+            }
+
+            if (dateFin != null){
+                if (antecedent.getEnd()!= null)
+                    dateFin.setText(antecedent.getEnd().toString());
+            }
 
             setText(null);
             setGraphic(antecedentCell);

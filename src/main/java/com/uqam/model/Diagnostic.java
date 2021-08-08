@@ -4,44 +4,24 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tDiagnostics")
-public class Diagnostic implements Cloneable {
+public class Diagnostic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
 
     @Column(name = "designation")
     private String designation;
 
-    //methode to validate the length of the diagnostic name
-    public boolean validDesignation(String designation) {
-        return designation.length() > 2;
-    }
-
-    public Diagnostic() {
-    }
+    public Diagnostic() {}
 
     public Diagnostic(String designation) {
-        this.designation = designation;
-    }
-
-    public void setDesignation(String designation) {
         this.designation = designation;
     }
 
 
     public String getDesignation() {
         return designation;
-    }
-
-    @Override
-    protected Diagnostic clone() {
-        try {
-            return (Diagnostic) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override

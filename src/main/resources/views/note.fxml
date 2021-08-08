@@ -50,7 +50,7 @@
                         <HBox>
                            <children>
                               <Pane HBox.hgrow="ALWAYS" />
-                              <StackPane>
+                              <StackPane style="-fx-cursor: hand;">
                                  <children>
                                     <HBox fx:id="edit" alignment="CENTER" onMouseClicked="#editNote" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
                                        <children>

@@ -1,5 +1,6 @@
 package com.uqam.controller;
 
+import com.uqam.main.MyApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,10 +13,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class ConnexionController {
 
+    Session session;
+
     @FXML
-    private TextField usrename;
+    private TextField username;
 
     @FXML
     private PasswordField password;
@@ -24,9 +28,32 @@ public class ConnexionController {
     private Button loginButton;
 
     public void login(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
-        Parent newRoot = FXMLLoader.load(getClass().getResource("/views/home.fxml"));
-        var scene = new Scene(newRoot);
-        Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-        mainStage.setScene(scene);
+
+        String usernameInput = username.getText();
+        String passwordInput = password.getText();
+
+        Boolean successful = session.login(usernameInput,passwordInput);
+
+        if (successful) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+            Parent homeRoot = (Parent) fxmlLoader.load();
+
+            connectSession(fxmlLoader, session);
+
+            var scene = new Scene(homeRoot);
+            Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+            mainStage.setScene(scene);
+        }
+
+    }
+
+    public void setSession (Session session){
+        this.session = session;
+    }
+
+    public void connectSession (FXMLLoader fxmlLoader, Session session){
+        //add session to controller
+        HomeController controller = fxmlLoader.getController();
+        controller.setSession(session);
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.uqam.model.Folder;
 import com.uqam.model.User;
+import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +17,7 @@ public class DataSource implements Searchable, Editable {
 
     EntityManagerFactory entityManagerFactory;
     EntityManager entityManager;
+    EntityTransaction transaction;
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
@@ -75,17 +77,15 @@ public class DataSource implements Searchable, Editable {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("database");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-
-//            entityManager.unwrap(Session.class).saveOrUpdate(folder);
-            entityManager.merge(folder);
-
-            entityManager.getTransaction().commit();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.unwrap(Session.class).saveOrUpdate(folder);
+            transaction.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result = false;
-            if (entityManager != null)
-                entityManager.getTransaction().rollback();
+            if (transaction != null)
+                transaction.rollback();
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -103,14 +103,15 @@ public class DataSource implements Searchable, Editable {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("database");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
             entityManager.persist(archive);
-            entityManager.getTransaction().commit();
+            transaction.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result = false;
-            if (entityManager != null)
-                entityManager.getTransaction().rollback();
+            if (transaction != null)
+                transaction.rollback();
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();

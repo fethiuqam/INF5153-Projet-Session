@@ -19,18 +19,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, Doctor doctor) {
-        this.username = username;
-        this.password = password;
-        this.doctor = doctor;
-    }
-
     public String getUsername() {
         return username;
     }
+
     public String getPassword() {
         return password;
     }
+
     public Doctor getDoctor() {
         return doctor;
     }
@@ -42,13 +38,5 @@ public class User {
                 ", password='" + password + '\'' +
                 ", doctor=" + doctor +
                 '}';
-
-    }
-
-    public boolean validPassword(String password){
-        if (password.length()<8){
-            return false;
-        }
-        return password.matches("[A-Za-z0-9]+");
     }
 }

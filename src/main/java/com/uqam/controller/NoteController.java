@@ -13,6 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Iterator;
+import java.util.Set;
+
 public class NoteController {
 
     @FXML
@@ -33,7 +36,7 @@ public class NoteController {
     @FXML
     private AnchorPane anchorPane;
     Visit visit;
-    Note note;
+    Set<Note> note;
 
     public void setVisit(Visit passedVisit) {
         this.visit = passedVisit;
@@ -60,7 +63,12 @@ public class NoteController {
 
         //show editable note text
         inputField.setVisible(true);
-        inputField.setText(note.getContent());
+
+        //get note
+        Iterator<Note> iter = note.iterator();
+        Note first = iter.next();
+
+        inputField.setText(first.getContent());
 
         //show apply button
         apply.setVisible(true);
@@ -70,12 +78,16 @@ public class NoteController {
     @FXML
     void applyEdit(MouseEvent event) {
 
-        note.setContent(inputField.getText());
+        //get note
+        Iterator<Note> iter = note.iterator();
+        Note first = iter.next();
+
+        first.setContent(inputField.getText());
 
         //show non editable note text
         noteContent.setVisible(true);
 
-        //hde editable note text
+        //hide editable note text
         inputField.setVisible(false);
 
 
@@ -87,7 +99,13 @@ public class NoteController {
 
     private void showContent() {
         date.setText(visit.getDate().toString());
-        noteContent.setText(note.getContent());
+
+        //get note
+        Iterator<Note> iter = note.iterator();
+        if(iter.hasNext()){
+            Note first = iter.next();
+            noteContent.setText(first.getContent());
+        }
 
         //resize window (stage) to fit content
         Stage stage = (Stage) anchorPane.getScene().getWindow();

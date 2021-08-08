@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tNotes")
-public class Note implements Cloneable{
+public class Note {
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -12,8 +12,7 @@ public class Note implements Cloneable{
 
     private String content;
 
-    public Note() {
-    }
+    public Note() {}
 
     public Note(String content) {
         this.content = content;
@@ -25,16 +24,6 @@ public class Note implements Cloneable{
 
     public void setContent(String newContent) {
         this.content = newContent;
-    }
-
-    @Override
-    protected Note clone() {
-        try {
-            return (Note) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override

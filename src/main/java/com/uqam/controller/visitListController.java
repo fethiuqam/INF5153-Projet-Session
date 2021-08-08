@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public class visitListController extends ListCell<Visit> {
 
@@ -79,33 +80,39 @@ public class visitListController extends ListCell<Visit> {
 
             }
 
-            if (diagnostic!= null)
+            if (visit.getDiagnostic() != null)
                 diagnostic.setText(visit.getDiagnostic().getDesignation());
 
-            if (treatment !=null)
+            if (visit.getTreatment() !=null)
                 treatment.setText(visit.getTreatment().getDesignation());
 
-            if (doctor != null)
+            if (visit.getDoctor() != null)
                 doctor.setText(visit.getDoctor().getFirstname() + " " + visit.getDoctor().getLastname());
+                establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
 
-            if (date != null)
+            if (visit.getDate() != null)
                 date.setText(visit.getDate().toString());
 
-           summary.setText(visit.getSummary());
+            if (visit.getSummary() != null)
+                summary.setText(visit.getSummary());
 
-           establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
+            //get note
+            Iterator<Note> iter = visit.getNotes().iterator();
+            if(iter.hasNext()){
+                Note first = iter.next();
+                if (first.getContent().length() >0){
+                    Color notePresentColor = Color.web("#9BC9F6",1.0);
+                    notesNumber.setText("1");
+                    notesCircleIndicator.setFill(notePresentColor);
+                    openNoteButton.setDisable(false);
+                }
 
-           if (visit.getNotes() != null) {
-               Color notePresentColor = Color.web("#9BC9F6",1.0);
-               notesNumber.setText("1");
-               notesCircleIndicator.setFill(notePresentColor);
-               openNoteButton.setDisable(false);
-           }else{
-               Color notePresentColor = Color.web("#DDEEFF",1.0);
-               notesNumber.setText("0");
-               notesCircleIndicator.setFill(notePresentColor);
-               openNoteButton.setDisable(true);
-           }
+            }else{
+                Color notePresentColor = Color.web("#DDEEFF",1.0);
+                notesNumber.setText("0");
+                notesCircleIndicator.setFill(notePresentColor);
+                this.openNoteButton.setDisable(true);
+            }
 
             setText(null);
             setGraphic(visitCell);

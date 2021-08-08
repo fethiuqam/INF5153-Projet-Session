@@ -6,6 +6,7 @@ import com.uqam.model.Folder;
 import com.uqam.model.User;
 import com.uqam.model.Visit;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,14 @@ public class Session implements Authenticable{
         return user != null;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Folder getFolder() {
+        return folder;
+    }
+
     public boolean downloadFolder(String insuranceNumber){
         folder = dataSource.findById(insuranceNumber);
         return folder != null;
@@ -44,8 +53,14 @@ public class Session implements Authenticable{
         return result;
     }
 
-    public void createNewVisit(){
-        newVisit = new Visit();
+    public Visit createNewVisit(){
+
+        long millis=System.currentTimeMillis();
+        Date date = new Date(millis);
+
+        newVisit = new Visit(date,user.getDoctor());
+
+        return newVisit;
     }
 
     public void createNewAntecedent(){
