@@ -1,9 +1,8 @@
 package com.uqam.main;
 
-
 import com.uqam.controller.ConnexionController;
-import com.uqam.controller.Session;
 import com.uqam.dao.DataSource;
+import com.uqam.model.Session;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
@@ -18,16 +17,15 @@ public class MyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent connexionRoot = (Parent) fxmlLoader.load();
 
         //create session
 
         //Session session = new Session(new DataSource()) sinon Session session = new Session(DataSource.getInstance());
-        Session session = new Session();
+        Session session = new Session(new DataSource());
 
         connectSession(fxmlLoader, session);
 
-
+        Parent connexionRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
         var scene = new Scene(connexionRoot);
         stage.getIcons().add(new Image("/images/windowIcon.png"));
         stage.setTitle("CentRAMQ Accès Médecin");

@@ -83,12 +83,12 @@ public class visitListController extends ListCell<Visit> {
             if (visit.getDiagnostic() != null)
                 diagnostic.setText(visit.getDiagnostic().getDesignation());
 
-            if (visit.getTreatment() !=null)
+            if (visit.getTreatment() != null)
                 treatment.setText(visit.getTreatment().getDesignation());
 
             if (visit.getDoctor() != null)
                 doctor.setText(visit.getDoctor().getFirstname() + " " + visit.getDoctor().getLastname());
-                establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
+            establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
 
             if (visit.getDate() != null)
                 date.setText(visit.getDate().toString());
@@ -97,18 +97,14 @@ public class visitListController extends ListCell<Visit> {
                 summary.setText(visit.getSummary());
 
             //get note
-            Iterator<Note> iter = visit.getNotes().iterator();
-            if(iter.hasNext()){
-                Note first = iter.next();
-                if (first.getContent().length() >0){
-                    Color notePresentColor = Color.web("#9BC9F6",1.0);
-                    notesNumber.setText("1");
-                    notesCircleIndicator.setFill(notePresentColor);
-                    openNoteButton.setDisable(false);
-                }
 
-            }else{
-                Color notePresentColor = Color.web("#DDEEFF",1.0);
+            if (!visit.getNotes().isEmpty()) {
+                Color notePresentColor = Color.web("#9BC9F6", 1.0);
+                notesNumber.setText("1");
+                notesCircleIndicator.setFill(notePresentColor);
+                openNoteButton.setDisable(false);
+            } else {
+                Color notePresentColor = Color.web("#DDEEFF", 1.0);
                 notesNumber.setText("0");
                 notesCircleIndicator.setFill(notePresentColor);
                 this.openNoteButton.setDisable(true);

@@ -1,7 +1,8 @@
 package com.uqam.controller;
 
-import com.uqam.main.*;
+import com.uqam.model.AppException;
 import com.uqam.model.Doctor;
+import com.uqam.model.Session;
 import com.uqam.model.User;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -14,28 +15,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HomeController {
 
-    Session session;
-
-    // ***** User information
-    @FXML
-    private Label lastName;
 
     @FXML
-    private Label firstName;
-
-    @FXML
-    private Label permitNumber;
-    // ***** User information
-
-    @FXML
-    private HBox logoutButton;
+    private Button logoutButton;
 
     @FXML
     private AnchorPane scanCard;
@@ -57,6 +45,17 @@ public class HomeController {
 
     @FXML
     private TextField insuranceSearchQuery;
+
+    @FXML
+    private Label firstName;
+
+    @FXML
+    private Label lastName;
+
+    @FXML
+    private Label permitNumber;
+
+    private Session session;
 
     public void initialize() {
 
@@ -99,7 +98,7 @@ public class HomeController {
         }
     }
 
-    public void newVisite(MouseEvent mouseEvent) throws IOException {
+    public void newVisite(MouseEvent mouseEvent) throws IOException, AppException {
 
         boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
         if (successful){

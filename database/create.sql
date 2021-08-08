@@ -1,13 +1,11 @@
 --Suppressions des tables
 
 DROP TABLE IF EXISTS tAntecedents;
-DROP TABLE IF EXISTS tNotes;
 DROP TABLE IF EXISTS tVisits;
 DROP TABLE IF EXISTS tDiagnostics;
 DROP TABLE IF EXISTS tTreatments;
 DROP TABLE IF EXISTS tFolders;
 DROP TABLE IF EXISTS tPatients;
-DROP TABLE IF EXISTS tParents;
 DROP TABLE IF EXISTS tContacts;
 DROP TABLE IF EXISTS tUsers;
 DROP TABLE IF EXISTS tDoctors;
@@ -28,14 +26,14 @@ CREATE TABLE IF NOT EXISTS tDoctors (
 	lastname TEXT NOT NULL,
 	permit TEXT NOT NULL UNIQUE,
 	speciality TEXT NOT NULL,
-	establishment INTEGER REFERENCES tEstablishments
+	establishment INTEGER NOT NULL REFERENCES tEstablishments
 );
 
 CREATE TABLE IF NOT EXISTS tUsers (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	username TEXT NOT NULL UNIQUE,
 	password TEXT NOT NULL,
-	doctor INTEGER REFERENCES tDoctors
+	doctor INTEGER NOT NULL REFERENCES tDoctors
 );
 
 
@@ -46,11 +44,6 @@ CREATE TABLE IF NOT EXISTS tContacts (
 	email TEXT
 );
 
-CREATE TABLE IF NOT EXISTS tParents (
-    fils   INTEGER NOT NULL REFERENCES tPatients,
-    parent   INTEGER NOT NULL REFERENCES tPatients
-);
-
 CREATE TABLE IF NOT EXISTS tPatients (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	firstname TEXT NOT NULL,
@@ -59,12 +52,14 @@ CREATE TABLE IF NOT EXISTS tPatients (
     dateOfBirth INTEGER NOT NULL,
     birthCity TEXT NOT NULL,
     insuranceNumber TEXT NOT NULL,
+    father TEXT,
+    mother TEXT,
 	contact INTEGER REFERENCES tContacts
 );
 
 CREATE TABLE IF NOT EXISTS tFolders (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	owner INTEGER REFERENCES tPatients
+	owner INTEGER NOT NULL REFERENCES tPatients
 );
 
 CREATE TABLE IF NOT EXISTS tTreatments (
@@ -80,26 +75,21 @@ CREATE TABLE IF NOT EXISTS tDiagnostics (
 CREATE TABLE IF NOT EXISTS tVisits (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	summary TEXT NOT NULL,
+   	notes TEXT NOT NULL,
 	date_ INTEGER NOT NULL,
 	treatment INTEGER REFERENCES tTreatments,
 	diagnostic INTEGER REFERENCES tDiagnostics,
-	folder INTEGER REFERENCES tFolders,
+	folder INTEGER  REFERENCES tFolders,
 	doctor INTEGER REFERENCES tDoctors
-);
-
-CREATE TABLE IF NOT EXISTS tNotes (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-   	content TEXT NOT NULL,
-   	visit INTEGER REFERENCES tVisits
 );
 
 CREATE TABLE IF NOT EXISTS tAntecedents (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	biginning INTEGER,
 	end_ INTEGER,
-	treatment INTEGER REFERENCES tTreatments,
-	diagnostic INTEGER REFERENCES tDiagnostics,
-	folder INTEGER REFERENCES tFolders,
+	treatment INTEGER  REFERENCES tTreatments,
+	diagnostic INTEGER NOT NULL REFERENCES tDiagnostics,
+	folder INTEGER  REFERENCES tFolders,
 	prescriber INTEGER REFERENCES tDoctors
 );
 
@@ -140,23 +130,27 @@ VALUES
 
 
 
-INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact)
+INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, contact, father, mother)
 VALUES
-    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000, 'Montreal', 'MORS12452196', 1),
-    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000, 'Quebec', 'POKA36952365', 2),
-    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000, 'Montreal', 'POKD63259145', 3),
-    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000, 'Quebec', 'SNIW65971398', 4),
-    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000, 'Trois Rivieres', 'LESRW36946970', 5),
-    ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000, 'Riviere Du Loup', 'DONL98632897', 6);
+    ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000.1, 'Montreal', 'MORS12452196', 1, null, null),
+    ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000.1, 'Quebec', 'POKA36952365', 2, null, null),
+    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', 'POKD63259145', 3, 'Alex Pokorny', 'Susan Morganti'),
+    ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000.1, 'Quebec', 'SNIW65971398', 4, null, 'Regina Leslie'),
+    ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000.1, 'Trois Rivieres', 'LESRW36946970', 5, null, null),
+    ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000.1, 'Riviere Du Loup', 'DONL98632897', 6, null, null);
 
- INSERT INTO tParents (fils, parent)
- VALUES (3,1), (3,2), (4,5);
 
  INSERT INTO tFolders (owner)
  VALUES (1), (2), (3), (4), (5), (6);
 
 INSERT INTO tTreatments (designation)
 VALUES
+    ('insuline'),
+    ('hypoglycemiant oral'),
+    ('corticoides'),
+    ('anti-inflammatoires non steroidiens'),
+    ('thyroxine'),
+    ('acide valproique'),
     ('insuline'),
     ('hypoglycemiant oral'),
     ('corticoides'),
@@ -174,38 +168,39 @@ VALUES
     ('allergie aux pénicillines'),
     ('maladie de crohn'),
     ('hypothyroidie'),
+    ('épilepsie'),
+    ('diabète type I'),
+    ('diabète type II'),
+    ('sclérose en plaques'),
+    ('troubles du spectre de l''autisme'),
+    ('gastro-entérite'),
+    ('allergie aux pénicillines'),
+    ('maladie de crohn'),
+    ('hypothyroidie'),
     ('épilepsie');
 
-INSERT INTO tVisits (summary, date_, treatment, diagnostic, folder, doctor)
+INSERT INTO tVisits (summary,notes, date_, treatment, diagnostic, folder, doctor)
 VALUES
-    ('après consultation de la glycémie du patient ', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
-    ('controle médicale après 3 mois de prise d''insuline', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
-    ('', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
-    ('', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
-    ('', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
-    ('', strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
-    ('', strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
-    ('', strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
-    ('', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
-    ('', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
-
-
-INSERT INTO tNotes (content, visit)
-VALUES
-    ('note 1 pour visite 1', 1),
-    ('note 2 pour visite 1', 1),
-    ('note 1 pour visite 2', 2);
-
+    ('après consultation de la glycémie du patient ','note 1 pour visite 1', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
+    ('controle médicale après 3 mois de prise d''insuline', 'note 1 pour visite 2', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
+    ('', '', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
+    ('', '', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
+    ('', '', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
+    ('', '', strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
+    ('', '', strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
+    ('', '', strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
+    ('', '', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
+    ('', '', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
 
 INSERT INTO tAntecedents (biginning, end_, treatment, diagnostic, folder, prescriber)
 VALUES
-    (strftime ('%s', '2021-01-06') * 1000.1, NULL, 1, 1, 1, 1 ),
-    (strftime ('%s', '2021-02-01') * 1000.1, NULL, 2, 2, 3, 2 ),
-    (strftime ('%s', '2020-11-03') * 1000.1, NULL, 3, 3, 5, 3 ),
+    (strftime ('%s', '2021-01-06') * 1000.1, NULL, 7, 10, 1, 1 ),
+    (strftime ('%s', '2021-02-01') * 1000.1, NULL, 8, 11, 3, 2 ),
+    (strftime ('%s', '2020-11-03') * 1000.1, NULL, 9, 12, 5, 3 ),
     (NULL, NULL, NULL, 4, 4, 2 ),
-    (strftime ('%s', '2021-05-05') * 1000.1, NULL, 6, 9, 4, 2 ),
-    (strftime ('%s', '2021-06-02') * 1000.1, NULL, NULL, 6, 3, 1 ),
-    (strftime ('%s', '2020-10-06') * 1000.1, NULL, 4, 7, 2, 1 ),
-    (strftime ('%s', '2021-05-03') * 1000.1, NULL, 5, 8, 1, 1 );
+    (strftime ('%s', '2021-05-05') * 1000.1, NULL, 12, 18, 4, 2 ),
+    (strftime ('%s', '2021-06-02') * 1000.1, NULL, NULL, 15, 3, 1 ),
+    (strftime ('%s', '2020-10-06') * 1000.1, NULL, 10, 16, 2, 1 ),
+    (strftime ('%s', '2021-05-03') * 1000.1, NULL, 11, 17, 1, 1 );
 
 

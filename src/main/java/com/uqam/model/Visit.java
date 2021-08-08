@@ -2,38 +2,38 @@ package com.uqam.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import java.sql.Date;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
 @Table(name = "tVisits")
-public class Visit {
+public class Visit implements Cloneable {
 
     @Id
-    @GeneratedValue( strategy= GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "date_")
     private Date date;
+
     private String summary;
+    private String notes ;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
-    @JoinColumn(name="visit", referencedColumnName="id")
-    private Set<Note> notes;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="treatment")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "treatment")
     private Treatment treatment;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="diagnostic")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 
-    public Visit() {}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor")
+    private Doctor doctor;
 
     public Visit(Date date , Doctor doctor){
         this.date = date;
@@ -50,31 +50,22 @@ public class Visit {
         this.doctor = doctor;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="doctor")
-    private Doctor doctor;
 
     public Date getDate() {
         return date;
     }
-
     public String getSummary() {
         return summary;
     }
-
-    public Set<Note> getNotes() {
+    public String getNotes() {
         return notes;
     }
-
-
     public Treatment getTreatment() {
-        return treatment;
+        return Optional.ofNullable(treatment).orElse(new Treatment("Ne s'applique pas"));
     }
-
     public Diagnostic getDiagnostic() {
-        return diagnostic;
+        return Optional.ofNullable(diagnostic).orElse(new Diagnostic("Ne s'applique pas"));
     }
-
     public Doctor getDoctor() {
         return doctor;
     }
@@ -83,16 +74,42 @@ public class Visit {
         this.diagnostic = diagnostic;
     }
 
-    public void setTreatment(Treatment treatment) {
-        this.treatment = treatment;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setSummary(String summary) {
         this.summary = summary;
     }
 
-    public void setNotes( Set<Note> notes) {
+    public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
+    }
+
+    public void setDiagnostic(Diagnostic diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    @Override
+    protected Visit clone() {
+        try {
+            Visit clone = (Visit) super.clone();
+            clone.treatment = this.treatment != null ? this.treatment.clone(): null;
+            clone.diagnostic = this.diagnostic != null ? this.diagnostic.clone() : null;
+            clone.doctor = this.doctor.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

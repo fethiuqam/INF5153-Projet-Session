@@ -1,10 +1,11 @@
 package com.uqam.model;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "tContacts")
-public class Contact {
+public class Contact implements Cloneable{
 
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -21,16 +22,50 @@ public class Contact {
         this.email = email;
     }
 
+    //method to validate an adress usign regex
+    public boolean validAddress(String address){
+        return address.matches("[A-Za-z0-9]+");
+    }
+
+    // method tov validate phone numebr using regex
+    public boolean validPhone(String phone){
+        if(!phone.matches("[0-9]+")){
+            return false;
+        }
+        return phone.length()!=10;
+    }
+
+
+    //method to validate an email using regex expression
+    public boolean validEmail(String email){
+        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
+
+
+    //setters
+    public void setAddress(String address) { this.address = address; }
+    public void setPhone(String phone) {this.phone = phone; }
+    public void setEmail(String email) {this.email = email;}
+
+    //getters
     public String getAddress() {
-        return address;
+        return Optional.ofNullable(address).orElse("Non spécifié");
     }
-
     public String getPhone() {
-        return phone;
+        return Optional.ofNullable(phone).orElse("Non spécifié");
+    }
+    public String getEmail() {
+        return Optional.ofNullable(email).orElse("Non spécifié");
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    protected Contact clone() {
+        try {
+            return (Contact) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

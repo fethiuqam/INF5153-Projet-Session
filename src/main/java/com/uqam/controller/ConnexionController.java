@@ -1,6 +1,7 @@
 package com.uqam.controller;
 
-import com.uqam.main.MyApp;
+import com.uqam.model.AppException;
+import com.uqam.model.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,7 +28,7 @@ public class ConnexionController {
     @FXML
     private Button loginButton;
 
-    public void login(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
+    public void login(javafx.scene.input.MouseEvent mouseEvent) throws IOException , AppException {
 
         String usernameInput = username.getText();
         String passwordInput = password.getText();
