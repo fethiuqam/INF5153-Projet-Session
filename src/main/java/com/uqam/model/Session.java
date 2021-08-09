@@ -36,13 +36,9 @@ public class Session implements Authenticable {
         return user;
     }
 
-    public Doctor getDoctor() {
-        return user.getDoctor();
-    }
 
-    public Folder getCurrentFolder() {
-        return currentFolder;
-    }
+
+
 
     DataSource getDataSource() {
         return dataSource;
@@ -119,6 +115,14 @@ public class Session implements Authenticable {
 
     public Set<Visit> getVisits() {
         return currentFolder.getVisits();
+    }
+
+    public Doctor getDoctor() {
+        return user.getDoctor();
+    }
+
+    public Folder getCurrentFolder() {
+        return currentFolder;
     }
 
     public void setModified(boolean modified) {
