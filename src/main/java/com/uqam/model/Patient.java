@@ -135,7 +135,6 @@ public class Patient implements Cloneable {
     public String getFather() {
         return Optional.ofNullable(father).orElse("Non spécifié");
     }
-
     public String getMother() {
         return Optional.ofNullable(mother).orElse("Non spécifié");
     }

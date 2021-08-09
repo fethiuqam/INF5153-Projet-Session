@@ -86,9 +86,10 @@ public class visitListController extends ListCell<Visit> {
             if (visit.getTreatment() != null)
                 treatment.setText(visit.getTreatment().getDesignation());
 
-            if (visit.getDoctor() != null)
+            if (visit.getDoctor() != null){
                 doctor.setText(visit.getDoctor().getFirstname() + " " + visit.getDoctor().getLastname());
-            establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
+                establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
+            }
 
             if (visit.getDate() != null)
                 date.setText(visit.getDate().toString());

@@ -15,15 +15,26 @@ import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class HomeController {
 
+    // ***** User information
+    @FXML
+    private Label lastName;
 
     @FXML
-    private Button logoutButton;
+    private Label firstName;
+
+    @FXML
+    private Label permitNumber;
+    // ***** User information
+
+    @FXML
+    private HBox logoutButton;
 
     @FXML
     private AnchorPane scanCard;
@@ -46,14 +57,6 @@ public class HomeController {
     @FXML
     private TextField insuranceSearchQuery;
 
-    @FXML
-    private Label firstName;
-
-    @FXML
-    private Label lastName;
-
-    @FXML
-    private Label permitNumber;
 
     private Session session;
 

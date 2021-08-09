@@ -14,11 +14,11 @@
     <children>
         <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <Label fx:id="establishment" text="Nom etablissement">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
+                <Label fx:id="establishment" text="Nom etablissement">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Label>
                 <HBox prefHeight="100.0" VBox.vgrow="ALWAYS">
                     <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
@@ -53,7 +53,7 @@
                             </children>
                         </VBox>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
+                            <children>
                                 <HBox spacing="5.0">
                                     <children>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
@@ -72,26 +72,26 @@
                                         <Text fx:id="summary" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
                                     </children>
                                 </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Text>
-                              <StackPane fx:id="openNoteButton" onMouseClicked="#openNote" style="-fx-cursor: hand;">
-                                 <children>
-                                    <Circle fx:id="notesCircleIndicator" fill="#ddeeff" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                                    <Text fx:id="notesNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="CENTER">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </StackPane>
-                           </children>
-                        </HBox>
-                     </children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                            <font>
+                                                <Font name="System Bold" size="12.0" />
+                                            </font>
+                                        </Text>
+                                        <StackPane fx:id="openNoteButton" onMouseClicked="#openNote" style="-fx-cursor: hand;">
+                                            <children>
+                                                <Circle fx:id="notesCircleIndicator" fill="#ddeeff" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                                <Text fx:id="notesNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="CENTER">
+                                                    <font>
+                                                        <Font name="System Bold" size="15.0" />
+                                                    </font>
+                                                </Text>
+                                            </children>
+                                        </StackPane>
+                                    </children>
+                                </HBox>
+                            </children>
                         </VBox>
                     </children>
                 </HBox>

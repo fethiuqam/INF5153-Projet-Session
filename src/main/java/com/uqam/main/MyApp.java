@@ -17,6 +17,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+        Parent connexionRoot = (Parent) fxmlLoader.load();
 
         //create session
 
@@ -25,7 +26,6 @@ public class MyApp extends Application {
 
         connectSession(fxmlLoader, session);
 
-        Parent connexionRoot = FXMLLoader.load(getClass().getResource("/views/ConnexionVue.fxml"));
         var scene = new Scene(connexionRoot);
         stage.getIcons().add(new Image("/images/windowIcon.png"));
         stage.setTitle("CentRAMQ Accès Médecin");

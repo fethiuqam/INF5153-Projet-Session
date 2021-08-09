@@ -35,13 +35,17 @@ public class Visit implements Cloneable {
     @JoinColumn(name = "doctor")
     private Doctor doctor;
 
+    public Visit() {
+    }
+
+
     public Visit(Date date , Doctor doctor){
         this.date = date;
         this.doctor = doctor;
     }
 
     // For testing purposes
-    public Visit(Date date, String summary, Set<Note> notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+    public Visit(Date date, String summary, String notes, Diagnostic diagnostic, Treatment treatment,  Doctor doctor) {
         this.date = date;
         this.summary = summary;
         this.notes = notes;
@@ -90,9 +94,6 @@ public class Visit implements Cloneable {
         this.treatment = treatment;
     }
 
-    public void setDiagnostic(Diagnostic diagnostic) {
-        this.diagnostic = diagnostic;
-    }
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;

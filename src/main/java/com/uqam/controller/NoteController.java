@@ -69,10 +69,8 @@ public class NoteController {
     @FXML
     void applyEdit(MouseEvent event) {
 
-        //get note
-
-
         note =  inputField.getText();
+        visit.setNotes(note);
 
         //show non editable note text
         noteContent.setVisible(true);
@@ -89,10 +87,7 @@ public class NoteController {
 
     private void showContent() {
         date.setText(visit.getDate().toString());
-
-
         noteContent.setText(note);
-
 
         //resize window (stage) to fit content
         Stage stage = (Stage) anchorPane.getScene().getWindow();

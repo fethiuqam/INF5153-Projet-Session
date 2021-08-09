@@ -135,17 +135,9 @@ public class PatientController implements Initializable {
         String note1 = "Maecenas et ligula sit amet elit molestie facilisis. Sed massa erat, pharetra non vestibulum ut, ullamcorper at ex. Nam ullamcorper justo semper, tincidunt libero at, eleifend felis. Cras vitae quam vel massa porta volutpat. Duis malesuada massa in mauris consequat, non malesuada magna ornare. Ut et vulputate nisi, elementum molestie ipsum. Pellentesque a gravida arcu. Vestibulum condimentum orci eu orci congue, ac bibendum sapien elementum. Nulla sed nunc laoreet, commodo eros sit amet, pretium massa. Nullam interdum efficitur consequat. Morbi sit amet luctus nulla, ut iaculis mi. Praesent at leo eget risus maximus vestibulum ac vitae purus. Phasellus dignissim sem eget nisi tempor cursus. Quisque sagittis sem id mauris efficitur varius. Phasellus dignissim volutpat rutrum. ";
         String note2 = "Amet duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus sed. Pulvinar ut bibendum amet fames vulputate.";
         String note3 = "Troisieme type de Note duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie";
-
         Contact patientContactInformation = new Contact("8774 Merry Meadow", "(623) 488-8798", "Azadeh.Rackley@gmail.com");
         currentPatient = new Patient("Azadeh", "Rackley", Gender.FEMALE, debut, "Blackwater", "867173283", patientContactInformation);
         // ********* SAMPLE DATA *********
-
-        HashSet<Antecedent> databaseList = new HashSet<Antecedent>();
-        databaseList.add(new Antecedent(debut, fin, diagnostic1, treatment1,doctor1));
-        databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment1,doctor2));
-        databaseList.add(new Antecedent(debut, fin, diagnostic1, treatment2,doctor2));
-        databaseList.add(new Antecedent(debut, fin, diagnostic2, treatment2,doctor1));
-        antecedentsObservableList = FXCollections.observableArrayList(databaseList);
 
     }
 
@@ -167,18 +159,9 @@ public class PatientController implements Initializable {
             phone.setText(currentPatient.getContact().getPhone());
             email.setText(currentPatient.getContact().getEmail());
             gender.setText(currentPatient.getGender().toString());
+            father.setText(currentPatient.getFather());
+            mother.setText(currentPatient.getMother());
 
-//            Set<Patient> parentSet = currentPatient.getParents();
-//            ArrayList<Patient> parentsList = new ArrayList<>();
-//            parentsList.addAll(parentSet);
-//
-//            if ( parentsList.size() > 0 && parentsList.get(0) !=null ) {
-//                father.setText(parentsList.get(0).getFirstname() + " " + (parentsList.get(0).getLastname()));
-//            }
-//
-//            if ( parentsList.size() > 1 && parentsList.get(1) !=null){
-//                mother.setText(parentsList.get(1).getFirstname() + " " + (parentsList.get(1).getLastname()));
-//            }
 
             //Antecedent list
 
@@ -195,6 +178,8 @@ public class PatientController implements Initializable {
             visitObservableList = FXCollections.observableArrayList(visitSet);
             visitListView.setItems(visitObservableList);
             visitListView.setCellFactory(visitList -> new visitListController());
+
+
         });
     }
 
