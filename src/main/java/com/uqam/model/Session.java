@@ -80,11 +80,16 @@ public class Session implements Authenticable {
         return result;
     }
 
-    public Visit createNewVisit() {
-        newVisit = new Visit();
-        // TODO a mettre dans le builder
-        newVisit.setDate(new Date(new java.util.Date().getTime()));
-        newVisit.setDoctor(this.user.getDoctor());
+    public Visit createNewVisit(Diagnostic diagnostic, Treatment treatment, String summary, String notes) {
+        Doctor doctor = this.user.getDoctor();
+        Date date = new Date(new java.util.Date().getTime());
+        newVisit = new Visit.VisitBuilder(doctor,date)
+        .diagnostic(diagnostic)
+        .treatment(treatment)
+        .summary(summary)
+        .notes(notes)
+        .build();
+
         modified = true;
         return newVisit;
     }

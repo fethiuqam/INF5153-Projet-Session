@@ -201,12 +201,7 @@ public class PatientController implements Initializable {
 
         String notesInput = visitNotes.getText();
 
-        Visit visit = session.createNewVisit();
-
-        visit.setDiagnostic(diagnostic);
-        visit.setTreatment(treatment);
-        visit.setSummary(summary);
-        visit.setNotes(notesInput);
+        Visit visit = session.createNewVisit(diagnostic,treatment,summary,notesInput);
 
 
         visitSet.add(visit);

@@ -31,7 +31,12 @@ public class FolderTest {
         diagnostic = new Diagnostic("Covid-19");
         establishment = new Establishment("Hosp1234", "Hopital juif");
         doctor = new Doctor("Pablo", "Escobar", "A45123654", "Doctor", establishment);
-        visit = new Visit(date, "Patient is suffering from covid-19", "patient is old", diagnostic, treatment, doctor);
+        visit = new Visit.VisitBuilder(doctor,date)
+                .summary("Patient is suffering from covid-19")
+                .notes("patient is old")
+                .diagnostic(diagnostic)
+                .treatment(treatment)
+                .build();
 
 
     }
