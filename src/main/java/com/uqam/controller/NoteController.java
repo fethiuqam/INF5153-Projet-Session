@@ -42,11 +42,13 @@ public class NoteController {
 
         Platform.runLater(() -> {
 
-            if (note !=null) {
-                showContent();
-            }
+
+            showContent();
+
 
         });
+
+
 
     }
 
@@ -87,7 +89,9 @@ public class NoteController {
 
     private void showContent() {
         date.setText(visit.getDate().toString());
-        noteContent.setText(note);
+        if (note!=null){
+            noteContent.setText(note);
+        }
 
         //resize window (stage) to fit content
         Stage stage = (Stage) anchorPane.getScene().getWindow();
