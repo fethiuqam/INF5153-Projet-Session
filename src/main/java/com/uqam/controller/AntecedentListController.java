@@ -72,13 +72,13 @@ public class AntecedentListController extends ListCell<Antecedent> {
 
 
             if (dateDebut != null){
-                if (antecedent.getBeginning() != null)
-                    dateDebut.setText(antecedent.getBeginning().toString());
+                if (antecedent.getBeginning().isPresent())
+                    dateDebut.setText(antecedent.getBeginning().get().toString());
             }
 
             if (dateFin != null){
-                if (antecedent.getEnd()!= null)
-                    dateFin.setText(antecedent.getEnd().toString());
+                if (antecedent.getEnd().isPresent())
+                    dateFin.setText(antecedent.getEnd().get().toString());
             }
 
 
