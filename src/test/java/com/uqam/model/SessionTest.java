@@ -38,8 +38,12 @@ class SessionTest {
                         "SusanKMorganti@armyspy.com"));
         t1 = new Treatment("insuline");
         d1 = new Diagnostic("diabète type I");
-        v1 = new Visit(new Date(2021, 1, 6), "après consultation de la glycémie du patient ",
-                "note 1 pour visite 1", d1, t1, doctor);
+        v1 = new Visit.VisitBuilder(doctor,new Date(2021, 1, 6))
+                .summary("après consultation de la glycémie du patient ")
+                .notes("note 1 pour visite 1")
+                .diagnostic(d1)
+                .treatment(t1)
+                .build();
         a1 = new Antecedent(new Date(2021,1,6),null, d1, t1, doctor);
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
     }

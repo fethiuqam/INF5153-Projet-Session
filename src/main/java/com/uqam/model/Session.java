@@ -2,7 +2,8 @@ package com.uqam.model;
 
 import com.uqam.dao.DataSource;
 
-import javax.print.Doc;
+import java.sql.Date;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,10 +85,16 @@ public class Session implements Authenticable {
         return result;
     }
 
-    public Visit createNewVisit() {
-        newVisit = new Visit();
-//        newVisit.setDate(new Date(new java.util.Date().getTime()));  // a mettre dans le builder
-//        newVisit.setDoctor(this.user.getDoctor());
+    public Visit createNewVisit(Diagnostic diagnostic, Treatment treatment, String summary, String notes) {
+        Doctor doctor = this.user.getDoctor();
+        Date date = new Date(new java.util.Date().getTime());
+        newVisit = new Visit.VisitBuilder(doctor,date)
+        .diagnostic(diagnostic)
+        .treatment(treatment)
+        .summary(summary)
+        .notes(notes)
+        .build();
+
         modified = true;
         return newVisit;
     }
