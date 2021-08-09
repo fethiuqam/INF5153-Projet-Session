@@ -30,8 +30,8 @@ public class DataSource implements Searchable, Editable {
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
             result = null;
-        } catch (Exception e) {
-            throw new AppException("Erreur de base de données inconnu");
+//        } catch (Exception e) {
+//            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -68,8 +68,8 @@ public class DataSource implements Searchable, Editable {
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
             result = null;
-        } catch (Exception e) {
-            throw new AppException("Erreur de base de données inconnu");
+//        } catch (Exception e) {
+//            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -91,11 +91,11 @@ public class DataSource implements Searchable, Editable {
             entityManager.getTransaction().commit();
         }catch (JDBCConnectionException e){
             throw new AppException("Erreur de connection avec la base de données");
-        } catch (Exception e) {
-            result = false;
-            if (entityManager != null)
-                entityManager.getTransaction().rollback();
-            throw new AppException("Echec de la mise à jour du dossier sur la base de données");
+//        } catch (Exception e) {
+//            result = false;
+//            if (entityManager != null)
+//                entityManager.getTransaction().rollback();
+//            throw new AppException("Echec de la mise à jour du dossier sur la base de données");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();

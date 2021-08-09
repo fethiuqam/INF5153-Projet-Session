@@ -15,7 +15,7 @@ public class Doctor implements Cloneable {
     private String permit;
     private String speciality;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "establishment")
     private Establishment establishment;
 

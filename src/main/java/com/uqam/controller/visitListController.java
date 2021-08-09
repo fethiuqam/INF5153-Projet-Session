@@ -3,6 +3,7 @@ package com.uqam.controller;
 import com.uqam.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -125,10 +127,12 @@ public class visitListController extends ListCell<Visit> {
             NoteController controller = fxmlLoader.getController();
             controller.setVisit(currentVisit);
             Stage newWindow = new Stage();
-
             newWindow.setTitle("Notes");
             newWindow.getIcons().add(new Image("/images/windowIcon.png"));
             newWindow.setScene(new Scene(root));
+            // ajout FETHI
+            newWindow.initModality(Modality.WINDOW_MODAL);
+            newWindow.initOwner(((Node)event.getSource()).getScene().getWindow() );
             newWindow.show();
         } catch (IOException e) {
             e.printStackTrace();

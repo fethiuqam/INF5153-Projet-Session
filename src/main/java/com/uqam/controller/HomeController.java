@@ -3,7 +3,6 @@ package com.uqam.controller;
 import com.uqam.model.AppException;
 import com.uqam.model.Doctor;
 import com.uqam.model.Session;
-import com.uqam.model.User;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -65,8 +64,7 @@ public class HomeController {
         Platform.runLater(() -> {
 
             // Doctor information
-            User user = session.getUser();
-            Doctor doctor = user.getDoctor();
+            Doctor doctor = session.getDoctor();
 
             firstName.setText(doctor.getFirstname());
             lastName.setText(doctor.getLastname());

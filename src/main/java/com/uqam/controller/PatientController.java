@@ -179,10 +179,8 @@ public class PatientController implements Initializable {
             visitListView.setItems(visitObservableList);
             visitListView.setCellFactory(visitList -> new visitListController());
 
-
         });
     }
-
 
     @FXML
     void addAntecedent(MouseEvent event) {
@@ -234,4 +232,21 @@ public class PatientController implements Initializable {
         controller.setSession(session);
     }
 
+    public void saveFolder(MouseEvent mouseEvent) {
+        // test rapide de sauvegarde sur la db .FETHI
+        // ajout et suppression d atcd commenté
+//        List<Antecedent> list = new ArrayList<>(antecedentSet);
+//        Antecedent a = list.get(0);
+//        System.out.println(a);
+//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getUser().getDoctor());
+//        antecedentsObservableList.add(a);
+//        antecedentSet.add(a);
+        session.setModified(true);
+        try {
+            session.saveFolder();
+            System.out.println("dossier sauvegardé");
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+    }
 }

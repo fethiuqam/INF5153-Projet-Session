@@ -1,6 +1,8 @@
 package com.uqam.model;
 
 import com.uqam.dao.DataSource;
+
+import javax.print.Doc;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +31,12 @@ public class Session implements Authenticable {
         return newAntecedents;
     }
 
-    public User getUser() {
+    User getUser() {
         return user;
+    }
+
+    public Doctor getDoctor() {
+        return user.getDoctor();
     }
 
     public Folder getCurrentFolder() {
@@ -108,4 +114,7 @@ public class Session implements Authenticable {
         return currentFolder.getVisits();
     }
 
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
 }

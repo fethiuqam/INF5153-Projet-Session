@@ -31,7 +31,7 @@ public class Visit implements Cloneable {
     @JoinColumn(name = "diagnostic")
     private Diagnostic diagnostic;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "doctor")
     private Doctor doctor;
 

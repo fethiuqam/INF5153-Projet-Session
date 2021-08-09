@@ -12,7 +12,7 @@ public class User {
     private String username;
     private String password;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn( name="doctor")
     private Doctor doctor;
 
