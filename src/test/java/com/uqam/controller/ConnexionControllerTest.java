@@ -18,10 +18,8 @@ import org.testfx.matcher.control.LabeledMatchers;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.testfx.matcher.control.TextInputControlMatchers;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.lenient;
-
 import java.io.IOException;
 
 @ExtendWith({ApplicationExtension.class, MockitoExtension.class})
@@ -49,7 +47,6 @@ public class ConnexionControllerTest {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-
     }
 
     @Test
@@ -68,8 +65,6 @@ public class ConnexionControllerTest {
         // then :
         Window window = robot.listWindows().get(0);
         assertEquals(scene, window.getScene());
-
-
     }
 
     @Test
