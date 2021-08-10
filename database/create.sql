@@ -181,8 +181,8 @@ VALUES
 
 INSERT INTO tVisits (summary,notes, date_, treatment, diagnostic, folder, doctor)
 VALUES
-    ('après consultation de la glycémie du patient ','note 1 pour visite 1', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
-    ('controle médicale après 3 mois de prise d''insuline', 'note 1 pour visite 2', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
+    ('après consultation de la glycémie du patient ','debut de traitement par l''insuline retard à 10 UI le soir', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
+    ('controle médicale après 3 mois de prise d''insuline', 'augmentation de la dose d''insuline à 20 UI le soir', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
     ('', '', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
     ('', '', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
     ('', '', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme

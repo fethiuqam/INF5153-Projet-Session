@@ -1,0 +1,27 @@
+@startuml
+
+skinparam nodesep 200
+
+title Diagramme de classe du patron de conception "Prototype"
+
+class Session <<Client>> {
+  + downloadFolder(id: String)
+  + saveFolder()
+  + resetFolder()
+}
+
+class Folder <<Prototype>> {
+  - owner : Patient
+  - visits : Set<Visit>
+  - antecedents : Set<Antecedent>
+  __
+  + this()
+  __
+  + <<clone>> duplicate(): Folder
+}
+
+Session *-> "1\n originalFolder" Folder
+Session *-> "1\n currentFolder" Folder
+
+
+@enduml

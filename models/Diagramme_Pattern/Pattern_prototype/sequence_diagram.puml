@@ -1,0 +1,67 @@
+@startuml
+hide footbox
+
+title Diagramme de séquence du patron de conception "Prototype"
+
+participant ": Session" as S
+participant ": DataSource" as D
+database "Database" as bd
+
+[-> S: downloadFolder(id)
+activate S
+S -> D : findById(id)
+activate D
+note right: heavy creation process
+D -> bd : SQL request
+bd --> D : response
+
+create "originalFolder: Folder <<Prototype>>" as P1
+D -> P1: create()
+activate P1
+
+P1 --> D : originalFolder
+deactivate P1
+D --> S : originalFolder
+deactivate D
+
+
+
+
+
+'S -> P1: doSomething()
+'activate P1
+'P1 --> S
+'deactivate P1
+
+S -> P1: duplicate()
+activate P1
+create "currentFolder: Folder" as P2
+P1 -> P2: new()
+activate P2
+note left: light copy process
+P2 --> P1: currentFolder
+deactivate P2
+P1 --> S: currentFolder
+deactivate P1
+
+S -> P2: doSomething()
+activate P2
+P2 --> S
+deactivate P2
+
+[-> S: resetFolder()
+
+S -> P1: duplicate()
+activate P1
+create "currentFolder: Folder" as P2
+P1 -> P2: new()
+activate P2
+note left: light copy process
+P2 --> P1: currentFolder
+deactivate P2
+P1 --> S: currentFolder
+deactivate P1
+
+deactivate S
+
+@enduml

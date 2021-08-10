@@ -25,7 +25,7 @@ import java.util.*;
 
 //TODO remove "edit" on notes due to not being able to access original Visits.
 
-public class PatientController implements Initializable {
+public class PatientController extends Observable implements Initializable {
 
     Session session;
 
@@ -119,6 +119,9 @@ public class PatientController implements Initializable {
 
     public PatientController() {
 
+        // pattern observer
+
+
         // ********* SAMPLE DATA *********
 
         long millis=System.currentTimeMillis();
@@ -179,6 +182,8 @@ public class PatientController implements Initializable {
             visitListView.setItems(visitObservableList);
             visitListView.setCellFactory(visitList -> new visitListController());
 
+            addObserver(session.getCurrentFolder());
+
         });
     }
 
@@ -230,12 +235,14 @@ public class PatientController implements Initializable {
     public void saveFolder(MouseEvent mouseEvent) {
         // test rapide de sauvegarde sur la db .FETHI
         // ajout et suppression d atcd commenté
-//        List<Antecedent> list = new ArrayList<>(antecedentSet);
-//        Antecedent a = list.get(0);
-//        System.out.println(a);
-//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getUser().getDoctor());
+        List<Antecedent> list = new ArrayList<>(antecedentSet);
+        Antecedent a = list.get(0);
+        System.out.println(a);
+        antecedentsObservableList.remove(a);
+//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getDoctor());
 //        antecedentsObservableList.add(a);
-//        antecedentSet.add(a);
+        setChanged();
+        notifyObservers();
         session.setModified(true);
         try {
             session.saveFolder();
@@ -243,5 +250,13 @@ public class PatientController implements Initializable {
         } catch (AppException e) {
             e.printStackTrace();
         }
+    }
+
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedentsObservableList);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visitObservableList);
     }
 }
