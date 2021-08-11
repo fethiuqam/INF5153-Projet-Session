@@ -42,8 +42,8 @@ class SessionTest {
         v1 = new Visit.VisitBuilder(doctor,new Date(2021, 1, 6))
                 .summary("après consultation de la glycémie du patient ")
                 .notes("note 1 pour visite 1")
-                .diagnostic(d1)
-                .treatment(t1)
+                .diagnostic(d1.getDesignation())
+                .treatment(t1.getDesignation())
                 .build();
         a1 = new Antecedent(new Date(2021,1,6),null, d1, t1, doctor);
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));

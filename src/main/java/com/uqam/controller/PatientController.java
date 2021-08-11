@@ -1,23 +1,31 @@
 package com.uqam.controller;
 
 import com.uqam.model.*;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -29,7 +37,7 @@ public class PatientController extends Observable implements Initializable {
 
     Session session;
 
-    // Medical history
+    // Listviews
     private ObservableList<Antecedent> antecedentsObservableList;
 
     private  ObservableList<Visit> visitObservableList;
@@ -105,42 +113,30 @@ public class PatientController extends Observable implements Initializable {
     @FXML
     private DatePicker antecedentEndDate;
 
+    // new visit
 
-    // Header bouttons
     @FXML
-    private HBox cancel;
+    private VBox newVisitFields;
 
-    // Sample data
-    Set<Antecedent> antecedentSet;
-    Set<Visit> visitSet;
-    Doctor doctor1;
+    @FXML
+    private HBox addVisitButton;
 
+    @FXML
+    private Label addVisitLabel;
+
+    @FXML
+    private ImageView plusIcon;
+
+    RotateTransition plusToCross;
+
+    @FXML
+    private Label currentVisitDate;
+
+    @FXML
+    private Label currentVisitEstablishment;
 
 
     public PatientController() {
-
-        // pattern observer
-
-
-        // ********* SAMPLE DATA *********
-
-        long millis=System.currentTimeMillis();
-        Date debut = new Date(millis);
-        Date fin = new Date(millis);
-        Diagnostic diagnostic1 = new Diagnostic("diagnostic 1");
-        Diagnostic diagnostic2 = new Diagnostic("diagnostic 2");
-        Treatment treatment1 = new Treatment("traitement 1 ");
-        Treatment treatment2 = new Treatment("traitement 2 ");
-        Establishment etablissement1 = new Establishment("0231030213", "Hopital 1");
-        Establishment etablissement2 = new Establishment("2323330213", "Hopital 2");
-        doctor1 = new Doctor("Jean", "Dubois", "JDB89019229030", "specialite", etablissement1);
-        Doctor doctor2 = new Doctor("Michael", "Desjardins", "MDJ89019229030", "specialite", etablissement2);
-        String note1 = "Maecenas et ligula sit amet elit molestie facilisis. Sed massa erat, pharetra non vestibulum ut, ullamcorper at ex. Nam ullamcorper justo semper, tincidunt libero at, eleifend felis. Cras vitae quam vel massa porta volutpat. Duis malesuada massa in mauris consequat, non malesuada magna ornare. Ut et vulputate nisi, elementum molestie ipsum. Pellentesque a gravida arcu. Vestibulum condimentum orci eu orci congue, ac bibendum sapien elementum. Nulla sed nunc laoreet, commodo eros sit amet, pretium massa. Nullam interdum efficitur consequat. Morbi sit amet luctus nulla, ut iaculis mi. Praesent at leo eget risus maximus vestibulum ac vitae purus. Phasellus dignissim sem eget nisi tempor cursus. Quisque sagittis sem id mauris efficitur varius. Phasellus dignissim volutpat rutrum. ";
-        String note2 = "Amet duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus sed. Pulvinar ut bibendum amet fames vulputate.";
-        String note3 = "Troisieme type de Note duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie faucibus aliquet gravida turpis. Volutpat consequat elit faucibus duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie  duis tincidunt odio sed tempus aliquam purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie purus venenatis dignissim. Morbi fusce augue id massa sit donec. Fames eget tempor vivamus feugiat dignissim tempor elit blandit nullam. Augue cras malesuada aliquam vitae consectetur adipiscing lectus ultricies lectus. Venenatis risus molestie";
-        Contact patientContactInformation = new Contact("8774 Merry Meadow", "(623) 488-8798", "Azadeh.Rackley@gmail.com");
-        currentPatient = new Patient("Azadeh", "Rackley", Gender.FEMALE, debut, "Blackwater", "867173283", patientContactInformation);
-        // ********* SAMPLE DATA *********
 
     }
 
@@ -151,6 +147,7 @@ public class PatientController extends Observable implements Initializable {
 
             currentFolder= session.getCurrentFolder();
             currentPatient = currentFolder.getOwner();
+            plusToCross = new RotateTransition(Duration.millis(400), plusIcon);
 
             // Setting patient information text
             name.setText(currentPatient.getLastname());
@@ -165,21 +162,95 @@ public class PatientController extends Observable implements Initializable {
             father.setText(currentPatient.getFather());
             mother.setText(currentPatient.getMother());
 
+            // Setting new Visit non modifiable information
+            currentVisitDate.setText(new Date(System.currentTimeMillis()).toString());
+            currentVisitEstablishment.setText(session.getDoctor().getEstablishment().getDesignation());
+
             //Antecedent list
-
-            antecedentSet = session.getAntecedents();
-
-            antecedentsObservableList = FXCollections.observableArrayList(antecedentSet);
-
+            antecedentsObservableList = FXCollections.observableArrayList(session.getAntecedents());
             antecedentsListView.setItems(antecedentsObservableList);
-            antecedentsListView.setCellFactory(antecedentList -> new AntecedentListController());
+            antecedentsListView.setCellFactory(antecedentList -> {
+                AntecedentListController antecedentListController = new AntecedentListController();
+                antecedentListController.setSession(session);
+                return antecedentListController;
+            });
 
             //Visit list
-            visitSet = session.getVisits();
-
-            visitObservableList = FXCollections.observableArrayList(visitSet);
+            visitObservableList = FXCollections.observableArrayList(session.getVisits());
             visitListView.setItems(visitObservableList);
-            visitListView.setCellFactory(visitList -> new visitListController());
+            visitListView.setCellFactory(visitList -> {
+                visitListController visitListController = new visitListController();
+                visitListController.setSession(session);
+                return  visitListController;
+            });
+
+            //Antecedent list on click listener
+           antecedentsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent event) {
+                    Antecedent currentAntecedent = antecedentsListView.getSelectionModel().getSelectedItem();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/antecedentDetails.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        antecedentDetailsController controller = fxmlLoader.getController();
+                        controller.setData(currentAntecedent,session,antecedentsObservableList);
+                        Stage newWindow = new Stage();
+                        newWindow.setTitle("Antecedent");
+                        newWindow.getIcons().add(new Image("/images/windowIcon.png"));
+                        newWindow.setScene(new Scene(root));
+                        newWindow.initModality(Modality.WINDOW_MODAL);
+                        newWindow.initOwner(((Node)event.getSource()).getScene().getWindow() );
+
+                        // update data on detail window close
+                        newWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent e) {
+                                antecedentsListView.refresh();
+                            }
+                        });
+
+                        newWindow.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            //Visit list on click listener
+            visitListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent event) {
+                    Visit currentVisit = visitListView.getSelectionModel().getSelectedItem();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/visiteDetails.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        visitDetailsController controller = fxmlLoader.getController();
+                        controller.setVisit(currentVisit);
+                        controller.setData(session,visitObservableList);
+                        Stage newWindow = new Stage();
+                        newWindow.setTitle("Visite");
+                        newWindow.getIcons().add(new Image("/images/windowIcon.png"));
+                        newWindow.setScene(new Scene(root));
+                        newWindow.initModality(Modality.WINDOW_MODAL);
+                        newWindow.initOwner(((Node)event.getSource()).getScene().getWindow() );
+
+                        // update data on detail window close
+                        newWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                            @Override
+                            public void handle(WindowEvent e) {
+                                visitListView.refresh();
+                            }
+                        });
+
+                        newWindow.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
 
             addObserver(session.getCurrentFolder());
 
@@ -192,22 +263,42 @@ public class PatientController extends Observable implements Initializable {
     }
 
     @FXML
-    void addVisit(MouseEvent event) {
+    void showVisitCreator(MouseEvent event) {
+
+        String buttonText = addVisitLabel.getText();
+
+        if (plusToCross.getStatus() != Animation.Status.RUNNING){
+
+            if (buttonText.equals("Ajouter")){
+
+                newVisitFields.setVisible(true);
+                addVisitLabel.setText("Annuler");
+
+                plusToCross.setByAngle(45);
+
+            } else {
+
+                newVisitFields.setVisible(false);
+                addVisitLabel.setText("Ajouter");
+
+                plusToCross.setByAngle(-45);
+
+            }
+
+            plusToCross.setCycleCount(1);
+            plusToCross.setInterpolator(Interpolator.EASE_OUT);
+            plusToCross.play();
+
+        }
+
+    }
+
+    void addVisit(){
         String diagnosticInput = visitDiagnostic.getText();
-        Diagnostic diagnostic = new Diagnostic(diagnosticInput);
-
         String treatmentInput = visitTreatment.getText();
-        Treatment treatment = new Treatment(treatmentInput);
-
-        String summary = visitSummary.getText();
-
+        String summaryInput = visitSummary.getText();
         String notesInput = visitNotes.getText();
-
-        Visit visit = session.createNewVisit(diagnostic,treatment,summary,notesInput);
-
-
-        visitSet.add(visit);
-        visitObservableList.add(visit);
+        session.createNewVisit(diagnosticInput,treatmentInput,summaryInput,notesInput);
     }
 
     @FXML
@@ -231,23 +322,43 @@ public class PatientController extends Observable implements Initializable {
         controller.setSession(session);
     }
 
-    public void saveFolder(MouseEvent mouseEvent) {
+    public void saveFolder(MouseEvent mouseEvent) throws IOException {
         // test rapide de sauvegarde sur la db .FETHI
         // ajout et suppression d atcd commenté
-        List<Antecedent> list = new ArrayList<>(antecedentSet);
-        Antecedent a = list.get(0);
-        System.out.println(a);
-        antecedentsObservableList.remove(a);
-//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getDoctor());
+//        List<Antecedent> list = new ArrayList<>(antecedentSet);
+//        Antecedent a = list.get(0);
+//        System.out.println(a);
+//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getUser().getDoctor());
 //        antecedentsObservableList.add(a);
         setChanged();
         notifyObservers();
+//        antecedentSet.add(a);
+
+        String buttonText = addVisitLabel.getText();
+
+        if (buttonText.equals("Annuler")){
+            addVisit();
+        }
+
+
+        session.setModified(true);
         try {
             session.saveFolder();
             System.out.println("dossier sauvegardé");
         } catch (AppException e) {
             e.printStackTrace();
         }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+        Parent homeRoot = (Parent) fxmlLoader.load();
+
+        session.reinitializeFolder();
+
+        connectSession(fxmlLoader, session);
+        var scene = new Scene(homeRoot);
+        Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+        mainStage.setScene(scene);
+
     }
 
     public Set<Antecedent> getAntecedents() {

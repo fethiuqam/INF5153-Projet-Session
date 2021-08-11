@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uqam.controller.visitDetailsController">
+   <children>
+      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Visite du">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="dateHeader" text="MM/JJ/AAAA">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/visitIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <AnchorPane id="cardScan" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF; -fx-border-radius: 20; -fx-border-color: #EEEEEE; -fx-border-width: 5;" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox spacing="10.0">
+                           <children>
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="establishmentHeader" text="Nom etablissement">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane HBox.hgrow="ALWAYS" />
+                                    <StackPane fx:id="ownerIndicator" visible="false">
+                                       <children>
+                                          <Circle fill="#9bc9f6" radius="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/ownerIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medecin traitant">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="doctorContent" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Traitement">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <StackPane alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <TextArea fx:id="treatmentInputField" visible="false" wrapText="true" StackPane.alignment="TOP_LEFT" />
+                                                      <Text fx:id="treatmentContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur lors de la recuperation des donnees" wrappingWidth="300.0" />
+                                                   </children>
+                                                </StackPane>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostique">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <StackPane alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <TextArea fx:id="diagnosticInputField" visible="false" wrapText="true" StackPane.alignment="TOP_LEFT" />
+                                                      <Text fx:id="diagnoticContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur lors de la recuperation des donnees" wrappingWidth="300.0" />
+                                                   </children>
+                                                </StackPane>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resume">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <StackPane alignment="CENTER_LEFT">
+                                                   <children>
+                                                      <TextArea fx:id="summaryInputField" visible="false" wrapText="true" StackPane.alignment="TOP_LEFT" />
+                                                      <Text fx:id="summaryContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur lors de la recuperation des donnees" wrappingWidth="300.0" />
+                                                   </children>
+                                                </StackPane>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <StackPane>
+                                                   <children>
+                                                      <TextArea fx:id="noteInputField" prefHeight="50.0" visible="false" wrapText="true" StackPane.alignment="TOP_LEFT" />
+                                                      <Text fx:id="noteContent" strokeType="OUTSIDE" strokeWidth="0.0" text="Erreur lors de la recuperation des donnees" wrappingWidth="500.0" />
+                                                   </children>
+                                                </StackPane>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Pane VBox.vgrow="ALWAYS" />
+                        <HBox fx:id="ownerBouttons" spacing="10.0" visible="false">
+                           <children>
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <HBox fx:id="delete" alignment="CENTER" onMouseClicked="#deleteVisit" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
+                                 <children>
+                                    <Label text="Supprimer" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/trashIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+                                 </padding>
+                              </HBox>
+                              <StackPane style="-fx-cursor: hand;">
+                                 <children>
+                                    <HBox fx:id="edit" alignment="CENTER" onMouseClicked="#editVisit" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
+                                       <children>
+                                          <Label text="Modifier" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/editIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox fx:id="apply" alignment="CENTER" onMouseClicked="#applyEdit" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;" visible="false">
+                                       <children>
+                                          <Label text="Appliquer" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/checkIcon.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

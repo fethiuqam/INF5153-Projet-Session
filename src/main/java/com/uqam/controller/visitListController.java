@@ -19,7 +19,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 public class visitListController extends ListCell<Visit> {
 
@@ -53,9 +52,11 @@ public class visitListController extends ListCell<Visit> {
     private Text notesNumber;
 
     @FXML
-    private StackPane openNoteButton;
+    private StackPane ownerIndicator;
 
-    Visit currentVisit;
+    private Visit currentVisit;
+
+    private Session session;
 
     @Override
     protected void updateItem(Visit visit, boolean empty) {
@@ -82,35 +83,27 @@ public class visitListController extends ListCell<Visit> {
 
             }
 
-            if (visit.getDiagnostic() != null)
-                diagnostic.setText(visit.getDiagnostic().getDesignation());
+            setVisitInformation(visit);
 
-            if (visit.getTreatment() != null)
-                treatment.setText(visit.getTreatment().getDesignation());
-
-            if (visit.getDoctor() != null){
-                doctor.setText(visit.getDoctor().getFirstname() + " " + visit.getDoctor().getLastname());
-                establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
-            }
-
-            if (visit.getDate() != null)
-                date.setText(visit.getDate().toString());
-
-            if (visit.getSummary() != null)
-                summary.setText(visit.getSummary());
-
-            //get note
-
+            // Adjust note indicator
             if (!visit.getNotes().isEmpty()) {
                 Color notePresentColor = Color.web("#9BC9F6", 1.0);
                 notesNumber.setText("1");
                 notesCircleIndicator.setFill(notePresentColor);
-                openNoteButton.setDisable(false);
             } else {
                 Color notePresentColor = Color.web("#DDEEFF", 1.0);
                 notesNumber.setText("0");
                 notesCircleIndicator.setFill(notePresentColor);
-                this.openNoteButton.setDisable(true);
+            }
+
+            // Adjust owner/doctor indicator
+            String visitDoctor = visit.getDoctor().getFirstname() + visit.getDoctor().getLastname();
+            String sessionDoctor = session.getDoctor().getFirstname() + session.getDoctor().getLastname();
+
+            if(visitDoctor.equals(sessionDoctor)){
+                ownerIndicator.setVisible(true);
+            }else{
+                ownerIndicator.setVisible(false);
             }
 
             setText(null);
@@ -119,24 +112,29 @@ public class visitListController extends ListCell<Visit> {
 
     }
 
-    @FXML
-    void openNote(MouseEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/note.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            NoteController controller = fxmlLoader.getController();
-            controller.setVisit(currentVisit);
-            Stage newWindow = new Stage();
-            newWindow.setTitle("Notes");
-            newWindow.getIcons().add(new Image("/images/windowIcon.png"));
-            newWindow.setScene(new Scene(root));
-            // ajout FETHI
-            newWindow.initModality(Modality.WINDOW_MODAL);
-            newWindow.initOwner(((Node)event.getSource()).getScene().getWindow() );
-            newWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void setVisitInformation (Visit visit){
+        if (visit.getDiagnostic() != null)
+            diagnostic.setText(visit.getDiagnostic().getDesignation());
+
+        if (visit.getTreatment() != null)
+            treatment.setText(visit.getTreatment().getDesignation());
+
+        if (visit.getDoctor() != null){
+            doctor.setText(visit.getDoctor().getFirstname() + " " + visit.getDoctor().getLastname());
+            establishment.setText(visit.getDoctor().getEstablishment().getDesignation());
         }
+
+        if (visit.getDate() != null)
+            date.setText(visit.getDate().toString());
+
+        if (visit.getSummary() != null)
+            summary.setText(visit.getSummary());
+
+    }
+
+
+    public void setSession(Session session){
+        this.session = session;
     }
 
 }

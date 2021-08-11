@@ -13,7 +13,7 @@ public class Session implements Authenticable, Observer {
 
     private Visit newVisit;
     private Set<Antecedent> newAntecedents;
-    private User user;
+    private static User user;
     private Folder currentFolder;
     private DataSource dataSource;
     private boolean modified;
@@ -67,11 +67,16 @@ public class Session implements Authenticable, Observer {
         return currentFolder != null;
     }
 
+    public void reinitializeFolder(){
+        currentFolder = null;
+    }
+
     public boolean saveFolder() throws AppException {
         boolean result = true;
         if (modified && currentFolder != null) {
             if (newVisit != null) {
                 currentFolder.getVisits().add(newVisit);
+                System.out.println("saved new visit");
             }
             if (newAntecedents.size() > 0) {
                 currentFolder.getAntecedents().addAll(newAntecedents);
@@ -83,8 +88,8 @@ public class Session implements Authenticable, Observer {
         return result;
     }
 
-    public Visit createNewVisit(Diagnostic diagnostic, Treatment treatment, String summary, String notes) {
-        Doctor doctor = this.user.getDoctor();
+    public Visit createNewVisit(String diagnostic, String treatment, String summary, String notes) {
+        Doctor doctor = user.getDoctor();
         Date date = new Date(new java.util.Date().getTime());
         newVisit = new Visit.VisitBuilder(doctor,date)
         .diagnostic(diagnostic)
@@ -95,6 +100,12 @@ public class Session implements Authenticable, Observer {
 
         modified = true;
         return newVisit;
+    }
+
+    // Modif - HAMZA
+    public void deleteVisit (Visit visit){
+        currentFolder.getVisits().remove(visit);
+        modified =true;
     }
 
     public Antecedent createNewAntecedent() {
