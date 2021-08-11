@@ -32,7 +32,7 @@ public class Doctor implements Cloneable {
 
 
     //Method to validate both first and last name. Length of name must be higher than 1
-    public boolean validName(String name) {
+    public boolean validName(String name) throws AppException {
         return firstname.length() > 1;
     }
 
