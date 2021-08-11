@@ -73,10 +73,20 @@ public class Visit implements Cloneable {
     }
 
     //setters
-
-
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setTreatment(Treatment treatment){
+        this.treatment = treatment;
+    }
+
+    public void setDiagnostic(Diagnostic diagnostic) {
+        this.diagnostic = diagnostic;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     @Override
@@ -120,13 +130,17 @@ public class Visit implements Cloneable {
             this.date = date;
         }
 
-        public  VisitBuilder treatment ( Treatment treatment) {
-            this.treatment = treatment;
+        public  VisitBuilder treatment ( String treatment) {
+            if (treatment != null)
+            this.treatment = new Treatment(treatment);
+
             return this;
         }
 
-        public  VisitBuilder diagnostic ( Diagnostic diagnostic) {
-            this.diagnostic = diagnostic;
+        public  VisitBuilder diagnostic ( String diagnostic) {
+            if (diagnostic!=null)
+            this.diagnostic = new Diagnostic(diagnostic);
+
             return this;
         }
 

@@ -34,8 +34,8 @@ public class FolderTest {
         visit = new Visit.VisitBuilder(doctor,date)
                 .summary("Patient is suffering from covid-19")
                 .notes("patient is old")
-                .diagnostic(diagnostic)
-                .treatment(treatment)
+                .diagnostic(diagnostic.getDesignation())
+                .treatment(treatment.getDesignation())
                 .build();
 
 

@@ -1,10 +1,12 @@
 package com.uqam.controller;
 
 import com.uqam.model.Antecedent;
+import com.uqam.model.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -31,6 +33,11 @@ public class AntecedentListController extends ListCell<Antecedent> {
     @FXML
     private Text dateFin;
 
+    @FXML
+    private StackPane ownerIndicator;
+
+    private Session session;
+
     @Override
     protected void updateItem(Antecedent antecedent, boolean empty) {
         super.updateItem(antecedent, empty);
@@ -54,39 +61,39 @@ public class AntecedentListController extends ListCell<Antecedent> {
 
             }
 
-
-            if (diagnostique != null)
+            if (antecedent.getDiagnostic().getDesignation() != null)
                 diagnostique.setText(antecedent.getDiagnostic().getDesignation());
 
-            if (traitement != null){
-                if (antecedent.getTreatment() != null){
-                    traitement.setText(antecedent.getTreatment().getDesignation());
-                }
+            traitement.setText(antecedent.getTreatment().getDesignation());
+
+             if (antecedent.getPrescriber() != null)
+                 medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
+
+
+            if (antecedent.getBeginning().isPresent())
+                dateDebut.setText(antecedent.getBeginning().get().toString());
+
+
+            if (antecedent.getEnd().isPresent())
+                dateFin.setText(antecedent.getEnd().get().toString());
+
+            // Adjust owner/doctor indicator
+            String antecedentDoctor = antecedent.getPrescriber().getFirstname() + antecedent.getPrescriber().getLastname();
+            String sessionDoctor = session.getDoctor().getFirstname() + session.getDoctor().getLastname();
+
+            if(antecedentDoctor.equals(sessionDoctor)){
+                ownerIndicator.setVisible(true);
+            }else{
+                ownerIndicator.setVisible(false);
             }
-
-            if (medecinTraitant != null){
-                if (antecedent.getPrescriber() != null){
-                    medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
-                }
-            }
-
-
-            if (dateDebut != null){
-                if (antecedent.getBeginning().isPresent())
-                    dateDebut.setText(antecedent.getBeginning().get().toString());
-            }
-
-            if (dateFin != null){
-                if (antecedent.getEnd().isPresent())
-                    dateFin.setText(antecedent.getEnd().get().toString());
-            }
-
-
-
 
             setText(null);
             setGraphic(antecedentCell);
         }
 
+    }
+
+    public void setSession(Session session){
+        this.session = session;
     }
 }
