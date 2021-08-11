@@ -1,0 +1,36 @@
+@startuml
+
+skinparam nodesep 75
+
+hide empty members
+title Diagramme de classe du patron de conception ""Observer"
+
+class java.util.Observable <<Subject>>  {
+  + addObserver(Observer o)
+  + deleteObserver(Observer o)
+  + notifyObservers()
+  + notifyObservers(arg: Object)
+  + setChanged()
+}
+
+interface java.util.Observer {
+  + {abstract} update(obs : java.util.Observable, arg: Object)
+}
+
+java.util.Observable "1" -> "0..n" java.util.Observer
+
+class  PatientController  <<ConcreteSubject>> {
+  + getVisits() : Set<Visit>
+  + getAntecedents() : Set <Antecedent>
+}
+
+java.util.Observable <|-- PatientController
+
+class Folder <<ConcreteObserver>> {
+  + ^update(obs : java.util.Observable, arg: Object)
+}
+
+java.util.Observer <|.. Folder
+PatientController <. Folder
+
+@enduml

@@ -36,13 +36,9 @@ public class Session implements Authenticable {
         return user;
     }
 
-    public Doctor getDoctor() {
-        return user.getDoctor();
-    }
 
-    public Folder getCurrentFolder() {
-        return currentFolder;
-    }
+
+
 
     DataSource getDataSource() {
         return dataSource;
@@ -65,7 +61,7 @@ public class Session implements Authenticable {
     public boolean downloadFolder(String insuranceNumber) throws AppException {
         originalFolder = dataSource.findById(insuranceNumber);
         if (originalFolder != null)
-            currentFolder = originalFolder.clone();
+            currentFolder = originalFolder.duplicate();
         return currentFolder != null;
     }
 
@@ -85,7 +81,7 @@ public class Session implements Authenticable {
             }
             result = dataSource.update(currentFolder)
                     && dataSource.archiveModification(currentFolder);
-            originalFolder = currentFolder.clone();
+            originalFolder = currentFolder.duplicate();
         }
         return result;
     }
@@ -119,17 +115,25 @@ public class Session implements Authenticable {
     }
 
     public boolean resetFolder() {
-        currentFolder = originalFolder.clone();
+        currentFolder = originalFolder.duplicate();
         modified = false;
         return true;
     }
 
     public Set<Antecedent> getAntecedents() {
-        return currentFolder.getAntecedents();
+        return new HashSet<>(currentFolder.getAntecedents());
     }
 
     public Set<Visit> getVisits() {
-        return currentFolder.getVisits();
+        return new HashSet<>(currentFolder.getVisits());
+    }
+
+    public Doctor getDoctor() {
+        return user.getDoctor();
+    }
+
+    public Folder getCurrentFolder() {
+        return currentFolder;
     }
 
     public void setModified(boolean modified) {

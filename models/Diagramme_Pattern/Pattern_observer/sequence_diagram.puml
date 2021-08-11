@@ -1,0 +1,39 @@
+@startuml
+
+hide footbox
+title Diagramme de séquence du patron de conception "Observer"
+
+participant System
+create participant ": PatientController <<ConcreteSubject>>" as CS
+System -> CS : this()
+
+
+participant "currentFolder: Folder <<ConcreteObserver>>" as O1
+
+CS -> CS: addObserver(currentFolder)
+
+loop
+
+System -> CS: user modification
+
+activate CS
+CS -> CS: setChanged()
+CS -> CS: notifyObservers()
+activate CS  #CCCCCC
+CS -> O1: update()
+activate O1
+O1 -> CS: getVisits()
+CS --> O1 : Set<Visit>
+O1 -> CS: getAntecedents()
+CS --> O1 : Set<Antecedent>
+deactivate O1
+deactivate CS
+System <- CS
+deactivate CS
+
+end
+
+
+
+
+@enduml

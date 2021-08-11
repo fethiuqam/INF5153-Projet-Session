@@ -1,0 +1,47 @@
+@startuml
+
+hide footbox
+title Diagramme de séquence du patron de conception "Builder"
+
+
+participant ": PatientController <<Director>>" as D
+participant "visitBuilder: VisitBuilder <<ConcreteBuilder>>" as B
+
+[-> D: addNewVisit()
+activate D
+
+opt ! treatmentTextField.empty()
+D -> B: addTreatment(designation) <<buildPart()>>
+activate B
+create participant "t: Treatment <<ProductPart>>" as PP
+B -> PP: new(designation)
+PP --> B
+B --> D
+deactivate B
+end
+
+opt ! diagnosticTextField.empty()
+D -> B: addDiagnostic(designation) <<buildPart()>>
+activate B
+create participant "d: Diagnostic <<ProductPart>>" as DP
+B -> DP: new(designation)
+DP --> B
+B --> D
+deactivate B
+end
+...
+
+D -> B: build()
+activate B
+create "newVisit: Visit <<Product>>" as P
+B -> P: new(currentDate, currentDoctor)
+B -> P: setTreatment(t)
+B -> P: setDiagnostic(d)
+...
+P --> B
+B --> D: newVisit
+deactivate B
+[<-- D:
+deactivate D
+
+@enduml

@@ -100,7 +100,7 @@
                      <children>
                         <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                            <children>
-                              <AnchorPane id="cardScan" fx:id="scanCard" maxHeight="200.0" maxWidth="500.0" minHeight="200.0" minWidth="500.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #EEEEEE;">
+                              <AnchorPane id="cardScan" fx:id="cardScan" maxHeight="200.0" maxWidth="500.0" minHeight="200.0" minWidth="500.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #EEEEEE;">
                                  <children>
                                     <VBox prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>

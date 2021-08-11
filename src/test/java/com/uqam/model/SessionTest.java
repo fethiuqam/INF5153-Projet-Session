@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -95,6 +96,77 @@ class SessionTest {
         boolean result = session.downloadFolder("ABCD12345678");
         assertFalse(result);
         assertNull(session.getCurrentFolder());
+    }
+
+    @Test
+    public void saveFolderTestTrue() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
+        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(true);
+        session.setModified(true);
+        boolean result = session.saveFolder();
+        assertTrue(result);
+    }
+
+    @Test
+    public void saveFolderTestFalse() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(false);
+        session.setModified(true);
+        boolean result = session.saveFolder();
+        assertFalse(result);
+    }
+
+    @Test
+    public void saveFolderTestFalse2() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
+        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(false);
+        session.setModified(true);
+        boolean result = session.saveFolder();
+        assertFalse(result);
+    }
+
+    @Test
+    public void resetFolderTestTrue() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        boolean result = session.resetFolder();
+        assertTrue(result);
+    }
+
+    @Test
+    public void getAntecedentsTest() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        Set<Antecedent> expected = new HashSet<>(Arrays.asList(new Antecedent[]{a1}));
+        assertEquals(expected.toString(), session.getAntecedents().toString());
+    }
+
+    @Test
+    public void getVisitsTest() throws AppException{
+        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
+        Session session = new Session(dataSourceMock);
+        session.downloadFolder("MORS12452196");
+        Set<Visit> expected = new HashSet<>(Arrays.asList(new Visit[]{v1}));
+        assertEquals(expected.toString(), session.getVisits().toString());
+    }
+
+    @Test
+    public void getDoctorTest() throws AppException{
+        when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
+        Session session = new Session(dataSourceMock);
+        session.login("user", "pass");
+        Doctor expected = doctor;
+        assertEquals(expected.toString(), session.getDoctor().toString());
     }
 
 }

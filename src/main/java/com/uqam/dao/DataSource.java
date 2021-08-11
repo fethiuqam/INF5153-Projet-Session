@@ -30,8 +30,8 @@ public class DataSource implements Searchable, Editable {
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
             result = null;
-//        } catch (Exception e) {
-//            throw new AppException("Erreur de base de données inconnu");
+        } catch (Exception e) {
+            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -68,8 +68,8 @@ public class DataSource implements Searchable, Editable {
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
             result = null;
-//        } catch (Exception e) {
-//            throw new AppException("Erreur de base de données inconnu");
+        } catch (Exception e) {
+            throw new AppException("Erreur de base de données inconnu");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
@@ -79,7 +79,6 @@ public class DataSource implements Searchable, Editable {
 
     @Override
     public boolean update(Folder folder) throws AppException{
-        boolean result = true;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("database");
             entityManager = entityManagerFactory.createEntityManager();
@@ -91,20 +90,18 @@ public class DataSource implements Searchable, Editable {
             entityManager.getTransaction().commit();
         }catch (JDBCConnectionException e){
             throw new AppException("Erreur de connection avec la base de données");
-//        } catch (Exception e) {
-//            result = false;
-//            if (entityManager != null)
-//                entityManager.getTransaction().rollback();
-//            throw new AppException("Echec de la mise à jour du dossier sur la base de données");
+        } catch (Exception e) {
+            if (entityManager != null)
+                entityManager.getTransaction().rollback();
+            throw new AppException("Echec de la mise à jour du dossier sur la base de données");
         } finally {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
         }
-        return result;
+        return true;
     }
 
     public boolean archiveModification(Folder folder) throws AppException{
-        boolean result = true;
         Gson json = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String jsonFolder = json.toJson(folder);
         Date modificationDate = new Date(new java.util.Date().getTime());
@@ -119,7 +116,6 @@ public class DataSource implements Searchable, Editable {
         }catch (JDBCConnectionException e){
             throw new AppException("Erreur de connection avec la base de données");
         } catch (Exception e) {
-            result = false;
             if (entityManager != null)
                 entityManager.getTransaction().rollback();
             throw new AppException("Echec de l'archivage du dossier sur la base de données");
@@ -127,7 +123,7 @@ public class DataSource implements Searchable, Editable {
             if (entityManager != null) entityManager.close();
             if (entityManagerFactory != null) entityManagerFactory.close();
         }
-        return result;
+        return true;
     }
 
 }

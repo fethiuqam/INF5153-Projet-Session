@@ -33,7 +33,7 @@ import java.util.*;
 
 //TODO remove "edit" on notes due to not being able to access original Visits.
 
-public class PatientController implements Initializable {
+public class PatientController extends Observable implements Initializable {
 
     Session session;
 
@@ -252,6 +252,8 @@ public class PatientController implements Initializable {
             });
 
 
+            addObserver(session.getCurrentFolder());
+
         });
     }
 
@@ -328,6 +330,8 @@ public class PatientController implements Initializable {
 //        System.out.println(a);
 //        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getUser().getDoctor());
 //        antecedentsObservableList.add(a);
+        setChanged();
+        notifyObservers();
 //        antecedentSet.add(a);
 
         String buttonText = addVisitLabel.getText();
@@ -355,5 +359,13 @@ public class PatientController implements Initializable {
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
 
+    }
+
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedentsObservableList);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visitObservableList);
     }
 }

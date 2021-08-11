@@ -17,7 +17,7 @@ public class MyApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent connexionRoot = (Parent) fxmlLoader.load();
+        Parent connexionRoot = fxmlLoader.load();
 
         //create session
 
@@ -38,7 +38,7 @@ public class MyApp extends Application {
         launch();
     }
 
-    public void connectSession (FXMLLoader fxmlLoader, Session session){
+    public void connectSession(FXMLLoader fxmlLoader, Session session) {
         //add session to controller
         ConnexionController controller = fxmlLoader.getController();
         controller.setSession(session);
