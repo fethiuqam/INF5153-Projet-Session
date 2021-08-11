@@ -73,17 +73,12 @@ public class Folder implements Cloneable, Observer {
         return owner;
     }
 
-    public Set<Visit> getVisits() {
-        return visits;
-    }
 
-    public Set<Antecedent> getAntecedents() {
-        return antecedents;
-    }
 
 
     public Folder duplicate() {
         Folder clone = new Folder();
+        clone.id = this.id;
         clone.owner = this.owner.clone();
         Set<Visit> visitsClone = new HashSet<>();
         for (Visit v : this.visits) {
@@ -106,6 +101,23 @@ public class Folder implements Cloneable, Observer {
                 ", antecedents=" + antecedents.toString() +
                 '}';
     }
+
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visits);
+    }
+
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedents);
+    }
+
+//    public Set<Antecedent> getAntecedents() {
+//        return antecedents;
+//    }
+//
+//    public Set<Visit> getVisits() {
+//        return visits;
+//    }
 
     @Override
     public void update(Observable observable, Object o) {

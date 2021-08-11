@@ -4,15 +4,12 @@ import com.uqam.dao.DataSource;
 
 import java.sql.Date;
 
-import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
 public class Session implements Authenticable, Observer {
 
-    private Visit newVisit;
-    private Set<Antecedent> newAntecedents;
     private static User user;
     private Folder currentFolder;
     private DataSource dataSource;
@@ -21,17 +18,7 @@ public class Session implements Authenticable, Observer {
 
     public Session(DataSource dataSource) {
         this.dataSource = dataSource;
-        newAntecedents = new HashSet<>();
         modified = false;
-    }
-
-
-    Visit getNewVisit() {
-        return newVisit;
-    }
-
-    Set<Antecedent> getNewAntecedents() {
-        return newAntecedents;
     }
 
     User getUser() {
@@ -69,18 +56,12 @@ public class Session implements Authenticable, Observer {
 
     public void reinitializeFolder(){
         currentFolder = null;
+        originalFolder = null;
     }
 
     public boolean saveFolder() throws AppException {
         boolean result = true;
         if (modified && currentFolder != null) {
-            if (newVisit != null) {
-                currentFolder.getVisits().add(newVisit);
-                System.out.println("saved new visit");
-            }
-            if (newAntecedents.size() > 0) {
-                currentFolder.getAntecedents().addAll(newAntecedents);
-            }
             result = dataSource.update(currentFolder)
                     && dataSource.archiveModification(currentFolder);
             originalFolder = currentFolder.duplicate();
@@ -91,29 +72,13 @@ public class Session implements Authenticable, Observer {
     public Visit createNewVisit(String diagnostic, String treatment, String summary, String notes) {
         Doctor doctor = user.getDoctor();
         Date date = new Date(new java.util.Date().getTime());
-        newVisit = new Visit.VisitBuilder(doctor,date)
+        Visit newVisit = new Visit.VisitBuilder(doctor,date)
         .diagnostic(diagnostic)
         .treatment(treatment)
         .summary(summary)
         .notes(notes)
         .build();
-
-        modified = true;
         return newVisit;
-    }
-
-    // Modif - HAMZA
-    public void deleteVisit (Visit visit){
-        currentFolder.getVisits().remove(visit);
-        modified =true;
-    }
-
-    public Antecedent createNewAntecedent() {
-        Antecedent newAntecedent = new Antecedent();
-//        newAntecedent.setPrescriber(this.user.getDoctor()); // a mettre dans le builder
-        newAntecedents.add(newAntecedent);
-        modified = true;
-        return newAntecedent;
     }
 
     public boolean resetFolder() {
@@ -123,11 +88,11 @@ public class Session implements Authenticable, Observer {
     }
 
     public Set<Antecedent> getAntecedents() {
-        return new HashSet<>(currentFolder.getAntecedents());
+        return currentFolder.getAntecedents();
     }
 
     public Set<Visit> getVisits() {
-        return new HashSet<>(currentFolder.getVisits());
+        return currentFolder.getVisits();
     }
 
     public Doctor getDoctor() {
@@ -138,7 +103,7 @@ public class Session implements Authenticable, Observer {
         return currentFolder;
     }
 
-    public void setModified(boolean modified) {
+    void setModified(boolean modified) {
         this.modified = modified;
     }
 

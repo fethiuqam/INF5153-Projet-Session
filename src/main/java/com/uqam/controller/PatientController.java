@@ -49,7 +49,6 @@ public class PatientController extends Observable implements Initializable {
     private ListView<Visit> visitListView;
 
     // Patient information
-    Folder currentFolder;
     Patient currentPatient;
 
     @FXML
@@ -145,8 +144,8 @@ public class PatientController extends Observable implements Initializable {
 
         Platform.runLater(() -> {
 
-            currentFolder= session.getCurrentFolder();
-            currentPatient = currentFolder.getOwner();
+
+            currentPatient = session.getCurrentFolder().getOwner();
             plusToCross = new RotateTransition(Duration.millis(400), plusIcon);
 
             // Setting patient information text
@@ -253,7 +252,7 @@ public class PatientController extends Observable implements Initializable {
 
 
             addObserver(session.getCurrentFolder());
-
+            addObserver(session);
         });
     }
 
@@ -293,12 +292,12 @@ public class PatientController extends Observable implements Initializable {
 
     }
 
-    void addVisit(){
+    Visit addVisit(){
         String diagnosticInput = visitDiagnostic.getText();
         String treatmentInput = visitTreatment.getText();
         String summaryInput = visitSummary.getText();
         String notesInput = visitNotes.getText();
-        session.createNewVisit(diagnosticInput,treatmentInput,summaryInput,notesInput);
+        return session.createNewVisit(diagnosticInput,treatmentInput,summaryInput,notesInput);
     }
 
     @FXML
@@ -323,25 +322,12 @@ public class PatientController extends Observable implements Initializable {
     }
 
     public void saveFolder(MouseEvent mouseEvent) throws IOException {
-        // test rapide de sauvegarde sur la db .FETHI
-        // ajout et suppression d atcd commenté
-//        List<Antecedent> list = new ArrayList<>(antecedentSet);
-//        Antecedent a = list.get(0);
-//        System.out.println(a);
-//        Antecedent a = new Antecedent(null,null,new Diagnostic("dg1"),null,session.getUser().getDoctor());
-//        antecedentsObservableList.add(a);
+        String buttonText = addVisitLabel.getText();
+        if (buttonText.equals("Annuler")){
+            visitObservableList.add(addVisit());
+        }
         setChanged();
         notifyObservers();
-//        antecedentSet.add(a);
-
-        String buttonText = addVisitLabel.getText();
-
-        if (buttonText.equals("Annuler")){
-            addVisit();
-        }
-
-
-        session.setModified(true);
         try {
             session.saveFolder();
             System.out.println("dossier sauvegardé");

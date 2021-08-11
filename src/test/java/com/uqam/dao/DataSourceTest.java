@@ -45,8 +45,8 @@ public class DataSourceTest {
     @Test
     public void findByIdTestSuccess() throws AppException{
         String id = "MORS12452196";
-        String expected = "Patient{firstname='Susan', lastname='Morganti', gender=FEMALE, " +
-                "dateOfBirth=1952-02-03, birthCity='Montreal', insuranceNumber='MORS12452196', " +
+        String expected = "Patient{firstname='Susan', lastname='Morganti', gender=FEMALE, dateOfBirth=1952-02-03, " +
+                "birthCity='Montreal', insuranceNumber='MORS12452196', insuranceExpirationDate=2022-02-01, " +
                 "contact=Contact{address='2401 rue Ontario Ouest Montreal, QC H2X 1Y8', phone='514-350-9159', " +
                 "email='SusanKMorganti@armyspy.com'}, father='null', mother='null'}";
         Folder folder = source.findById(id);
@@ -69,14 +69,15 @@ public class DataSourceTest {
                 "diagnostic=Diagnostic{designation='Diabete'}, prescriber=null}]";
         Folder folder1 = source.findById(id);
         Assertions.assertEquals(expected1, folder1.getAntecedents().toString());
+        Folder clone1 = folder1.duplicate();
         Antecedent a = new Antecedent();
         a.setDiagnostic(new Diagnostic("Diabete"));
-        folder1.getAntecedents().add(a);
-        source.update(folder1);
+        clone1.addAntecedent(a);
+        source.update(clone1);
         Folder folder2 = source.findById(id);
         Assertions.assertEquals(expected2, folder2.getAntecedents().toString());
-        folder2.getAntecedents().clear();
-        source.update(folder2);
+        Folder clone2 = folder1.duplicate();
+        source.update(clone2);
         Folder folder3 = source.findById(id);
         Assertions.assertEquals(expected1, folder3.getAntecedents().toString());
     }
@@ -86,9 +87,9 @@ public class DataSourceTest {
         String id = "DONL98632897";
         String expected = "{\"id\":6,\"owner\":{\"id\":6,\"firstname\":\"Luis\",\"lastname\":\"Donaldson\"," +
                 "\"gender\":\"MALE\",\"dateOfBirth\":\"1970-05-31\",\"birthCity\":\"Riviere Du Loup\"," +
-                "\"insuranceNumber\":\"DONL98632897\",\"contact\":{\"id\":6," +
-                "\"address\":\"3753 Boulevard Laflèche Riviere Du Loup, QC G5R 3Y4\",\"phone\":\"418-866-4854\"," +
-                "\"email\":\"LuisADonaldson@teleworm.us\"}},\"visits\":[],\"antecedents\":[]}";
+                "\"insuranceNumber\":\"DONL98632897\",\"insuranceExpirationDate\":\"2021-08-01\"," +
+                "\"contact\":{\"id\":6,\"address\":\"3753 Boulevard Laflèche Riviere Du Loup, QC G5R 3Y4\"," +
+                "\"phone\":\"418-866-4854\",\"email\":\"LuisADonaldson@teleworm.us\"}},\"visits\":[],\"antecedents\":[]}";
         Folder folder = source.findById(id);
         source.archiveModification(folder);
         EntityManagerFactory entityManagerFactory = null;

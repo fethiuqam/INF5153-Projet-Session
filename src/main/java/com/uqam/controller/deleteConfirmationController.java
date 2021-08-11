@@ -63,7 +63,6 @@ public class deleteConfirmationController {
 
         switch (itemToDelete.getText()){
             case "cette visite?":
-                session.deleteVisit(visit);
                 observableList.remove(visit);
             break;
             case "cet antecedent":

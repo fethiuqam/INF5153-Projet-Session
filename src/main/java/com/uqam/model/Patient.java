@@ -19,6 +19,7 @@ public class Patient implements Cloneable {
     private Date dateOfBirth;
     private String birthCity;
     private String insuranceNumber;
+    private Date insuranceExpirationDate;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn( name="contact")
@@ -51,12 +52,6 @@ public class Patient implements Cloneable {
     public boolean validGender(){
         return gender.equals(Gender.MALE) || gender.equals(Gender.FEMALE) || gender.equals(Gender.OTHER);
     }
-
-    // methode pour valider la date selon la norme iso8601
-    /*private boolean validDateOfBirth(Date date){
-        Date currentDate = new Date();
-        return date.after(currentDate);
-    } */
 
     // Method to validate the length of the city's name and to make sure it only contains letter
     public boolean validBirthCity(String city){
@@ -139,6 +134,10 @@ public class Patient implements Cloneable {
         return Optional.ofNullable(mother).orElse("Non spécifié");
     }
 
+    public Date getInsuranceExpirationDate() {
+        return insuranceExpirationDate;
+    }
+
     @Override
     protected Patient clone() {
         try {
@@ -160,6 +159,7 @@ public class Patient implements Cloneable {
                 ", dateOfBirth=" + dateOfBirth +
                 ", birthCity='" + birthCity + '\'' +
                 ", insuranceNumber='" + insuranceNumber + '\'' +
+                ", insuranceExpirationDate=" + insuranceExpirationDate +
                 ", contact=" + contact +
                 ", father='" + father + '\'' +
                 ", mother='" + mother + '\'' +
