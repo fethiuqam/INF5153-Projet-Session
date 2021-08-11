@@ -19,8 +19,6 @@ public class AntecedentTest {
     @Test
     void testClone(){
 
-
-
         Assertions.assertEquals(antecedent.getBeginning(),antecedent1.getBeginning());
         Assertions.assertEquals(antecedent.getEnd(),antecedent1.getEnd());
         Assertions.assertEquals(antecedent.getBeginning(),antecedent1.getBeginning());

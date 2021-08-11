@@ -10,6 +10,7 @@ public class Contact implements Cloneable{
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
+
     private String address;
     private String phone;
     private String email;
@@ -32,7 +33,7 @@ public class Contact implements Cloneable{
         if(!phone.matches("[0-9]+")){
             return false;
         }
-        return phone.length()!=10;
+        return phone.length()==10;
     }
 
 

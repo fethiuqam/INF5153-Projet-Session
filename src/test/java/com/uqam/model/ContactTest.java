@@ -21,6 +21,19 @@ public class ContactTest {
         Assertions.assertTrue(contact.validEmail(contact.getEmail()));
     }
 
-    Contact contact2 = contact.clone();
+    @Test
+    void validClone(){
+        Contact contact2 = contact.clone();
+        Assertions.assertEquals(contact2.getAddress(),contact.getAddress());
+        Assertions.assertEquals(contact2.getEmail(),contact.getEmail());
+        Assertions.assertEquals(contact2.getPhone(),contact.getPhone());
+    }
+
+    @Test
+    void validToString(){
+        Assertions.assertEquals("Contact{address='5825henribourassa', phone='5144922317', email='testemail@gmail.com'}",contact.toString());
+    }
+
+
 }
 
