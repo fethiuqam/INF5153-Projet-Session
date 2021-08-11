@@ -8,16 +8,16 @@ public class ContactTest {
     Contact contact = new Contact("5825henribourassa","5144922317","testemail@gmail.com");
 
     @Test
-    void testValidAddress(){
+    void testValidAddress() throws AppException {
         Assertions.assertTrue(contact.validAddress(contact.getAddress()));
     }
 
     @Test
-    void testValidPhone(){
+    void testValidPhone() throws AppException {
         Assertions.assertTrue(contact.validPhone(contact.getPhone()));
     }
     @Test
-    void testValidEmail(){
+    void testValidEmail() throws AppException {
         Assertions.assertTrue(contact.validEmail(contact.getEmail()));
     }
 

@@ -35,7 +35,7 @@ public class Diagnostic implements Cloneable {
     }
 
     @Override
-    protected Diagnostic clone() {
+    protected Diagnostic clone() throws CloneNotSupportedException {
         try {
             return (Diagnostic) super.clone();
         } catch (CloneNotSupportedException e) {
