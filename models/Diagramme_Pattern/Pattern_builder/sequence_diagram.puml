@@ -4,13 +4,13 @@ hide footbox
 title Diagramme de séquence du patron de conception "Builder"
 
 
-participant ": PatientController <<Director>>" as D
+participant ": Session <<Director>>" as D
 participant "visitBuilder: VisitBuilder <<ConcreteBuilder>>" as B
 
-[-> D: addNewVisit()
+[-> D: createNewVisit(treatment, diagnostic , ...)
 activate D
 
-opt ! treatmentTextField.empty()
+opt ! treatment.isEmpty()
 D -> B: addTreatment(designation) <<buildPart()>>
 activate B
 create participant "t: Treatment <<ProductPart>>" as PP
@@ -20,7 +20,7 @@ B --> D
 deactivate B
 end
 
-opt ! diagnosticTextField.empty()
+opt ! diagnostic.isEmpty()
 D -> B: addDiagnostic(designation) <<buildPart()>>
 activate B
 create participant "d: Diagnostic <<ProductPart>>" as DP
@@ -40,6 +40,7 @@ B -> P: setDiagnostic(d)
 ...
 P --> B
 B --> D: newVisit
+D -> D : this.modified = true
 deactivate B
 [<-- D:
 deactivate D

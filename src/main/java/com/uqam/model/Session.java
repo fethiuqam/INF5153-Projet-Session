@@ -5,9 +5,11 @@ import com.uqam.dao.DataSource;
 import java.sql.Date;
 
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
-public class Session implements Authenticable {
+public class Session implements Authenticable, Observer {
 
     private Visit newVisit;
     private Set<Antecedent> newAntecedents;
@@ -127,5 +129,10 @@ public class Session implements Authenticable {
 
     public void setModified(boolean modified) {
         this.modified = modified;
+    }
+
+    @Override
+    public void update(Observable observable, Object o) {
+        modified = true;
     }
 }

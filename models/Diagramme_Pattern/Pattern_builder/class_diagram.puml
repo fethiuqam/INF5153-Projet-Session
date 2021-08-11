@@ -7,17 +7,13 @@ hide empty members
 title Diagramme de classe du patron de conception "Builder"
 
 
-class PatientController <<Director>> {
-  - treatmentTextField
-  - diagnosticTextField
-  ...
-  + <<construct()>> addNewVisit()
+class Session <<Director>> {
+  + <<construct()>> createNewVisit(treatment: String, diagnostic: String , ...)
 }
 
 
 
 class VisitBuilder <<ConcreteBuilder>> {
-
   + <<buildPart()>> setTreatment(designation : String)
   + <<buildPart()>> setTreatment(designation : String)
   + <<result()>> build(): Visit
@@ -36,13 +32,11 @@ class Diagnostic <<ProductPart>> {
  - designation : String
 }
 
-PatientController ->  VisitBuilder
+Session ->  VisitBuilder
 
 VisitBuilder . Visit
 VisitBuilder *--> Treatment
 VisitBuilder *--> Diagnostic
-
-
 
 Visit *--> Treatment
 Visit *--> Diagnostic

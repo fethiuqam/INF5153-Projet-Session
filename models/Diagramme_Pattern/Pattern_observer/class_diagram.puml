@@ -30,7 +30,13 @@ class Folder <<ConcreteObserver>> {
   + ^update(obs : java.util.Observable, arg: Object)
 }
 
+class Session <<ConcreteObserver>> {
+  + ^update(obs : java.util.Observable, arg: Object)
+}
+
 java.util.Observer <|.. Folder
+java.util.Observer <|.. Session
+
 PatientController <. Folder
 
 @enduml

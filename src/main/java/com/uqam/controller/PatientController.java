@@ -165,7 +165,6 @@ public class PatientController extends Observable implements Initializable {
             father.setText(currentPatient.getFather());
             mother.setText(currentPatient.getMother());
 
-
             //Antecedent list
 
             antecedentSet = session.getAntecedents();
@@ -243,7 +242,6 @@ public class PatientController extends Observable implements Initializable {
 //        antecedentsObservableList.add(a);
         setChanged();
         notifyObservers();
-        session.setModified(true);
         try {
             session.saveFolder();
             System.out.println("dossier sauvegardé");

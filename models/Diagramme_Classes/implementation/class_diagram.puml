@@ -28,11 +28,11 @@ class Folder <<Prototype>> <<ConcretObserver>> {
     + addAntecedent(a: Antecedent)
     + getVisits() : List<Visit>
     + getAntecedents() : List<Antecedent>
-    + duplicate(): Folder
+    + <<clone>> duplicate(): Folder
     + update()
 }
 
-class Visit {
+class Visit <<Product>> {
     - date : Date
     - summary : String
     - notes : String
@@ -43,11 +43,11 @@ class Antecedent {
     - end : Date
 }
 
-class Diagnostic {
+class Diagnostic <<ProductPart>> {
     - designation : String
 }
 
-class Treatment {
+class Treatment <<ProductPart>>{
     - designation : String
 }
 
@@ -85,7 +85,7 @@ class DataSource {
     - encryptPasswordToSHA1(pass: String) : String
 }
 
-class Session {
+class Session <<Director>> <<ConcreteObserver>> {
     - modified : boolean
     + login (user: String, pass: String) : boolean
     + downloadFolder() : boolean
@@ -94,18 +94,26 @@ class Session {
     + getVisits(): Set<Visit>
     + getAntecedents(): Set<Antecedent>
     + getDoctor(): Doctor
+    + <<construct()>> createNewVisit(treatment: String, diagnostic: String , ...)
+    + update()
+}
+
+class VisitBuilder <<ConcreteBuilder>> {
+  + <<buildPart()>> setTreatment(designation : String)
+  + <<buildPart()>> setTreatment(designation : String)
+  + <<result()>> build(): Visit
 }
 
 interface Authenticable {
     + login(user: String, pass: String) : boolean
 }
 
-class PatientView{
+class FolderView{
 
 }
 
 
-class PatientController <<ConcretSubject>> {
+class FolderController <<ConcretSubject>> {
     + afficherPatient()
 }
 
@@ -186,17 +194,22 @@ DataSource ..|> Editable
 
 ConnexionView -- ConnexionController
 HomeView -- HomeController
-PatientView --PatientController
+FolderView --FolderController
 
 ConnexionController #--> Session
 HomeController #--> Session
-PatientController #--> Session
+FolderController #--> Session
 
 ConnexionController . HomeController
-HomeController . PatientController
+HomeController . FolderController
 
-java.util.Observable <|-- PatientController
+Session -->  VisitBuilder
+VisitBuilder . Visit
+
+
+java.util.Observable <|-- FolderController
 java.util.Observer <|.. Folder
+java.util.Observer <|.. Session
 java.util.Observable "1" --> "0..n" java.util.Observer
 
 

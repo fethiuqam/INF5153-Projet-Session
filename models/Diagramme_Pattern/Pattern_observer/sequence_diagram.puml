@@ -9,8 +9,12 @@ System -> CS : this()
 
 
 participant "currentFolder: Folder <<ConcreteObserver>>" as O1
+participant "session : Session <<ConcreteObserver>>" as O2
+
 
 CS -> CS: addObserver(currentFolder)
+CS -> CS: addObserver(session)
+
 
 loop
 
@@ -26,9 +30,19 @@ O1 -> CS: getVisits()
 CS --> O1 : Set<Visit>
 O1 -> CS: getAntecedents()
 CS --> O1 : Set<Antecedent>
+O1 --> CS
 deactivate O1
+
+CS -> O2: update()
+
+activate O2
+O2 -> O2: this.modified = true
+O2 --> CS
+deactivate O2
+
+
 deactivate CS
-System <- CS
+CS --> System
 deactivate CS
 
 end
