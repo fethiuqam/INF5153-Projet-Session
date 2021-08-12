@@ -20,7 +20,7 @@ public class Establishment implements Cloneable{
     }
 
     //method to validate the length of the establishment
-    public boolean validDesignation(String designation){
+    public boolean validDesignation(String designation) throws AppException{
         return designation.length()>1;
     }
 
@@ -33,7 +33,7 @@ public class Establishment implements Cloneable{
     }
 
     @Override
-    protected Establishment clone() {
+    protected Establishment clone() throws CloneNotSupportedException {
         try {
             return (Establishment) super.clone();
         } catch (CloneNotSupportedException e) {
