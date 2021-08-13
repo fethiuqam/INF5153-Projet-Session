@@ -10,10 +10,8 @@ import java.util.List;
 public class Main  {
 
     public static void main(String[] args) {
-      //MyApp.main(args);
-        Treatment treatment = new Treatment("Vaccin Moderna");
+      MyApp.main(args);
 
-        System.out.println(treatment);
 
     }
 }
