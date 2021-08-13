@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FolderTest {
@@ -31,7 +29,7 @@ public class FolderTest {
         diagnostic = new Diagnostic("Covid-19");
         establishment = new Establishment("Hosp1234", "Hopital juif");
         doctor = new Doctor("Pablo", "Escobar", "A45123654", "Doctor", establishment);
-        visit = new Visit.VisitBuilder(doctor,date)
+        visit = new VisitBuilder(doctor,date)
                 .summary("Patient is suffering from covid-19")
                 .notes("patient is old")
                 .diagnostic(diagnostic.getDesignation())

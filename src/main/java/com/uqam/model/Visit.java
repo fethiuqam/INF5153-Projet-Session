@@ -1,13 +1,9 @@
 package com.uqam.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import java.sql.Date;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @Table(name = "tVisits")
@@ -38,13 +34,13 @@ public class Visit implements Cloneable {
     public Visit() {
     }
 
-    private Visit(VisitBuilder builder) {
-        this.date = builder.date;
-        this.summary = builder.summary;
-        this.notes = builder.notes;
-        this.treatment = builder.treatment;
-        this.diagnostic = builder.diagnostic;
-        this.doctor = builder.doctor;
+    public Visit(Doctor doctor, Diagnostic diagnostic, Treatment treatment, Date date, String summary, String notes) {
+        this.date =  date;
+        this.summary = summary;
+        this.notes = notes;
+        this.treatment = treatment;
+        this.diagnostic = diagnostic;
+        this.doctor = doctor;
     }
 
     //getters
@@ -115,48 +111,4 @@ public class Visit implements Cloneable {
                 '}';
     }
 
-    public static class VisitBuilder{
-
-        private Doctor doctor;
-        private Date date;
-        private String summary;
-        private String notes ;
-        private Treatment treatment;
-        private Diagnostic diagnostic;
-
-
-        public VisitBuilder (Doctor doctor, Date date) {
-            this.doctor = doctor;
-            this.date = date;
-        }
-
-        public  VisitBuilder treatment ( String treatment) {
-            if (treatment != null)
-            this.treatment = new Treatment(treatment);
-
-            return this;
-        }
-
-        public  VisitBuilder diagnostic ( String diagnostic) {
-            if (diagnostic!=null)
-            this.diagnostic = new Diagnostic(diagnostic);
-
-            return this;
-        }
-
-        public VisitBuilder summary ( String summary){
-            this.summary = summary;
-            return this;
-        }
-
-        public VisitBuilder notes (String notes) {
-            this.notes = notes;
-            return this;
-        }
-
-        public Visit build() {
-            Visit visit = new Visit(this);
-            return  visit;
-        }
-    }
 }

@@ -5,10 +5,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tFolders")

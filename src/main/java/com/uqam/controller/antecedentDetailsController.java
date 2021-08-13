@@ -4,16 +4,20 @@ import com.uqam.model.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.Optional;
 
@@ -121,7 +125,21 @@ public class antecedentDetailsController {
 
     @FXML
     void delete(MouseEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/deleteConfirmation.fxml"));
+            Parent root = fxmlLoader.load();
+            deleteConfirmationController controller = fxmlLoader.getController();
+            controller.setDataAntecedent(session, antecedent, observableList, anchorPane);
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Confirmation suppression");
+            newWindow.getIcons().add(new Image("/images/windowIcon.png"));
+            newWindow.setScene(new Scene(root));
+            newWindow.initModality(Modality.WINDOW_MODAL);
+            newWindow.initOwner(((Node)event.getSource()).getScene().getWindow() );
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -156,12 +174,17 @@ public class antecedentDetailsController {
         treatmentContent.setText(treatment.getDesignation());
         diagnoticContent.setText(diagnostic.getDesignation());
 
-        if(dateBeginning.isPresent())
+        if(dateBeginning.isPresent()){
             dateBeginningContent.setText(dateBeginning.get().toString());
+        }else{
+            dateBeginningContent.setText("Ne s'applique pas");
+        }
 
-
-        if (dateEnd.isPresent())
+        if (dateEnd.isPresent()){
             dateEndContent.setText(dateEnd.get().toString());
+        }else{
+            dateEndContent.setText("Ne s'applique pas");
+        }
 
         //allow edit and delete
         String antecedentDoctor = doctor.getFirstname() + doctor.getLastname();
