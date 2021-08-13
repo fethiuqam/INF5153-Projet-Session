@@ -11,6 +11,7 @@ public class Patient implements Cloneable {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
+
     private String firstname;
     private String lastname;
 

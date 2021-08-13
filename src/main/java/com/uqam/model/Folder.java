@@ -36,6 +36,10 @@ public class Folder implements Cloneable, Observer {
     public Folder() {
     }
 
+    public Folder(Patient patient) {
+        this.owner = patient;
+    }
+
     public Folder(Patient owner, Set<Visit> visits, Set<Antecedent> antecedents) {
         this.owner = owner;
         this.visits = visits;
@@ -62,21 +66,16 @@ public class Folder implements Cloneable, Observer {
         antecedents.add(antecedent);
     }
 
-    //parametrized constructor
-    public Folder(Patient patient) {
-        this.owner = patient;
-    }
+
 
 
     //getters
     public Patient getOwner() {
         return owner;
     }
-
     public Set<Visit> getVisits() {
         return visits;
     }
-
     public Set<Antecedent> getAntecedents() {
         return antecedents;
     }

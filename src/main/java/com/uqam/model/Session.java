@@ -103,7 +103,7 @@ public class Session implements Authenticable {
         return newAntecedent;
     }
 
-    public boolean resetFolder() {
+    public boolean resetFolder() throws AppException {
         currentFolder = originalFolder.duplicate();
         modified = false;
         return true;

@@ -56,6 +56,7 @@ public class Contact implements Cloneable{
     public void setPhone(String phone) {this.phone = phone; }
     public void setEmail(String email) {this.email = email;}
 
+
     //getters
     public String getAddress() {
         return Optional.ofNullable(address).orElse("Non spécifié");

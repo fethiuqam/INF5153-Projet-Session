@@ -38,6 +38,15 @@ public class Visit implements Cloneable {
     public Visit() {
     }
 
+    public Visit(Date date, String summary, String notes, Treatment treatment, Diagnostic diagnostic, Doctor doctor) {
+        this.date = date;
+        this.summary = summary;
+        this.notes = notes;
+        this.treatment = treatment;
+        this.diagnostic = diagnostic;
+        this.doctor = doctor;
+    }
+
     private Visit(VisitBuilder builder) {
         this.date = builder.date;
         this.summary = builder.summary;
@@ -51,30 +60,23 @@ public class Visit implements Cloneable {
     public Date getDate() {
         return date;
     }
-
     public String getSummary() {
         return summary;
     }
-
     public String getNotes() {
         return notes;
     }
-
     public Treatment getTreatment() {
         return Optional.ofNullable(treatment).orElse(new Treatment("Ne s'applique pas"));
     }
-
     public Diagnostic getDiagnostic() {
         return Optional.ofNullable(diagnostic).orElse(new Diagnostic("Ne s'applique pas"));
     }
-
     public Doctor getDoctor() {
         return doctor;
     }
 
     //setters
-
-
     public void setNotes(String notes) {
         this.notes = notes;
     }
