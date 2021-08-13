@@ -8,80 +8,87 @@ Projet de session dans la cadre du cours de conception INF5153
 
 C'est un logiciel permettant aux utilisateurs du système de santé québécois d'avoir un dossier médical centralisé, peu importe le médecin ou l'établissement qu'il fréquente.
 
-### lancer un programme javafx avec Maven :
+## Usage
 
-mvn javafx:run
-
-### lancer les tests avec Maven :
-
-mvn test
-
-
-# Titre du projet
-_(juste en dessous des badges sympatiques à placer)_
-
-
-
-Une petite description du projet
-
-## Pour commencer
-
-Entrez ici les instructions pour bien débuter avec votre projet...
+En premier, il faut s'assurer d'avoir installé au préalables les prérequis sur sa machine :
 
 ### Pré-requis
 
-Ce qu'il est requis pour commencer avec votre projet...
-
-- Programme 1
-- Programme 2
-- etc...
+- [Java 13](https://www.oracle.com/java/technologies/javase/jdk13-archive-downloads.html)
+- [Sqlite3 version 3.36.0](https://www.sqlite.org/download.html)
+- [Apache Maven version 3.8.1](https://maven.apache.org/download.cgi)
+- [Git version 2.32.0](https://git-scm.com/downloads)
 
 ### Installation
 
-Les étapes pour installer votre programme....
+Après avoir installé les pré-requis ci-dessus, on commence par télécharger le depot du projet sur sa machine :
 
-Dites ce qu'il faut faire...
+~~~sh
+$ git clone https://gitlab.info.uqam.ca/abi_ayad.fethi_bey/inf5153-ete2021-projet-e7.git
+~~~
 
-_exemple_: Executez la commande ``telnet mapscii.me`` pour commencer ensuite [...]
+On se positionne à la racine du projet :
+
+~~~sh
+$ cd inf5153-ete2021-projet-e7
+~~~
+
+On initialise la base de données de l'application par la suite des commandes suivantes :
+
+~~~sh
+$ sqlite3
+> .open database/database.db
+> .read database/create.sql
+~~~
+
+Cela va créer notre base de données et la peupler par des données qu'on va utiliser pour les tests
+
+### compilation
+
+À la racine du projet on exécute la commande maven :
+
+~~~sh
+$ mvn clean compile
+~~~
+
+### tests
+
+À la racine du projet on exécute la commande maven :
+
+~~~sh
+$ mvn clean test
+~~~
+
+### Empaquetage
+
+À la racine du projet on exécute la commande maven :
+
+~~~sh
+$ mvn clean package
+~~~
+
+### Execution du programme
+
+À la racine du projet on exécute la commande maven :
+
+~~~sh
+$ mvn javafx:run
+~~~
 
 
-Ensuite vous pouvez montrer ce que vous obtenez au final...
+## Téchnologies
 
-## Démarrage
-
-Dites comment faire pour lancer votre projet
-
-## Fabriqué avec
-
-Entrez les programmes/logiciels/ressources que vous avez utilisé pour développer votre projet
-
-_exemples :_
-* [Materialize.css](http://materializecss.com) - Framework CSS (front-end)
-* [Atom](https://atom.io/) - Editeur de textes
-
-## Contributing
-
-Si vous souhaitez contribuer, lisez le fichier [CONTRIBUTING.md](https://example.org) pour savoir comment le faire.
-
-## Versions
-Listez les versions ici
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
+- [Java 13](https://www.oracle.com/java/technologies/javase/jdk13-archive-downloads.html)
+- [Sqlite3 version 3.36.0](https://www.sqlite.org/download.html)
+- [JavaFX 11](https://openjfx.io/openjfx-docs/)
+- [Hibernate 5.5](https://hibernate.org/orm/releases/5.5/)
+- [Mockito 3.7](https://site.mockito.org/)
+- [JUnit 5.5](https://junit.org/junit5/docs/current/user-guide/)
 
 ## Auteurs
-Listez le(s) auteur(s) du projet ici !
-* **Jhon doe** _alias_ [@outout14](https://github.com/outout14)
 
-Lisez la liste des [contributeurs](https://github.com/your/project/contributors) pour voir qui à aidé au projet !
+- [Fethi bey Abi ayad](abi_ayad.fethi_bey@courrier.uqam.ca)
 
-_(pour le lien mettez simplement l'URL de votre projet suivi de ``/contirubors``)_
+- [Hamza Yahi](af491086@ens.uqam.ca)
 
-## License
-
-Ce projet est sous licence ``exemple: WTFTPL`` - voir le fichier [LICENSE.md](LICENSE.md) pour plus d'informations
-
-
-
+- [Mohamed Hocine Rehouma](rehouma.mohamed_hocine@courrier.uqam.ca)
