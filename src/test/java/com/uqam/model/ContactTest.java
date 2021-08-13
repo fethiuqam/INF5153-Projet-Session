@@ -22,6 +22,38 @@ public class ContactTest {
     }
 
     @Test
+    void testInvalidAddress() throws AppException{
+        Assertions.assertThrows(AppException.class, () -> {
+            Contact contact = new Contact("5825henribourassa//","5144922317","testemail@gmail.com");
+            contact.validAddress(contact.getAddress());
+        });
+    }
+
+    @Test
+    void testInvalidPhone() {
+        Assertions.assertThrows(AppException.class, () -> {
+            Contact contact = new Contact("5825henribourassa","514978774","testemail@gmail.com");
+            contact.validPhone(contact.getPhone());
+        });
+    }
+
+    @Test
+    void testInvalidPhone2() {
+        Assertions.assertThrows(AppException.class, () -> {
+            Contact contact = new Contact("5825henribourassa","514999562A","testemail@gmail.com");
+            contact.validPhone(contact.getPhone());
+        });
+    }
+
+    @Test
+    void testInvalidEmail() {
+        Assertions.assertThrows(AppException.class, () -> {
+            Contact contact = new Contact("5825henribourassa","5149995624","testemailgmail.com");
+            contact.validPhone(contact.getEmail());
+        });
+    }
+
+    @Test
     void validClone(){
         Contact contact2 = contact.clone();
         Assertions.assertEquals(contact2.getAddress(),contact.getAddress());

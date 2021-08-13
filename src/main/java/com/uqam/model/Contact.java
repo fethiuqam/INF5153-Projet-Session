@@ -51,11 +51,6 @@ public class Contact implements Cloneable{
         return true;
     }
 
-    //setters
-    public void setAddress(String address) { this.address = address; }
-    public void setPhone(String phone) {this.phone = phone; }
-    public void setEmail(String email) {this.email = email;}
-
 
     //getters
     public String getAddress() {
