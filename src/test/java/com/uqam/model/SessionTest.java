@@ -41,7 +41,7 @@ class SessionTest  {
                         "SusanKMorganti@armyspy.com"));
         t1 = new Treatment("insuline");
         d1 = new Diagnostic("diabète type I");
-        v1 = new Visit.VisitBuilder(doctor,new Date(2021, 1, 6))
+        v1 = new VisitBuilder(doctor,new Date(2021, 1, 6))
                 .summary("après consultation de la glycémie du patient ")
                 .notes("note 1 pour visite 1")
                 .diagnostic(d1.getDesignation())

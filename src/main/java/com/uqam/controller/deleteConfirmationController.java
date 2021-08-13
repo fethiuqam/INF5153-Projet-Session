@@ -37,24 +37,6 @@ public class deleteConfirmationController {
 
         Stage stage = (Stage) cancel.getScene().getWindow();
 
-//        stage.setOnHiding(new EventHandler<WindowEvent>() {
-//
-//            @Override
-//            public void handle(WindowEvent event) {
-//                Platform.runLater(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                        session.deleteVisit(visit);
-//                        observableListVisit.remove(visit);
-//                        Stage previousStage = (Stage) anchorPane.getScene().getWindow();
-//                        previousStage.close();
-//
-//                    }
-//                });
-//            }
-//        });
-
         stage.close();
     }
 
@@ -65,11 +47,10 @@ public class deleteConfirmationController {
             case "cette visite?":
                 observableList.remove(visit);
             break;
-            case "cet antecedent":
+            case "cet antecedent?":
                 observableList.remove(antecedent);
             break;
         }
-
 
         Stage stage = (Stage) delete.getScene().getWindow();
         stage.close();

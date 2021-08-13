@@ -70,12 +70,17 @@ public class AntecedentListController extends ListCell<Antecedent> {
                  medecinTraitant.setText(antecedent.getPrescriber().getFirstname() + " " + antecedent.getPrescriber().getLastname());
 
 
-            if (antecedent.getBeginning().isPresent())
+            if (antecedent.getBeginning().isPresent()){
                 dateDebut.setText(antecedent.getBeginning().get().toString());
-
+            }else{
+                dateDebut.setText("Ne s'applique pas");
+            }
 
             if (antecedent.getEnd().isPresent())
                 dateFin.setText(antecedent.getEnd().get().toString());
+            else{
+                dateFin.setText("Ne s'applique pas");
+            }
 
             // Adjust owner/doctor indicator
             String antecedentDoctor = antecedent.getPrescriber().getFirstname() + antecedent.getPrescriber().getLastname();

@@ -4,6 +4,7 @@ import com.uqam.dao.DataSource;
 
 import java.sql.Date;
 
+import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
@@ -25,10 +26,6 @@ public class Session implements Authenticable, Observer {
         return user;
     }
 
-
-
-
-
     DataSource getDataSource() {
         return dataSource;
     }
@@ -37,7 +34,7 @@ public class Session implements Authenticable, Observer {
         return modified;
     }
 
-    Folder getOriginalFolder() {
+    public Folder getOriginalFolder() {
         return originalFolder;
     }
 
@@ -72,13 +69,23 @@ public class Session implements Authenticable, Observer {
     public Visit createNewVisit(String diagnostic, String treatment, String summary, String notes) {
         Doctor doctor = user.getDoctor();
         Date date = new Date(new java.util.Date().getTime());
-        Visit newVisit = new Visit.VisitBuilder(doctor,date)
+        return new VisitBuilder(doctor,date)
         .diagnostic(diagnostic)
         .treatment(treatment)
         .summary(summary)
         .notes(notes)
         .build();
-        return newVisit;
+    }
+
+    public Antecedent createNewAntecedent (String diagnostic, String treatment, LocalDate start, LocalDate end){
+        Doctor doctor = user.getDoctor();
+
+        return new AntecedentBuilder(doctor)
+                .diagnostic(diagnostic)
+                .treatment(treatment)
+                .dateStart(start)
+                .dateEnd(end)
+                .build();
     }
 
     public boolean resetFolder() {

@@ -6,6 +6,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,9 +30,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
-//TODO remove "edit" on notes due to not being able to access original Visits.
 
 public class PatientController extends Observable implements Initializable {
 
@@ -250,15 +251,30 @@ public class PatientController extends Observable implements Initializable {
                 }
             });
 
-
             addObserver(session.getCurrentFolder());
             addObserver(session);
+
         });
     }
 
     @FXML
     void addAntecedent(MouseEvent event) {
+        String diagnosticInput = antecedentDiagnostic.getText();
+        String treatmentInput = antecedentTreatment.getText();
+        LocalDate dateStartInput = antecedentStartDate.getValue();
+        LocalDate dateEndInput = antecedentEndDate.getValue();
 
+        antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
+        setChanged();
+        notifyObservers();
+    }
+
+    Visit addVisit(){
+        String diagnosticInput = visitDiagnostic.getText();
+        String treatmentInput = visitTreatment.getText();
+        String summaryInput = visitSummary.getText();
+        String notesInput = visitNotes.getText();
+        return session.createNewVisit(diagnosticInput,treatmentInput,summaryInput,notesInput);
     }
 
     @FXML
@@ -292,16 +308,12 @@ public class PatientController extends Observable implements Initializable {
 
     }
 
-    Visit addVisit(){
-        String diagnosticInput = visitDiagnostic.getText();
-        String treatmentInput = visitTreatment.getText();
-        String summaryInput = visitSummary.getText();
-        String notesInput = visitNotes.getText();
-        return session.createNewVisit(diagnosticInput,treatmentInput,summaryInput,notesInput);
-    }
 
     @FXML
     void cancelVisit(MouseEvent event) throws IOException {
+
+        session.reinitializeFolder();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
         Parent homeRoot = (Parent) fxmlLoader.load();
 
@@ -326,8 +338,10 @@ public class PatientController extends Observable implements Initializable {
         if (buttonText.equals("Annuler")){
             visitObservableList.add(addVisit());
         }
+
         setChanged();
         notifyObservers();
+
         try {
             session.saveFolder();
             System.out.println("dossier sauvegardé");
