@@ -108,43 +108,40 @@ public class Visit implements Cloneable {
     }
 
     public static class VisitBuilder{
+                private Doctor doctor;
+                private Date date;
+                private String summary;
+                private String notes ;
+                private Treatment treatment;
+                private Diagnostic diagnostic;
 
-        private Doctor doctor;
-        private Date date;
-        private String summary;
-        private String notes ;
-        private Treatment treatment;
-        private Diagnostic diagnostic;
+                public VisitBuilder (Doctor doctor, Date date) {
+                            this.doctor = doctor;
+                            this.date = date;
+                }
 
+                public  VisitBuilder treatment ( Treatment treatment) {
+                    this.treatment = treatment;
+                    return this;
+                }
 
-        public VisitBuilder (Doctor doctor, Date date) {
-            this.doctor = doctor;
-            this.date = date;
-        }
+                public  VisitBuilder diagnostic ( Diagnostic diagnostic) {
+                    this.diagnostic = diagnostic;
+                    return this;
+                }
 
-        public  VisitBuilder treatment ( Treatment treatment) {
-            this.treatment = treatment;
-            return this;
-        }
+                public VisitBuilder summary ( String summary){
+                    this.summary = summary;
+                    return this;
+                }
 
-        public  VisitBuilder diagnostic ( Diagnostic diagnostic) {
-            this.diagnostic = diagnostic;
-            return this;
-        }
+                public VisitBuilder notes (String notes) {
+                    this.notes = notes;
+                    return this;
+                }
 
-        public VisitBuilder summary ( String summary){
-            this.summary = summary;
-            return this;
-        }
-
-        public VisitBuilder notes (String notes) {
-            this.notes = notes;
-            return this;
-        }
-
-        public Visit build() {
-            Visit visit = new Visit(this);
-            return  visit;
-        }
+                public Visit build() {
+                    return new Visit(this);
+                }
     }
 }

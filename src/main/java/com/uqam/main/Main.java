@@ -17,6 +17,7 @@ public class Main  {
 
         User user = new User("Mohamed","Rehouma",null);
         System.out.println(user);
+
     }
 }
 
