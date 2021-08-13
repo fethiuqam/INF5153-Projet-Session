@@ -11,12 +11,12 @@ public class PatientTest {
     String dateStr = "1996-02-23";
     List<Patient> parents= new ArrayList<>();
     Date date = Date.valueOf(dateStr);
-    Contact contact = new Contact("2054 maissonneuve,h2c 2e2","5149871234","ck191923@ens.uqam.ca");
+    Contact contact = new Contact("2054 maisonneuve,h2c 2e2","5149871234","ck191923@ens.uqam.ca");
     Patient patient = new Patient("Mohamed","Rehouma",Gender.MALE,date,"Algiers","REHM26154978",contact);
     Patient patient2 =  new Patient("Siri","Alexia",Gender.FEMALE,date,"Montreal","ales12312312",contact);
-    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ale113182312",contact);
-    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","alep82312",contact);
-    Patient patient6 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","aleq13p82312",contact);
+    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","11111111111666",contact);
+    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","278482312451",contact);
+    Patient patient6 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ABCDEFGHTUJB",contact);
 
     @Test
     void testAddPatient() {
@@ -86,6 +86,11 @@ public class PatientTest {
         Assertions.assertThrows(AppException.class, () ->{
             patient4.validInsuranceNumber(patient5.getInsuranceNumber());
         });
+    }
+
+    @Test
+    void testValidToString(){
+        Assertions.assertEquals("Patient{firstname='Mohamed', lastname='Rehouma', gender=MALE, dateOfBirth=1996-02-23, birthCity='Algiers', insuranceNumber='REHM26154978', contact=Contact{address='2054 maisonneuve,h2c 2e2', phone='5149871234', email='ck191923@ens.uqam.ca'}, father='null', mother='null'}",patient.toString());
     }
 
     @Test

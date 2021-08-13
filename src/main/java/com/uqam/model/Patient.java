@@ -62,7 +62,7 @@ public class Patient implements Cloneable {
     }
 
 
-    // MEthod to validate the format of insurance number: ABCD123456789999
+    // MEthod to validate the format of insurance number: ABCD12345678
     public boolean validInsuranceNumber(String num) throws AppException{
         if(num.length() != 12) throw new AppException("Le numero d'assurance doit contenir 12 chiffres.");
         for(int i=0; i<4; i++){
