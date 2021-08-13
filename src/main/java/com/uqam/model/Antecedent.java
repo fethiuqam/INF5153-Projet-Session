@@ -64,26 +64,16 @@ public class Antecedent implements Cloneable {
     }
 
     //setters
-
-    public void setBeginning(Date beginning) {
-        this.beginning = beginning;
-    }
-
     public void setEnd(Date end) {
         this.end = end;
     }
-
     public void setDiagnostic(Diagnostic diagnostic) {
         this.diagnostic = diagnostic;
     }
-
     public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
     }
 
-    public void setPrescriber(Doctor prescriber) {
-        this.prescriber = prescriber;
-    }
 
     @Override
     protected Antecedent clone() {

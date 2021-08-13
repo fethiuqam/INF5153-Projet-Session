@@ -1,5 +1,4 @@
 package com.uqam.model;
-
 import javax.persistence.*;
 
 @Entity
@@ -19,8 +18,11 @@ public class Treatment implements Cloneable{
     }
 
     //methode to validate the length of the Treatment to make it suppose to be used
-    private boolean validTreatment(String designation){
-        return designation.length()>9;
+    public  boolean validTreatment(String designation) throws AppException{
+        if( designation.length()<9){
+            throw new AppException("La description du traitement est trop courte. Veuillez entrer une description d'au moins 10 caracteres.");
+        }
+        return true;
     }
 
     public String getDesignation() {

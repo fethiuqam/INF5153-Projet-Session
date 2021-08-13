@@ -24,7 +24,6 @@ public class DiagnosticTest {
         Diagnostic diagnostic   = new Diagnostic("diabete 2");
         Diagnostic diagnostic2 = diagnostic.clone();
         Assertions.assertEquals(diagnostic.getDesignation(),diagnostic2.getDesignation());
-
     }
 
     @Test
