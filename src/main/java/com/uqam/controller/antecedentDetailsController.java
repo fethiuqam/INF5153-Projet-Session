@@ -78,13 +78,9 @@ public class antecedentDetailsController {
     }
 
     public void initialize() {
-
         Platform.runLater(() -> {
             showWindow();
         });
-
-
-
     }
 
     @FXML
