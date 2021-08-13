@@ -36,10 +36,6 @@ public class Session implements Authenticable {
         return user;
     }
 
-
-
-
-
     DataSource getDataSource() {
         return dataSource;
     }

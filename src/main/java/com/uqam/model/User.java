@@ -45,10 +45,11 @@ public class User {
 
     }
 
-    public boolean validPassword(String password){
-        if (password.length()<8){
-            return false;
+    public boolean validPassword(String password) throws AppException{
+        if (password.length()<8 || !(password.matches("[A-Za-z0-9]+"))){
+            throw new AppException("Le mot de passe est trop court. Entrer un mot de passe d'au moins huits chiffre" +
+                    " contenant uniquement des lettre et des chiffres.");
         }
-        return password.matches("[A-Za-z0-9]+");
+        return true;
     }
 }

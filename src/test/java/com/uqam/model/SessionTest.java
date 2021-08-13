@@ -169,4 +169,5 @@ class SessionTest {
         assertEquals(expected.toString(), session.getDoctor().toString());
     }
 
+
 }
