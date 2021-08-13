@@ -13,10 +13,8 @@ import java.util.List;
 public class Main  {
 
     public static void main(String[] args) {
-      //MyApp.main(args);
+      MyApp.main(args);
 
-        User user = new User("Mohamed","Rehouma",null);
-        System.out.println(user);
 
     }
 }
