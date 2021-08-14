@@ -109,7 +109,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" spacing="5.0">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resume">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resume*">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
@@ -146,6 +146,16 @@
                         <Pane VBox.vgrow="ALWAYS" />
                         <HBox fx:id="ownerBouttons" spacing="10.0" visible="false">
                            <children>
+                              <HBox fx:id="errorInterface" alignment="CENTER" spacing="5.0" visible="false">
+                                 <children>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/alertRedIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text fx:id="errorMessage" fill="#ec1c24" strokeType="OUTSIDE" strokeWidth="0.0" text="message erreur" wrappingWidth="260.0" />
+                                 </children>
+                              </HBox>
                               <Pane HBox.hgrow="ALWAYS" />
                               <HBox fx:id="delete" alignment="CENTER" onMouseClicked="#deleteVisit" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
                                  <children>
