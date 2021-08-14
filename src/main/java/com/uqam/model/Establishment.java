@@ -1,6 +1,7 @@
 package com.uqam.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tEstablishments")
@@ -40,6 +41,19 @@ public class Establishment implements Cloneable{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Establishment that = (Establishment) o;
+        return id == that.id && Objects.equals(identification, that.identification) && Objects.equals(designation, that.designation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, identification, designation);
     }
 
     @Override

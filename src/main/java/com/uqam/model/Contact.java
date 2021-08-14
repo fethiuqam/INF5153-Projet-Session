@@ -1,6 +1,7 @@
 package com.uqam.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -66,6 +67,19 @@ public class Contact implements Cloneable{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return id == contact.id && Objects.equals(address, contact.address) && Objects.equals(phone, contact.phone) && Objects.equals(email, contact.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, address, phone, email);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.uqam.model;
 import java.sql.Date;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -17,7 +18,7 @@ public class Visit implements Cloneable {
     private Date date;
 
     private String summary;
-    private String notes ;
+    private String notes;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "treatment")
@@ -35,7 +36,7 @@ public class Visit implements Cloneable {
     }
 
     public Visit(Doctor doctor, Diagnostic diagnostic, Treatment treatment, Date date, String summary, String notes) {
-        this.date =  date;
+        this.date = date;
         this.summary = summary;
         this.notes = notes;
         this.treatment = treatment;
@@ -73,7 +74,7 @@ public class Visit implements Cloneable {
         this.notes = notes;
     }
 
-    public void setTreatment(Treatment treatment){
+    public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
     }
 
@@ -89,7 +90,7 @@ public class Visit implements Cloneable {
     protected Visit clone() {
         try {
             Visit clone = (Visit) super.clone();
-            clone.treatment = this.treatment != null ? this.treatment.clone(): null;
+            clone.treatment = this.treatment != null ? this.treatment.clone() : null;
             clone.diagnostic = this.diagnostic != null ? this.diagnostic.clone() : null;
             clone.doctor = this.doctor.clone();
             return clone;
@@ -97,6 +98,19 @@ public class Visit implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Visit visit = (Visit) o;
+        return id == visit.id && Objects.equals(date, visit.date) && Objects.equals(summary, visit.summary) && Objects.equals(notes, visit.notes) && Objects.equals(treatment, visit.treatment) && Objects.equals(diagnostic, visit.diagnostic) && Objects.equals(doctor, visit.doctor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, summary, notes, treatment, diagnostic, doctor);
     }
 
     @Override

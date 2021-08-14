@@ -1,6 +1,6 @@
 package com.uqam.model;
 
-import com.uqam.controller.PatientController;
+import com.uqam.controller.FolderController;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -91,6 +91,19 @@ public class Folder implements Cloneable, Observer {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Folder folder = (Folder) o;
+        return id == folder.id && Objects.equals(owner, folder.owner) && Objects.equals(visits, folder.visits) && Objects.equals(antecedents, folder.antecedents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, owner, visits, antecedents);
+    }
+
+    @Override
     public String toString() {
         return "Folder{" +
                 "owner=" + owner +
@@ -118,8 +131,8 @@ public class Folder implements Cloneable, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        if (observable instanceof PatientController) {
-            PatientController controller = (PatientController) observable;
+        if (observable instanceof FolderController) {
+            FolderController controller = (FolderController) observable;
             visits = new HashSet<>(controller.getVisits());
             antecedents = new HashSet<>(controller.getAntecedents());
         }

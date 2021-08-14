@@ -2,6 +2,7 @@ package com.uqam.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -98,6 +99,19 @@ public class Antecedent implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Antecedent that = (Antecedent) o;
+        return id == that.id && Objects.equals(beginning, that.beginning) && Objects.equals(end, that.end) && Objects.equals(treatment, that.treatment) && Objects.equals(diagnostic, that.diagnostic) && Objects.equals(prescriber, that.prescriber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, beginning, end, treatment, diagnostic, prescriber);
     }
 
     @Override
