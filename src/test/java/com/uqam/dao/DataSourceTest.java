@@ -57,8 +57,7 @@ public class DataSourceTest {
     @Test
     public void findByIdTestFailed() throws AppException{
         String id = "MORS452196";
-        Folder folder = source.findById(id);
-        Assertions.assertNull(folder);
+        Assertions.assertThrows(AppException.class, () -> source.findById(id));
     }
 
     @Test
