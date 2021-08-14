@@ -72,14 +72,19 @@
                                                 <Text fx:id="insuranceNumber" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" wrappingWidth="120.0" />
                                              </children>
                                           </HBox>
-                                          <HBox spacing="5.0">
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date de naissance">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date d'expiration">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="dateOfBirth" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" wrappingWidth="150.0" />
+                                                <Text fx:id="expiryDate" strokeType="OUTSIDE" strokeWidth="0.0" text="JJ/MM/AAAA" />
+                                                <ImageView fx:id="expiryWarningIcon" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                                   <image>
+                                                      <Image url="@../images/alertRedIcon.png" />
+                                                   </image>
+                                                </ImageView>
                                              </children>
                                           </HBox>
                                        </children>
@@ -130,6 +135,16 @@
                                     </VBox>
                                     <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                                        <children>
+                                          <HBox spacing="5.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date de naissance">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text fx:id="dateOfBirth" strokeType="OUTSIDE" strokeWidth="0.0" text=" PLACEHOLDER" wrappingWidth="150.0" />
+                                             </children>
+                                          </HBox>
                                           <HBox spacing="5.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Genre">

@@ -52,7 +52,7 @@ public class FolderControllerTest {
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
         p1 = new Patient("Susan", "Morganti", Gender.FEMALE,
-                Date.valueOf("1952-02-04"), "Montreal", "MORS12452196",
+                Date.valueOf("1952-02-04"), "Montreal", "MORS12452196", Date.valueOf("2022-01-03"),
                 new Contact("2401 rue Ontario Ouest Montreal, QC H2X 1Y8", "514-350-9159",
                         "SusanKMorganti@armyspy.com"));
         t1 = new Treatment("insuline");
@@ -94,6 +94,7 @@ public class FolderControllerTest {
         FxAssert.verifyThat("#name", TextMatchers.hasText("Morganti"));
         FxAssert.verifyThat("#firstName", TextMatchers.hasText("Susan"));
         FxAssert.verifyThat("#insuranceNumber", TextMatchers.hasText("MORS12452196"));
+        FxAssert.verifyThat("#expiryDate", TextMatchers.hasText("2022-01-03"));
         FxAssert.verifyThat("#dateOfBirth", TextMatchers.hasText("1952-02-04"));
         FxAssert.verifyThat("#cityOfBirth", TextMatchers.hasText("Montreal"));
         FxAssert.verifyThat("#address", TextMatchers.hasText("2401 rue Ontario Ouest Montreal, QC H2X 1Y8"));

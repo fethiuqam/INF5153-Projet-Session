@@ -48,7 +48,7 @@ public class HomeControllerTest {
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
         p1 = new Patient("Susan", "Morganti", Gender.FEMALE,
-                new Date(1952, 2, 4), "Montreal", "MORS12452196",
+                new Date(1952, 2, 4), "Montreal", "MORS12452196", Date.valueOf("2022-01-03"),
                 new Contact("2401 rue Ontario Ouest Montreal, QC H2X 1Y8", "514-350-9159",
                         "SusanKMorganti@armyspy.com"));
         t1 = new Treatment("insuline");

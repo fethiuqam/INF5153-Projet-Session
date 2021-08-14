@@ -22,7 +22,7 @@ public class FolderTest {
         String str = "2021-07-27";
         Date date = Date.valueOf(str);
         Contact contact = new Contact("2054 maissonneuve,h2c 2e2", "5149871234", "ck191923@ens.uqam.ca");
-        Patient patient = new Patient("Mohamed", "Rehouma", Gender.MALE, date, "Algiers", "REHM26154978", contact);
+        Patient patient = new Patient("Mohamed", "Rehouma", Gender.MALE, date, "Algiers", "REHM26154978", Date.valueOf("2022-01-03"), contact);
         folder = new Folder(patient);
 
         treatment = new Treatment("The patient must get vaccinated.");

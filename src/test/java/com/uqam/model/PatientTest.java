@@ -12,11 +12,11 @@ public class PatientTest {
     List<Patient> parents= new ArrayList<>();
     Date date = Date.valueOf(dateStr);
     Contact contact = new Contact("2054 maissonneuve,h2c 2e2","5149871234","ck191923@ens.uqam.ca");
-    Patient patient = new Patient("Mohamed","Rehouma",Gender.MALE,date,"Algiers","REHM26154978",contact);
-    Patient patient2 =  new Patient("Siri","Alexia",Gender.FEMALE,date,"Montreal","ales12312312",contact);
-    Patient patient3 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ales123182312",contact);
-    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ale113182312",contact);
-    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","aleq13p82312",contact);
+    Patient patient = new Patient("Mohamed","Rehouma",Gender.MALE,date,"Algiers","REHM26154978", Date.valueOf("2022-01-03"),contact);
+    Patient patient2 =  new Patient("Siri","Alexia",Gender.FEMALE,date,"Montreal","ales12312312", Date.valueOf("2022-01-03"), contact);
+    Patient patient3 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ales123182312", Date.valueOf("2022-01-03"),contact);
+    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ale113182312", Date.valueOf("2022-01-03"),contact);
+    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","aleq13p82312", Date.valueOf("2022-01-03"),contact);
 
     @Test
     void testAddPatient() {
