@@ -38,9 +38,9 @@ public class DataSourceTest {
     public void findByUsernameAndPasswordTestFailed() throws AppException {
         String username = "docteur01";
         String password = "123451335";
-        User user = source.findByUsernameAndPassword(username, password);
-        Assertions.assertNull(user);
+        Assertions.assertThrows(AppException.class, () -> source.findByUsernameAndPassword(username, password));
     }
+
 
     @Test
     public void findByIdTestSuccess() throws AppException{

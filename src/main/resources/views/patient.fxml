@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane maxHeight="850.0" maxWidth="1500.0" minViewportWidth="1500.0" prefViewportWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uqam.controller.PatientController">
+<ScrollPane maxHeight="850.0" maxWidth="1500.0" minViewportWidth="1500.0" prefViewportWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uqam.controller.FolderController">
    <content>
       <AnchorPane minWidth="1500.0">
          <children>
@@ -40,7 +40,7 @@
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
+                                    <VBox minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <HBox spacing="5.0">
                                              <children>
@@ -148,7 +148,7 @@
                                                    </font>
                                                 </Text>
                                                 <Text fx:id="father" strokeType="OUTSIDE" strokeWidth="0.0" text="Ne s'applique pas" wrappingWidth="130.0" />
-                                             </children>
+                                                   </children>
                                           </HBox>
                                           <HBox spacing="5.0">
                                              <children>
@@ -253,7 +253,7 @@
                               </VBox>
                               <TabPane maxHeight="-Infinity" prefHeight="600.0" stylesheets="@../css/tab.css" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
                                  <tabs>
-                                    <Tab text="Visites">
+                                    <Tab id="tabVisit" text="Visites">
                                        <content>
                                           <AnchorPane>
                                              <children>
@@ -378,7 +378,7 @@
                                           </AnchorPane>
                                        </content>
                                     </Tab>
-                                    <Tab text="Antécédents">
+                                    <Tab id="tabAntecedent" text="Antécédents">
                                        <content>
                                           <AnchorPane>
                                              <children>
@@ -444,7 +444,7 @@
                                                                      </padding>
                                                                   </HBox>
                                                                   <Pane HBox.hgrow="ALWAYS" />
-                                                                  <HBox alignment="CENTER" onMouseClicked="#addAntecedent" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
+                                                                  <HBox id="addAntecedent" alignment="CENTER" onMouseClicked="#addAntecedent" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
                                                                      <children>
                                                                         <Label text="Ajouter" textFill="WHITE">
                                                                            <font>

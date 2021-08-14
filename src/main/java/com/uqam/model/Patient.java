@@ -1,6 +1,7 @@
 package com.uqam.model;
 
 import java.sql.Date;
+import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.*;
 
@@ -148,6 +149,19 @@ public class Patient implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return id == patient.id && Objects.equals(firstname, patient.firstname) && Objects.equals(lastname, patient.lastname) && gender == patient.gender && Objects.equals(dateOfBirth, patient.dateOfBirth) && Objects.equals(birthCity, patient.birthCity) && Objects.equals(insuranceNumber, patient.insuranceNumber) && Objects.equals(insuranceExpirationDate, patient.insuranceExpirationDate) && Objects.equals(contact, patient.contact) && Objects.equals(father, patient.father) && Objects.equals(mother, patient.mother);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstname, lastname, gender, dateOfBirth, birthCity, insuranceNumber, insuranceExpirationDate, contact, father, mother);
     }
 
     @Override

@@ -150,7 +150,7 @@ public class HomeController {
 
     public void connectSession (FXMLLoader fxmlLoader, Session session){
         //add session to controller
-        PatientController controller = fxmlLoader.getController();
+        FolderController controller = fxmlLoader.getController();
         controller.setSession(session);
     }
 }

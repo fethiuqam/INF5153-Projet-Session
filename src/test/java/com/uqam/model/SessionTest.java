@@ -3,9 +3,8 @@ package com.uqam.model;
 import com.uqam.dao.DataSource;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
@@ -32,6 +31,7 @@ class SessionTest  {
 
     @BeforeEach
      void setup() {
+        MockitoAnnotations.openMocks(this);
         doctor = new Doctor("aaa", "bbb", "123456", "Cardiologie",
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
@@ -49,6 +49,7 @@ class SessionTest  {
                 .build();
         a1 = new Antecedent(new Date(2021,1,6),null, d1, t1, doctor);
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
+
     }
 
     @AfterEach
@@ -105,35 +106,11 @@ class SessionTest  {
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
         Session session = new Session(dataSourceMock);
         session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
-        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(true);
-        session.setModified(true);
+        session.getCurrentFolder().getAntecedents().clear();
         boolean result = session.saveFolder();
         assertTrue(result);
     }
 
-    @Test
-    public void saveFolderTestFalse() throws AppException{
-        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        Session session = new Session(dataSourceMock);
-        session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(false);
-        session.setModified(true);
-        boolean result = session.saveFolder();
-        assertFalse(result);
-    }
-
-    @Test
-    public void saveFolderTestFalse2() throws AppException{
-        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        Session session = new Session(dataSourceMock);
-        session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
-        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(false);
-        session.setModified(true);
-        boolean result = session.saveFolder();
-        assertFalse(result);
-    }
 
     @Test
     public void resetFolderTestTrue() throws AppException{

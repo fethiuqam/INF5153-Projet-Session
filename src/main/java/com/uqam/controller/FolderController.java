@@ -7,7 +7,6 @@ import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,7 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -35,7 +33,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 
-public class PatientController extends Observable implements Initializable {
+public class FolderController extends Observable implements Initializable {
 
     Session session;
 
@@ -148,7 +146,15 @@ public class PatientController extends Observable implements Initializable {
     @FXML
     private  HBox errorInterfaceAntecedent;
 
-    public PatientController() {
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedentsObservableList);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visitObservableList);
+    }
+
+    public FolderController() {
 
     }
 
@@ -264,8 +270,6 @@ public class PatientController extends Observable implements Initializable {
             });
 
             addObserver(session.getCurrentFolder());
-            addObserver(session);
-
         });
     }
 
@@ -284,6 +288,10 @@ public class PatientController extends Observable implements Initializable {
             LocalDate dateEndInput = antecedentEndDate.getValue();
 
             antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
+            antecedentDiagnostic.clear();
+            antecedentTreatment.clear();
+            antecedentStartDate.getEditor().clear();
+            antecedentEndDate.getEditor().clear();
             setChanged();
             notifyObservers();
         } else {
@@ -307,7 +315,6 @@ public class PatientController extends Observable implements Initializable {
     }
 
     Visit addVisit(){
-
         String diagnosticInput = visitDiagnostic.getText();
         String treatmentInput = visitTreatment.getText();
         String summaryInput = visitSummary.getText();
@@ -371,7 +378,7 @@ public class PatientController extends Observable implements Initializable {
         controller.setSession(session);
     }
 
-    public void saveFolder(MouseEvent mouseEvent) throws IOException {
+    public void saveFolder(MouseEvent mouseEvent) throws IOException, AppException {
         String buttonText = addVisitLabel.getText();
         if (buttonText.equals("Annuler")){
             if (!visitSummary.getText().equals("")){
@@ -399,25 +406,11 @@ public class PatientController extends Observable implements Initializable {
 
 
     }
-
-    public Set<Antecedent> getAntecedents() {
-        return new HashSet<>(antecedentsObservableList);
-    }
-
-    public Set<Visit> getVisits() {
-        return new HashSet<>(visitObservableList);
-    }
-
-    public void logout(MouseEvent mouseEvent) throws IOException {
+    public void logout(MouseEvent mouseEvent) throws IOException, AppException {
         setChanged();
         notifyObservers();
+        session.saveFolder();
 
-        try {
-            session.saveFolder();
-            System.out.println("dossier sauvegardé");
-        } catch (AppException e) {
-            e.printStackTrace();
-        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
         Parent homeRoot = (Parent) fxmlLoader.load();
@@ -429,4 +422,5 @@ public class PatientController extends Observable implements Initializable {
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
     }
+
 }
