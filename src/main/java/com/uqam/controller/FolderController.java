@@ -371,17 +371,18 @@ public class FolderController extends Observable implements Initializable {
 
 
     @FXML
-    void cancelVisit(MouseEvent event) throws IOException {
+    void restoreVisit(MouseEvent event) throws IOException {
 
-        session.reinitializeFolder();
+        session.resetFolder();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
         Parent homeRoot = (Parent) fxmlLoader.load();
 
-        connectSession(fxmlLoader, session);
+        connectSessionReload(fxmlLoader, session);
         var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
+
     }
 
     public void setSession (Session session){
@@ -391,6 +392,12 @@ public class FolderController extends Observable implements Initializable {
     public void connectSession (FXMLLoader fxmlLoader, Session session){
         //add session to controller
         HomeController controller = fxmlLoader.getController();
+        controller.setSession(session);
+    }
+
+    public void connectSessionReload (FXMLLoader fxmlLoader, Session session){
+        //add session to controller
+        FolderController controller = fxmlLoader.getController();
         controller.setSession(session);
     }
 
