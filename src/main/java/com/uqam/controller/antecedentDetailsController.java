@@ -1,6 +1,7 @@
 package com.uqam.controller;
 
 import com.uqam.model.*;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,6 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Optional;
@@ -65,6 +68,12 @@ public class antecedentDetailsController {
     @FXML
     private HBox apply;
 
+    @FXML
+    private Text errorMessage;
+
+    @FXML
+    private HBox errorInterface;
+
     Session session;
     ObservableList<Visit> observableList;
     Antecedent antecedent;
@@ -90,32 +99,46 @@ public class antecedentDetailsController {
     @FXML
     void applyEdit(MouseEvent event) {
 
-        if (treatmentInputField.getText()!=null) {
-            Treatment modifiedTreatment = new Treatment(treatmentInputField.getText());
-            antecedent.setTreatment(modifiedTreatment);
+        if (!treatmentInputField.getText().equals("") && !diagnosticInputField.getText().equals("")){
+
+            errorInterface.setVisible(false);
+
+                Treatment modifiedTreatment = new Treatment(treatmentInputField.getText());
+                antecedent.setTreatment(modifiedTreatment);
+
+                Diagnostic modifiedDiagnostic = new Diagnostic(diagnosticInputField.getText());
+                antecedent.setDiagnostic(modifiedDiagnostic);
+
+            if (dateBeginningPicker.getValue() !=null)
+                antecedent.setBeginning(Date.valueOf(dateBeginningPicker.getValue()));
+
+            if (dateEndPicker.getValue()!=null)
+                antecedent.setEnd(Date.valueOf(dateEndPicker.getValue()));
+
+            showText();
+
+            hideInputFields();
+
+            //hide apply button
+            apply.setVisible(false);
+
+            showWindow();
+
+        }else{
+            //error message
+            if (errorInterface.isVisible()){
+                TranslateTransition shake = new TranslateTransition(Duration.millis(40), errorInterface);
+                shake.setFromX(0.0);
+                shake.setByX(5);
+                shake.setCycleCount(3);
+                shake.setAutoReverse(true);
+                shake.playFromStart();
+
+            }else{
+                errorInterface.setVisible(true);
+            }
+            errorMessage.setText("Le diagnostic et le traitement de l'antécédant sont nécessaires.");
         }
-
-        if (diagnosticInputField.getText() != null) {
-            Diagnostic modifiedDiagnostic = new Diagnostic(diagnosticInputField.getText());
-            antecedent.setDiagnostic(modifiedDiagnostic);
-        } else {
-            System.out.println("diagnostic is null\n");
-        }
-
-        if (dateBeginningPicker.getValue() !=null)
-        antecedent.setBeginning(Date.valueOf(dateBeginningPicker.getValue()));
-
-        if (dateEndPicker.getValue()!=null)
-        antecedent.setEnd(Date.valueOf(dateEndPicker.getValue()));
-
-        showText();
-
-        hideInputFields();
-
-        //hide apply button
-        apply.setVisible(false);
-
-        showWindow();
 
     }
 

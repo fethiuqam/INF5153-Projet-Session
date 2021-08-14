@@ -1,6 +1,7 @@
 package com.uqam.controller;
 
 import com.uqam.model.*;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Date;
@@ -68,6 +70,13 @@ public class visitDetailsController {
 
     @FXML
     private HBox ownerBouttons;
+
+    @FXML
+    private Text errorMessage;
+
+    @FXML
+    private HBox errorInterface;
+
 
     Session session;
     Visit visit;
@@ -139,26 +148,47 @@ public class visitDetailsController {
     @FXML
     void applyEdit(MouseEvent event) {
 
-        Treatment modifiedTreatment = new Treatment(treatmentInputField.getText());
-       visit.setTreatment(modifiedTreatment);
+        if (!summaryInputField.getText().equals("")){
 
-       Diagnostic modifiedDiagnostic = new Diagnostic(diagnosticInputField.getText());
-       visit.setDiagnostic(modifiedDiagnostic);
+            errorInterface.setVisible(false);
 
-       String modifiedSummary = summaryInputField.getText();
-       visit.setSummary(modifiedSummary);
+            Treatment modifiedTreatment = new Treatment(treatmentInputField.getText());
+            visit.setTreatment(modifiedTreatment);
 
-       String modifiedNote =  noteInputField.getText();
-       visit.setNotes(modifiedNote);
+            Diagnostic modifiedDiagnostic = new Diagnostic(diagnosticInputField.getText());
+            visit.setDiagnostic(modifiedDiagnostic);
 
-        showText();
+            String modifiedSummary = summaryInputField.getText();
+            visit.setSummary(modifiedSummary);
 
-        hideInputFields();
+            String modifiedNote =  noteInputField.getText();
+            visit.setNotes(modifiedNote);
 
-        //hide apply button
-        apply.setVisible(false);
+            showText();
 
-        showWindow();
+            hideInputFields();
+
+            //hide apply button
+            apply.setVisible(false);
+
+            showWindow();
+
+        }else{
+            //error message
+            if (errorInterface.isVisible()){
+                TranslateTransition shake = new TranslateTransition(Duration.millis(40), errorInterface);
+                shake.setFromX(0.0);
+                shake.setByX(5);
+                shake.setCycleCount(3);
+                shake.setAutoReverse(true);
+                shake.playFromStart();
+
+            }else{
+                errorInterface.setVisible(true);
+            }
+            errorMessage.setText("Le résumé de la visite est nécessaire.");
+        }
+
     }
 
     private void showWindow() {
