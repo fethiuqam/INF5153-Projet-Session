@@ -1,38 +1,46 @@
 package com.uqam.model;
 
 import com.uqam.dao.DataSource;
-
 import java.sql.Date;
-
-import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-public class Session implements Authenticable, Observer {
+public class Session implements Authenticable {
 
     private static User user;
     private Folder currentFolder;
     private DataSource dataSource;
-    private boolean modified;
     private Folder originalFolder;
 
     public Session(DataSource dataSource) {
         this.dataSource = dataSource;
-        modified = false;
     }
 
     User getUser() {
         return user;
     }
 
+    public Set<Antecedent> getAntecedents() {
+        return currentFolder.getAntecedents();
+    }
+
+    public Set<Visit> getVisits() {
+        return currentFolder.getVisits();
+    }
+
+    public Doctor getDoctor() {
+        return user.getDoctor();
+    }
+
+    public Folder getCurrentFolder() {
+        return currentFolder;
+    }
+
     DataSource getDataSource() {
         return dataSource;
     }
 
-    boolean isModified() {
-        return modified;
-    }
 
     public Folder getOriginalFolder() {
         return originalFolder;
@@ -58,7 +66,7 @@ public class Session implements Authenticable, Observer {
 
     public boolean saveFolder() throws AppException {
         boolean result = true;
-        if (modified && currentFolder != null) {
+        if (currentFolder != null && originalFolder != null && !currentFolder.equals(originalFolder)) {
             result = dataSource.update(currentFolder)
                     && dataSource.archiveModification(currentFolder);
             originalFolder = currentFolder.duplicate();
@@ -90,32 +98,9 @@ public class Session implements Authenticable, Observer {
 
     public boolean resetFolder() {
         currentFolder = originalFolder.duplicate();
-        modified = false;
         return true;
     }
 
-    public Set<Antecedent> getAntecedents() {
-        return currentFolder.getAntecedents();
-    }
 
-    public Set<Visit> getVisits() {
-        return currentFolder.getVisits();
-    }
 
-    public Doctor getDoctor() {
-        return user.getDoctor();
-    }
-
-    public Folder getCurrentFolder() {
-        return currentFolder;
-    }
-
-    void setModified(boolean modified) {
-        this.modified = modified;
-    }
-
-    @Override
-    public void update(Observable observable, Object o) {
-        modified = true;
-    }
 }

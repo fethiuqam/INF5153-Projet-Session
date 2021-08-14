@@ -106,35 +106,11 @@ class SessionTest  {
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
         Session session = new Session(dataSourceMock);
         session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
-        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(true);
-        session.setModified(true);
+        session.getCurrentFolder().getAntecedents().clear();
         boolean result = session.saveFolder();
         assertTrue(result);
     }
 
-    @Test
-    public void saveFolderTestFalse() throws AppException{
-        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        Session session = new Session(dataSourceMock);
-        session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(false);
-        session.setModified(true);
-        boolean result = session.saveFolder();
-        assertFalse(result);
-    }
-
-    @Test
-    public void saveFolderTestFalse2() throws AppException{
-        when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        Session session = new Session(dataSourceMock);
-        session.downloadFolder("MORS12452196");
-        when(dataSourceMock.update(session.getCurrentFolder())).thenReturn(true);
-        when(dataSourceMock.archiveModification(session.getCurrentFolder())).thenReturn(false);
-        session.setModified(true);
-        boolean result = session.saveFolder();
-        assertFalse(result);
-    }
 
     @Test
     public void resetFolderTestTrue() throws AppException{

@@ -28,7 +28,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -133,6 +132,13 @@ public class FolderController extends Observable implements Initializable {
     @FXML
     private Label currentVisitEstablishment;
 
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedentsObservableList);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visitObservableList);
+    }
 
     public FolderController() {
 
@@ -250,8 +256,6 @@ public class FolderController extends Observable implements Initializable {
             });
 
             addObserver(session.getCurrentFolder());
-            addObserver(session);
-
         });
     }
 
@@ -261,8 +265,11 @@ public class FolderController extends Observable implements Initializable {
         String treatmentInput = antecedentTreatment.getText();
         Date dateStartInput = Date.valueOf(antecedentStartDate.getValue());
         Date dateEndInput = Date.valueOf(antecedentEndDate.getValue());
-
         antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
+        antecedentDiagnostic.clear();
+        antecedentTreatment.clear();
+        antecedentStartDate.getEditor().clear();
+        antecedentEndDate.getEditor().clear();
         setChanged();
         notifyObservers();
     }
@@ -331,21 +338,15 @@ public class FolderController extends Observable implements Initializable {
         controller.setSession(session);
     }
 
-    public void saveFolder(MouseEvent mouseEvent) throws IOException {
+    public void saveFolder(MouseEvent mouseEvent) throws IOException, AppException {
         String buttonText = addVisitLabel.getText();
         if (buttonText.equals("Annuler")){
             visitObservableList.add(addVisit());
         }
-
         setChanged();
         notifyObservers();
+        session.saveFolder();
 
-        try {
-            session.saveFolder();
-            System.out.println("dossier sauvegardé");
-        } catch (AppException e) {
-            e.printStackTrace();
-        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
         Parent homeRoot = (Parent) fxmlLoader.load();
@@ -356,14 +357,6 @@ public class FolderController extends Observable implements Initializable {
         var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
-
     }
 
-    public Set<Antecedent> getAntecedents() {
-        return new HashSet<>(antecedentsObservableList);
-    }
-
-    public Set<Visit> getVisits() {
-        return new HashSet<>(visitObservableList);
-    }
 }
