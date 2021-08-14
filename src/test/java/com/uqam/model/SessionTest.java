@@ -3,9 +3,8 @@ package com.uqam.model;
 import com.uqam.dao.DataSource;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Date;
@@ -32,6 +31,7 @@ class SessionTest  {
 
     @BeforeEach
      void setup() {
+        MockitoAnnotations.openMocks(this);
         doctor = new Doctor("aaa", "bbb", "123456", "Cardiologie",
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
@@ -49,6 +49,7 @@ class SessionTest  {
                 .build();
         a1 = new Antecedent(new Date(2021,1,6),null, d1, t1, doctor);
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
+
     }
 
     @AfterEach

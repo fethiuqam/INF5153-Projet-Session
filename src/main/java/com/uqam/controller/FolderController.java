@@ -34,7 +34,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 
-public class PatientController extends Observable implements Initializable {
+public class FolderController extends Observable implements Initializable {
 
     Session session;
 
@@ -136,7 +136,7 @@ public class PatientController extends Observable implements Initializable {
     private Label currentVisitEstablishment;
 
 
-    public PatientController() {
+    public FolderController() {
 
     }
 

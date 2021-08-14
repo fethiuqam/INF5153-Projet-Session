@@ -9,6 +9,7 @@ import javafx.stage.Window;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -19,8 +20,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.testfx.matcher.control.TextInputControlMatchers;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.lenient;
 import java.io.IOException;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith({ApplicationExtension.class, MockitoExtension.class})
 public class ConnexionControllerTest {
@@ -33,14 +35,17 @@ public class ConnexionControllerTest {
 
     @Start
     private void start(Stage stage) throws IOException, AppException {
+        // initialisation du mockObject
+        MockitoAnnotations.openMocks(this);
         doctor = new Doctor("aaa", "bbb", "123456", "Cardiologie",
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
-
+        when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
+        when(dataSourceMock.findByUsernameAndPassword("", "")).thenReturn(null);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent connexionRoot = (Parent) fxmlLoader.load();
         ConnexionController controller = fxmlLoader.getController();
-        controller.setSession(new Session(new DataSource()));
+        controller.setSession(new Session(dataSourceMock));
         scene = new Scene(connexionRoot);
         stage.getIcons().add(new Image("/images/windowIcon.png"));
         stage.setTitle("CentRAMQ Accès Médecin");
@@ -59,7 +64,6 @@ public class ConnexionControllerTest {
 
     @Test
     void loginClickedFailedTest(FxRobot robot) throws AppException {
-        lenient().when(dataSourceMock.findByUsernameAndPassword("", "")).thenReturn(null);
         // when :
         robot.clickOn("#loginButton");
         // then :
@@ -69,19 +73,17 @@ public class ConnexionControllerTest {
 
     @Test
     void loginClickedSuccessTest(FxRobot robot) throws AppException {
-        lenient().when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
         // when:
-        robot.clickOn("#username").write("docteur01");
-        robot.clickOn("#password").write("111111");
-        FxAssert.verifyThat("#username", TextInputControlMatchers.hasText("docteur01"));
-        FxAssert.verifyThat("#password", TextInputControlMatchers.hasText("111111"));
-        robot.clickOn("#loginButton");
-        // then :
+        robot.clickOn("#username").write("user");
+        robot.clickOn("#password").write("pass");
+        FxAssert.verifyThat("#username", TextInputControlMatchers.hasText("user"));
+        FxAssert.verifyThat("#password", TextInputControlMatchers.hasText("pass"));
+        robot.clickOn("#loginButton").sleep(100);        // then :
         Window window = robot.listWindows().get(0);
         assertNotEquals(scene, window.getScene());
-        FxAssert.verifyThat("#lastName", LabeledMatchers.hasText("Dupuis"));
-        FxAssert.verifyThat("#firstName", LabeledMatchers.hasText("Marsilius"));
-        FxAssert.verifyThat("#permitNumber", LabeledMatchers.hasText("13698"));
+        FxAssert.verifyThat("#lastName", LabeledMatchers.hasText("bbb"));
+        FxAssert.verifyThat("#firstName", LabeledMatchers.hasText("aaa"));
+        FxAssert.verifyThat("#permitNumber", LabeledMatchers.hasText("123456"));
 
     }
 
