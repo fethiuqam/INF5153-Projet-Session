@@ -90,8 +90,7 @@ public class Antecedent implements Cloneable {
     protected Antecedent clone() {
         try {
             Antecedent clone = (Antecedent) super.clone();
-            //modif - HAMZA
-            clone.treatment = (this.beginning != null && this.treatment!=null) ? this.treatment.clone() : null;
+            clone.treatment =  this.treatment.clone();
             clone.diagnostic = this.diagnostic.clone();
             clone.prescriber = this.prescriber.clone();
             return clone;
