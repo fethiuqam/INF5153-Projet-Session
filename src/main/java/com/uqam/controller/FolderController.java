@@ -193,6 +193,13 @@ public class FolderController extends Observable implements Initializable {
             if (currentPatient.getInsuranceExpirationDate().before(new Date(System.currentTimeMillis()))){
                 expiryDate.setFill(Color.RED);
                 expiryWarningIcon.setVisible(true);
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Carte expiréé");
+                alert.setContentText("La carte d'assurance maladie de ce patient est expiréé.");
+
+                alert.show();
+
             }
 
 
