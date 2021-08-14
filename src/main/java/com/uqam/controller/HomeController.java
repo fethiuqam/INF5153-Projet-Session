@@ -3,6 +3,7 @@ package com.uqam.controller;
 import com.uqam.model.AppException;
 import com.uqam.model.Doctor;
 import com.uqam.model.Session;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,7 +16,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -55,6 +58,12 @@ public class HomeController {
 
     @FXML
     private TextField insuranceSearchQuery;
+
+    @FXML
+    private Text errorMessage;
+
+    @FXML
+    private HBox errorInterface;
 
 
     private Session session;
@@ -101,17 +110,34 @@ public class HomeController {
 
     public void newVisite(MouseEvent mouseEvent) throws IOException, AppException {
 
-        boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
-        if (successful){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
-            Parent patientRoot = (Parent) fxmlLoader.load();
+        try {
+            boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
+            if (successful){
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
+                Parent patientRoot = (Parent) fxmlLoader.load();
 
-            connectSession(fxmlLoader, session);
+                connectSession(fxmlLoader, session);
 
-            var scene = new Scene(patientRoot);
-            Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-            mainStage.setScene(scene);
+                var scene = new Scene(patientRoot);
+                Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+                mainStage.setScene(scene);
+            }
+        }catch (AppException e){
+
+            if (errorInterface.isVisible()){
+                TranslateTransition shake = new TranslateTransition(Duration.millis(40), errorInterface);
+                shake.setFromX(0.0);
+                shake.setByX(5);
+                shake.setCycleCount(3);
+                shake.setAutoReverse(true);
+                shake.playFromStart();
+
+            }else{
+                errorInterface.setVisible(true);
+            }
+            errorMessage.setText(e.getMessage());
         }
+
 
 
 

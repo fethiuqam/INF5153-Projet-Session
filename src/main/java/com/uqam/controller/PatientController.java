@@ -4,6 +4,7 @@ import com.uqam.model.*;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -135,6 +136,17 @@ public class PatientController extends Observable implements Initializable {
     @FXML
     private Label currentVisitEstablishment;
 
+    @FXML
+    private Text errorMessage;
+
+    @FXML
+    private HBox errorInterface;
+
+    @FXML
+    private  Text errorMessageAntecedent;
+
+    @FXML
+    private  HBox errorInterfaceAntecedent;
 
     public PatientController() {
 
@@ -259,17 +271,43 @@ public class PatientController extends Observable implements Initializable {
 
     @FXML
     void addAntecedent(MouseEvent event) {
-        String diagnosticInput = antecedentDiagnostic.getText();
-        String treatmentInput = antecedentTreatment.getText();
-        LocalDate dateStartInput = antecedentStartDate.getValue();
-        LocalDate dateEndInput = antecedentEndDate.getValue();
 
-        antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
-        setChanged();
-        notifyObservers();
+        //TODO bug - no treament saved if no date start/end
+        if (!antecedentDiagnostic.getText().equals("") && !antecedentTreatment.getText().equals("")) {
+
+            //hide error message
+            errorInterfaceAntecedent.setVisible(false);
+
+            String diagnosticInput = antecedentDiagnostic.getText();
+            String treatmentInput = antecedentTreatment.getText();
+            LocalDate dateStartInput = antecedentStartDate.getValue();
+            LocalDate dateEndInput = antecedentEndDate.getValue();
+
+            antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
+            setChanged();
+            notifyObservers();
+        } else {
+
+            //error message
+            if (errorInterfaceAntecedent.isVisible()){
+                TranslateTransition shake = new TranslateTransition(Duration.millis(40), errorInterfaceAntecedent);
+                shake.setFromX(0.0);
+                shake.setByX(5);
+                shake.setCycleCount(3);
+                shake.setAutoReverse(true);
+                shake.playFromStart();
+
+            }else{
+                errorInterfaceAntecedent.setVisible(true);
+            }
+            errorMessageAntecedent.setText("Le diagnostic et le traitement de l'antécédant sont nécessaires.");
+        }
+
+
     }
 
     Visit addVisit(){
+
         String diagnosticInput = visitDiagnostic.getText();
         String treatmentInput = visitTreatment.getText();
         String summaryInput = visitSummary.getText();
@@ -336,9 +374,41 @@ public class PatientController extends Observable implements Initializable {
     public void saveFolder(MouseEvent mouseEvent) throws IOException {
         String buttonText = addVisitLabel.getText();
         if (buttonText.equals("Annuler")){
-            visitObservableList.add(addVisit());
+            if (!visitSummary.getText().equals("")){
+                visitObservableList.add(addVisit());
+                logout(mouseEvent);
+            }else{
+                //error message
+                if (errorInterface.isVisible()){
+                    TranslateTransition shake = new TranslateTransition(Duration.millis(40), errorInterface);
+                    shake.setFromX(0.0);
+                    shake.setByX(5);
+                    shake.setCycleCount(3);
+                    shake.setAutoReverse(true);
+                    shake.playFromStart();
+
+                }else{
+                    errorInterface.setVisible(true);
+                }
+                errorMessage.setText("Le résumé de la visite est nécessaire.");
+            }
+
+        }else{
+            logout(mouseEvent);
         }
 
+
+    }
+
+    public Set<Antecedent> getAntecedents() {
+        return new HashSet<>(antecedentsObservableList);
+    }
+
+    public Set<Visit> getVisits() {
+        return new HashSet<>(visitObservableList);
+    }
+
+    public void logout(MouseEvent mouseEvent) throws IOException {
         setChanged();
         notifyObservers();
 
@@ -358,14 +428,5 @@ public class PatientController extends Observable implements Initializable {
         var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
-
-    }
-
-    public Set<Antecedent> getAntecedents() {
-        return new HashSet<>(antecedentsObservableList);
-    }
-
-    public Set<Visit> getVisits() {
-        return new HashSet<>(visitObservableList);
     }
 }

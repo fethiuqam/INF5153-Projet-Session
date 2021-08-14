@@ -311,7 +311,7 @@
                                                                         </HBox>
                                                                         <HBox spacing="20.0">
                                                                            <children>
-                                                                              <Label prefWidth="80.0" text="Resume" />
+                                                                              <Label prefWidth="80.0" text="Resume*" />
                                                                               <TextArea fx:id="visitSummary" prefHeight="150.0" HBox.hgrow="ALWAYS" />
                                                                            </children>
                                                                         </HBox>
@@ -328,6 +328,19 @@
                                                             </VBox>
                                                             <HBox alignment="CENTER">
                                                                <children>
+                                                                  <HBox fx:id="errorInterface" spacing="5.0" visible="false">
+                                                                     <children>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/alertRedIcon.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                        <Text fx:id="errorMessage" fill="#ec1c24" strokeType="OUTSIDE" strokeWidth="0.0" text="message erreur" wrappingWidth="400.0" />
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets bottom="10.0" top="10.0" />
+                                                                     </padding>
+                                                                  </HBox>
                                                                   <Pane HBox.hgrow="ALWAYS" />
                                                                   <HBox fx:id="addVisitButton" alignment="CENTER" onMouseClicked="#showVisitCreator" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100; -fx-cursor: hand;">
                                                                      <children>
@@ -390,13 +403,13 @@
                                                                         <Insets />
                                                                      </VBox.margin>
                                                                      <children>
-                                                                        <Label prefWidth="80.0" text="Diagnostique" />
+                                                                        <Label prefWidth="80.0" text="Diagnostique*" />
                                                                         <TextField fx:id="antecedentDiagnostic" HBox.hgrow="ALWAYS" />
                                                                      </children>
                                                                   </HBox>
                                                                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                                                                      <children>
-                                                                        <Label prefWidth="80.0" text="Traitement" />
+                                                                        <Label prefWidth="80.0" text="Traitement*" />
                                                                         <TextField fx:id="antecedentTreatment" HBox.hgrow="ALWAYS" />
                                                                      </children>
                                                                   </HBox>
@@ -417,6 +430,19 @@
                                                             <Pane prefHeight="25.0" VBox.vgrow="ALWAYS" />
                                                             <HBox>
                                                                <children>
+                                                                  <HBox fx:id="errorInterfaceAntecedent" spacing="5.0" visible="false">
+                                                                     <children>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../images/alertRedIcon.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                        <Text fx:id="errorMessageAntecedent" fill="#ec1c24" strokeType="OUTSIDE" strokeWidth="0.0" text="message erreur" wrappingWidth="400.0" />
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets bottom="10.0" top="10.0" />
+                                                                     </padding>
+                                                                  </HBox>
                                                                   <Pane HBox.hgrow="ALWAYS" />
                                                                   <HBox alignment="CENTER" onMouseClicked="#addAntecedent" spacing="4.0" style="-fx-background-color: #4C749C; -fx-background-radius: 100;">
                                                                      <children>

@@ -69,6 +69,7 @@ public class DataSource implements Searchable, Editable {
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
             result = null;
+            throw new AppException("Aucun numero d'assurance maladie correspondant trouvé.");
         } catch (Exception e) {
             throw new AppException("Erreur de base de données inconnu");
         } finally {
