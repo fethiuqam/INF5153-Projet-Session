@@ -32,13 +32,14 @@ public class Patient implements Cloneable {
     public Patient() {
     }
 
-    public Patient(String firstname, String lastname, Gender gender, Date date, String birthCity, String insuranceNumber, Contact contact){
+    public Patient(String firstname, String lastname, Gender gender, Date date, String birthCity, String insuranceNumber, Date insuranceExpirationDate, Contact contact){
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
         this.dateOfBirth = date;
         this.birthCity = birthCity;
         this.insuranceNumber = insuranceNumber;
+        this.insuranceExpirationDate = insuranceExpirationDate;
         this.contact = contact;
     }
 
@@ -134,7 +135,6 @@ public class Patient implements Cloneable {
     public String getMother() {
         return Optional.ofNullable(mother).orElse("Non spécifié");
     }
-
     public Date getInsuranceExpirationDate() {
         return insuranceExpirationDate;
     }

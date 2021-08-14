@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -59,6 +60,10 @@ public class FolderController extends Observable implements Initializable {
 
     @FXML
     private Text insuranceNumber;
+
+    @FXML
+    private Text expiryDate;
+
 
     @FXML
     private Text dateOfBirth;
@@ -146,6 +151,9 @@ public class FolderController extends Observable implements Initializable {
     @FXML
     private  HBox errorInterfaceAntecedent;
 
+    @FXML
+    private ImageView expiryWarningIcon;
+
     public Set<Antecedent> getAntecedents() {
         return new HashSet<>(antecedentsObservableList);
     }
@@ -171,6 +179,7 @@ public class FolderController extends Observable implements Initializable {
             name.setText(currentPatient.getLastname());
             firstName.setText(currentPatient.getFirstname());
             insuranceNumber.setText(currentPatient.getInsuranceNumber());
+            expiryDate.setText(currentPatient.getInsuranceExpirationDate().toString());
             dateOfBirth.setText(currentPatient.getDateOfBirth().toString());
             cityOfBirth.setText(currentPatient.getBirthCity());
             address.setText(currentPatient.getContact().getAddress());
@@ -179,6 +188,13 @@ public class FolderController extends Observable implements Initializable {
             gender.setText(currentPatient.getGender().toString());
             father.setText(currentPatient.getFather());
             mother.setText(currentPatient.getMother());
+
+            //handle expiry
+            if (currentPatient.getInsuranceExpirationDate().before(new Date(System.currentTimeMillis()))){
+                expiryDate.setFill(Color.RED);
+                expiryWarningIcon.setVisible(true);
+            }
+
 
             // Setting new Visit non modifiable information
             currentVisitDate.setText(new Date(System.currentTimeMillis()).toString());
