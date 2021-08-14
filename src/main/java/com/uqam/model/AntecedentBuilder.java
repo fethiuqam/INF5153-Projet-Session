@@ -16,14 +16,14 @@ public class AntecedentBuilder {
     }
 
     public AntecedentBuilder treatment(String treatment) {
-        if (treatment != null)
+        if (treatment != null && !treatment.isEmpty())
             this.treatment = new Treatment(treatment);
 
         return this;
     }
 
     public AntecedentBuilder diagnostic(String diagnostic) {
-        if (diagnostic != null)
+        if (diagnostic != null && !diagnostic.isEmpty())
             this.diagnostic = new Diagnostic(diagnostic);
 
         return this;

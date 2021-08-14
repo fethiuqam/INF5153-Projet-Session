@@ -82,16 +82,12 @@ public class Antecedent implements Cloneable {
         this.treatment = treatment;
     }
 
-    public void setPrescriber(Doctor prescriber) {
-        this.prescriber = prescriber;
-    }
-
     @Override
     protected Antecedent clone() {
         try {
             Antecedent clone = (Antecedent) super.clone();
             //modif - HAMZA
-            clone.treatment = (this.beginning != null && this.treatment!=null) ? this.treatment.clone() : null;
+            clone.treatment = (this.treatment!=null) ? this.treatment.clone() : null;
             clone.diagnostic = this.diagnostic.clone();
             clone.prescriber = this.prescriber.clone();
             return clone;

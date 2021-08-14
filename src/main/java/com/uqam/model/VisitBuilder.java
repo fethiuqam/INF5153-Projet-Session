@@ -18,16 +18,14 @@ public class VisitBuilder {
     }
 
     public VisitBuilder treatment(String treatment) {
-        if (treatment != null)
+        if (treatment != null && !treatment.isEmpty())
             this.treatment = new Treatment(treatment);
-
         return this;
     }
 
     public VisitBuilder diagnostic(String diagnostic) {
-        if (diagnostic != null)
+        if (diagnostic != null && ! diagnostic.isEmpty())
             this.diagnostic = new Diagnostic(diagnostic);
-
         return this;
     }
 
