@@ -6,7 +6,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,7 +25,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -261,8 +259,8 @@ public class FolderController extends Observable implements Initializable {
     void addAntecedent(MouseEvent event) {
         String diagnosticInput = antecedentDiagnostic.getText();
         String treatmentInput = antecedentTreatment.getText();
-        LocalDate dateStartInput = antecedentStartDate.getValue();
-        LocalDate dateEndInput = antecedentEndDate.getValue();
+        Date dateStartInput = Date.valueOf(antecedentStartDate.getValue());
+        Date dateEndInput = Date.valueOf(antecedentEndDate.getValue());
 
         antecedentsObservableList.add(session.createNewAntecedent(diagnosticInput,treatmentInput,dateStartInput,dateEndInput));
         setChanged();

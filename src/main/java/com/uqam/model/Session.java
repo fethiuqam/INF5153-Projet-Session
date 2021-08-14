@@ -77,7 +77,7 @@ public class Session implements Authenticable, Observer {
         .build();
     }
 
-    public Antecedent createNewAntecedent (String diagnostic, String treatment, LocalDate start, LocalDate end){
+    public Antecedent createNewAntecedent (String diagnostic, String treatment, Date start, Date end){
         Doctor doctor = user.getDoctor();
 
         return new AntecedentBuilder(doctor)

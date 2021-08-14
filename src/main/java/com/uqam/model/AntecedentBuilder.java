@@ -29,16 +29,16 @@ public class AntecedentBuilder {
         return this;
     }
 
-    public AntecedentBuilder dateStart(LocalDate datePassed) {
+    public AntecedentBuilder dateStart(Date datePassed) {
         if (datePassed != null)
-            this.start = Date.valueOf(datePassed);
+            this.start = datePassed;
 
         return this;
     }
 
-    public AntecedentBuilder dateEnd (LocalDate datePassed) {
+    public AntecedentBuilder dateEnd (Date datePassed) {
         if (datePassed != null)
-            this.end = Date.valueOf(datePassed);
+            this.end = datePassed;
 
         return this;
     }
