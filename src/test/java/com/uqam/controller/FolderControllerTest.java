@@ -78,7 +78,7 @@ public class FolderControllerTest {
         session.login("user", "pass");
         session.downloadFolder("MORS12452196");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
         Parent folderRoot = fxmlLoader.load();
         FolderController controller = fxmlLoader.getController();
         controller.setSession(session);

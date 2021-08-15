@@ -110,7 +110,7 @@ public class HomeController {
         try {
             boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
             if (successful){
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/patient.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
                 Parent patientRoot = (Parent) fxmlLoader.load();
 
                 connectSession(fxmlLoader, session);
