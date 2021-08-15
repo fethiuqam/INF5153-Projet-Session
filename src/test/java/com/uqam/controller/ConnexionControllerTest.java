@@ -19,6 +19,8 @@ import org.testfx.matcher.control.LabeledMatchers;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.testfx.matcher.control.TextInputControlMatchers;
+import org.testfx.matcher.control.TextMatchers;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import static org.mockito.Mockito.when;
@@ -31,8 +33,8 @@ public class ConnexionControllerTest {
     DataSource dataSourceMock;
     Doctor doctor;
     User user;
-    Scene scene;
-
+    String errorMsg;
+    Stage mainStage;
     @Start
     private void start(Stage stage) throws IOException, AppException {
         // initialisation du mockObject
@@ -40,18 +42,23 @@ public class ConnexionControllerTest {
         doctor = new Doctor("aaa", "bbb", "123456", "Cardiologie",
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
+        errorMsg = "Auncun utilisateur trouvé. Veuillez vous assurer d'avoir " +
+                "mis le bon nom d'utilisateur et mot de passe.";
+        when(dataSourceMock.findByUsernameAndPassword("", ""))
+                .thenThrow(new AppException(errorMsg));
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
-        when(dataSourceMock.findByUsernameAndPassword("", "")).thenReturn(null);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Parent connexionRoot = (Parent) fxmlLoader.load();
         ConnexionController controller = fxmlLoader.getController();
         controller.setSession(new Session(dataSourceMock));
-        scene = new Scene(connexionRoot);
+        Scene scene = new Scene(connexionRoot);
+
         stage.getIcons().add(new Image("/images/windowIcon.png"));
-        stage.setTitle("CentRAMQ Accès Médecin");
+        stage.setTitle("CentRAMQ Accès Médecin - Connexion");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        mainStage = stage;
     }
 
     @Test
@@ -64,15 +71,22 @@ public class ConnexionControllerTest {
 
     @Test
     void loginClickedFailedTest(FxRobot robot) throws AppException {
+        String titleConnexion = "CentRAMQ Accès Médecin - Connexion";
         // when :
         robot.clickOn("#loginButton");
         // then :
-        Window window = robot.listWindows().get(0);
-        assertEquals(scene, window.getScene());
+
+        assertEquals(titleConnexion, mainStage.getTitle());
+        FxAssert.verifyThat("#errorMessage", TextMatchers.hasText(errorMsg));
+
+        robot.clickOn("#loginButton");
+        assertEquals(titleConnexion, mainStage.getTitle());
+        FxAssert.verifyThat("#errorMessage", TextMatchers.hasText(errorMsg));
     }
 
     @Test
     void loginClickedSuccessTest(FxRobot robot) throws AppException {
+        String titleHome = "CentRAMQ Accès Médecin - Accueil";
         // when:
         robot.clickOn("#username").write("user");
         robot.clickOn("#password").write("pass");
@@ -80,11 +94,10 @@ public class ConnexionControllerTest {
         FxAssert.verifyThat("#password", TextInputControlMatchers.hasText("pass"));
         robot.clickOn("#loginButton").sleep(100);        // then :
         Window window = robot.listWindows().get(0);
-        assertNotEquals(scene, window.getScene());
+        assertEquals(titleHome, mainStage.getTitle());
         FxAssert.verifyThat("#lastName", LabeledMatchers.hasText("bbb"));
         FxAssert.verifyThat("#firstName", LabeledMatchers.hasText("aaa"));
         FxAssert.verifyThat("#permitNumber", LabeledMatchers.hasText("123456"));
-
     }
 
 }

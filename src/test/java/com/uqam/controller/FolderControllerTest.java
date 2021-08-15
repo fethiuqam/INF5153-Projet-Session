@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
+import javafx.stage.Window;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +24,7 @@ import javafx.stage.Stage;
 import org.testfx.matcher.control.ListViewMatchers;
 import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.matcher.control.TextMatchers;
+import org.testfx.service.query.NodeQuery;
 
 import static org.mockito.Mockito.when;
 
@@ -43,8 +46,7 @@ public class FolderControllerTest {
     Visit v1;
     Antecedent a1;
     Folder f1;
-    Scene scene;
-
+    Stage mainStage;
     @Start
     private void start(Stage stage) throws IOException, AppException {
         MockitoAnnotations.openMocks(this);
@@ -80,17 +82,16 @@ public class FolderControllerTest {
         Parent folderRoot = fxmlLoader.load();
         FolderController controller = fxmlLoader.getController();
         controller.setSession(session);
-        scene = new Scene(folderRoot);
+        Scene scene = new Scene(folderRoot);
         stage.setScene(scene);
-        stage.setTitle("CentRAMQ Accès Médecin");
+        stage.setTitle("CentRAMQ Accès Médecin - Dossier");
         stage.setResizable(false);
         stage.show();
+        mainStage = stage;
     }
 
     @Test
     void checkPatientInformationsTest(FxRobot robot) {
-//        robot.sleep(5000);
-
         FxAssert.verifyThat("#name", TextMatchers.hasText("Morganti"));
         FxAssert.verifyThat("#firstName", TextMatchers.hasText("Susan"));
         FxAssert.verifyThat("#insuranceNumber", TextMatchers.hasText("MORS12452196"));
@@ -119,15 +120,24 @@ public class FolderControllerTest {
 
     @Test
     void addNewAntecedentTest(FxRobot robot) {
+        String errorAddAtcd = "Le diagnostic et le traitement de l'antécédant sont nécessaires.";
         Antecedent a2 = new Antecedent(Date.valueOf("2020-01-01"), Date.valueOf("2021-01-01"),
                 new Diagnostic("dg"), new Treatment("trt"), doctor);
         robot.clickOn("#tabAntecedent");
+        robot.clickOn("#addAntecedent");
+        FxAssert.verifyThat("#errorMessageAntecedent", TextMatchers.hasText(errorAddAtcd));
+        FxAssert.verifyThat("#antecedentsListView", ListViewMatchers.hasItems(1));
+
         robot.clickOn("#antecedentDiagnostic").write("dg");
+        FxAssert.verifyThat("#antecedentDiagnostic", TextInputControlMatchers.hasText("dg"));
+        robot.clickOn("#addAntecedent");
+        FxAssert.verifyThat("#errorMessageAntecedent", TextMatchers.hasText(errorAddAtcd));
+        FxAssert.verifyThat("#antecedentsListView", ListViewMatchers.hasItems(1));
+
+
         robot.clickOn("#antecedentTreatment").write("trt");
         robot.clickOn("#antecedentStartDate").write("2020-01-01").push(KeyCode.ENTER);
         robot.clickOn("#antecedentEndDate").write("2021-01-01").push(KeyCode.ENTER);
-        ;
-        FxAssert.verifyThat("#antecedentDiagnostic", TextInputControlMatchers.hasText("dg"));
         FxAssert.verifyThat("#antecedentTreatment", TextInputControlMatchers.hasText("trt"));
         DatePicker begin = robot.lookup("#antecedentStartDate").query();
         Assertions.assertEquals("2020-01-01", begin.getEditor().getText());
@@ -148,6 +158,11 @@ public class FolderControllerTest {
         robot.clickOn("#antecedentsListView");
         Assertions.assertEquals(2, robot.listWindows().size());
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
+        robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).eraseText(30);
+        robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
+        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("Le diagnostic et le traitement de l'antécédant sont nécessaires.") );
+
+        robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).write("diabète type I");
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#dateEndPicker"))
                 .write("2022-08-08").push(KeyCode.ENTER);
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));

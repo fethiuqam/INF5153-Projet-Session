@@ -54,6 +54,7 @@ public class ConnexionController {
 
                 var scene = new Scene(homeRoot);
                 Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+                mainStage.setTitle("CentRAMQ Accès Médecin - Accueil");
                 mainStage.setScene(scene);
             }
         } catch (AppException e){

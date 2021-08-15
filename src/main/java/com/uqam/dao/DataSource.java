@@ -29,7 +29,6 @@ public class DataSource implements Searchable, Editable {
         }catch (JDBCConnectionException e){
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
-            result = null;
             throw new AppException("Auncun utilisateur trouvé. Veuillez vous assurer d'avoir mis le bon nom d'utilisateur et mot de passe.");
         } catch (Exception e) {
             throw new AppException("Erreur de base de données inconnu");
@@ -68,7 +67,6 @@ public class DataSource implements Searchable, Editable {
         }catch (JDBCConnectionException e){
             throw new AppException("Erreur de connection avec la base de données");
         }catch (NoResultException e){
-            result = null;
             throw new AppException("Aucun numero d'assurance maladie correspondant trouvé.");
         } catch (Exception e) {
             throw new AppException("Erreur de base de données inconnu");

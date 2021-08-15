@@ -19,6 +19,8 @@ import org.testfx.matcher.control.LabeledMatchers;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.testfx.matcher.control.TextInputControlMatchers;
+import org.testfx.matcher.control.TextMatchers;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import java.io.IOException;
@@ -39,7 +41,8 @@ public class HomeControllerTest {
     Visit v1;
     Antecedent a1;
     Folder f1;
-    Scene scene;
+    String errorMsg;
+    Stage mainStage;
 
     @Start
     private void start(Stage stage) throws IOException, AppException {
@@ -61,12 +64,12 @@ public class HomeControllerTest {
                 .build();
         a1 = new Antecedent(new Date(2021,1,6),null, d1, t1, doctor);
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
+        errorMsg = "Aucun numero d'assurance maladie correspondant trouvé.";
 
 
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
-        when(dataSourceMock.findByUsernameAndPassword("", "")).thenReturn(null);
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        when(dataSourceMock.findById("")).thenReturn(null);
+        when(dataSourceMock.findById("")).thenThrow(new AppException(errorMsg));
 
         Session session = new Session(dataSourceMock);
         session.login("user", "pass");
@@ -74,11 +77,12 @@ public class HomeControllerTest {
         Parent homeRoot = fxmlLoader.load();
         HomeController controller = fxmlLoader.getController();
         controller.setSession(session);
-        scene = new Scene(homeRoot);
+        Scene scene = new Scene(homeRoot);
         stage.setScene(scene);
-        stage.setTitle("CentRAMQ Accès Médecin");
+        stage.setTitle("CentRAMQ Accès Médecin - Accueil");
         stage.setResizable(false);
         stage.show();
+        mainStage = stage;
     }
 
     @Test
@@ -98,44 +102,48 @@ public class HomeControllerTest {
 
     @Test
     void searchClickedFailedTest(FxRobot robot) throws AppException {
+        String titleHome = "CentRAMQ Accès Médecin - Accueil";
         // when :
         robot.clickOn("#searchButton");
         // then :
-        Window window = robot.listWindows().get(0);
-        assertEquals(scene, window.getScene());
+        assertEquals(titleHome, mainStage.getTitle());
+        FxAssert.verifyThat("#errorMessage", TextMatchers.hasText(errorMsg));
+
+        robot.clickOn("#searchButton");
+        assertEquals(titleHome, mainStage.getTitle());
+        FxAssert.verifyThat("#errorMessage", TextMatchers.hasText(errorMsg));
     }
 
     @Test
     void searchClickedSuccessTest(FxRobot robot) throws AppException {
+        String titleFolder = "CentRAMQ Accès Médecin - Dossier";
         // when:
         robot.clickOn("#insuranceSearchQuery").write("MORS12452196");
         FxAssert.verifyThat("#insuranceSearchQuery", TextInputControlMatchers.hasText("MORS12452196"));
         robot.clickOn("#searchButton");
         // then :
-        Window window = robot.listWindows().get(0);
-        assertNotEquals(scene, window.getScene());
+        assertEquals(titleFolder, mainStage.getTitle());
+
     }
 
     @Test
     void logoutClickedTest(FxRobot robot) throws AppException {
+        String titleConnexion = "CentRAMQ Accès Médecin - Connexion";
         // when:
         robot.clickOn("#logoutButton");
         // then :
-        Window window = robot.listWindows().get(0);
-        assertNotEquals(scene, window.getScene());
+        assertEquals(titleConnexion, mainStage.getTitle());
+
     }
 
     @Test
     void showHideScanCardTest(FxRobot robot) throws AppException {
         assertTrue(robot.listWindows().get(0).getScene().lookup("#cardScan").isVisible());
         // when:
-
         robot.clickOn("#scanButton");
         // then :
-        assertTrue(robot.listWindows().get(0).getScene().lookup("#cardScan").isVisible());
+        assertTrue(robot.lookup("#cardScan").query().isVisible());
         robot.clickOn("#cancelScanButton");
-        assertTrue(robot.listWindows().get(0).getScene().lookup("#cardScan").isVisible());
-
-
+        assertTrue(robot.lookup("#cardScan").query().isVisible());
     }
 }

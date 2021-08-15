@@ -78,11 +78,7 @@ public class HomeController {
             firstName.setText(doctor.getFirstname());
             lastName.setText(doctor.getLastname());
             permitNumber.setText(doctor.getPermit());
-
-
         });
-
-
 
     }
 
@@ -98,6 +94,7 @@ public class HomeController {
         var scene = new Scene(loginRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         mainStage.setScene(scene);
+        mainStage.setTitle("CentRAMQ Accès Médecin - Connexion");
     }
 
     public void showHideScanCard(MouseEvent mouseEvent) {
@@ -120,6 +117,7 @@ public class HomeController {
 
                 var scene = new Scene(patientRoot);
                 Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+                mainStage.setTitle("CentRAMQ Accès Médecin - Dossier");
                 mainStage.setScene(scene);
             }
         }catch (AppException e){
@@ -137,10 +135,6 @@ public class HomeController {
             }
             errorMessage.setText(e.getMessage());
         }
-
-
-
-
 
     }
 

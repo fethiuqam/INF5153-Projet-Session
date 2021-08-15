@@ -28,7 +28,7 @@ public class MyApp extends Application {
 
         var scene = new Scene(connexionRoot);
         stage.getIcons().add(new Image("/images/windowIcon.png"));
-        stage.setTitle("CentRAMQ Accès Médecin");
+        stage.setTitle("CentRAMQ Accès Médecin - Connexion");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
