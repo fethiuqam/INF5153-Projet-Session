@@ -8,6 +8,9 @@ Projet de session dans la cadre du cours de conception INF5153
 
 C'est un logiciel permettant aux utilisateurs du système de santé québécois d'avoir un dossier médical centralisé, peu importe le médecin ou l'établissement qu'il fréquente.
 
+## Lien de la vidéo de démonstration
+- [video](https://www.youtube.com/watch?v=RoP-LIlTZlM&ab_channel=fastlife)
+
 ## Usage
 
 En premier, il faut s'assurer d'avoir installé au préalables les prérequis sur sa machine :
