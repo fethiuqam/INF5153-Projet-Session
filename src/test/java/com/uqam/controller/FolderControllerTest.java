@@ -177,7 +177,6 @@ public class FolderControllerTest {
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).eraseText(30);
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
-        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("Le diagnostic et le traitement de l'antécédant sont nécessaires.") );
         robot.closeCurrentWindow();
         Assertions.assertEquals(1, robot.listWindows().size());
 
