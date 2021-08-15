@@ -11,12 +11,12 @@ public class PatientTest {
     String dateStr = "1996-02-23";
     List<Patient> parents= new ArrayList<>();
     Date date = Date.valueOf(dateStr);
-    Contact contact = new Contact("2054 maissonneuve,h2c 2e2","5149871234","ck191923@ens.uqam.ca");
-    Patient patient = new Patient("Mohamed","Rehouma",Gender.MALE,date,"Algiers","REHM26154978", Date.valueOf("2022-01-03"),contact);
-    Patient patient2 =  new Patient("Siri","Alexia",Gender.FEMALE,date,"Montreal","ales12312312", Date.valueOf("2022-01-03"), contact);
-    Patient patient3 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ales123182312", Date.valueOf("2022-01-03"),contact);
-    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ale113182312", Date.valueOf("2022-01-03"),contact);
-    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","aleq13p82312", Date.valueOf("2022-01-03"),contact);
+    Contact contact = new Contact("2054 maisonneuve,h2c 2e2","5149871234","ck191923@ens.uqam.ca");
+    Patient patient = new Patient("Mohamed","Rehouma",Gender.MALE,date,"Algiers","REHM26154978",contact);
+    Patient patient2 =  new Patient("Siri","Alexia",Gender.FEMALE,date,"Montreal","ales12312312",contact);
+    Patient patient4 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","11111111111666",contact);
+    Patient patient5 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","278482312451",contact);
+    Patient patient6 =  new Patient("Siri","Alexia",Gender.OTHER,date,"3dda","ABCDEFGHTUJB",contact);
 
     @Test
     void testAddPatient() {
@@ -25,55 +25,82 @@ public class PatientTest {
     }
 
     @Test
-    void testValidName(){
+    void testValidName() throws AppException {
         Assertions.assertTrue(patient.validName("Rehouma"));
     }
+
+
     @Test
-    void testValidName2(){
-        Assertions.assertFalse(patient.validName(""));
+    void testValidName2() {
+        Assertions.assertThrows(AppException.class, () -> {
+          patient6.validBirthCity(patient6.getBirthCity());
+        });
     }
 
     @Test
-    void testvalidGender(){
-        Assertions.assertEquals(Gender.MALE,patient.getGender());
-    }
-    @Test
-    void testvalidGender2(){
-        Assertions.assertEquals(Gender.FEMALE,patient2.getGender());
-    }  @Test
-    void testvalidGender3(){
-        Assertions.assertEquals(Gender.OTHER,patient3.getGender());
+    void testInvalidName(){
+        Assertions.assertThrows(AppException.class, () ->{
+            Patient patient5 =  new Patient("S","Alexia",Gender.OTHER,date,"3dda","aleq13p82312",contact);
+            patient5.validName(patient5.getFirstname());
+        });
     }
 
     @Test
-    void testValidBirthCity(){
+    void testValidBirthCity() throws AppException {
         Assertions.assertTrue(patient.validBirthCity(patient.getBirthCity()));
     }
     @Test
-    void testValidBirthCity2(){
+    void testValidBirthCity2() throws AppException {
         Assertions.assertTrue(patient2.validBirthCity(patient2.getBirthCity()));
     }
     @Test
-    void testValidBirthCity3(){
-        Assertions.assertFalse(patient3.validBirthCity(patient3.getBirthCity()));
+    void testValidBirthCity3() {
+        Assertions.assertThrows(AppException.class, () -> {
+        patient5.validBirthCity(patient5.getBirthCity());
+        });
     }
 
     @Test
-    void testValidInsuranceNumber(){
+    void testValidInsuranceNumber() throws AppException {
         Assertions.assertTrue(patient.validInsuranceNumber(patient.getInsuranceNumber()));
     }
     @Test
-    void testValidInsuranceNumber2(){
+    void testValidInsuranceNumber2() throws AppException {
         Assertions.assertTrue(patient2.validInsuranceNumber(patient2.getInsuranceNumber()));
     }
     @Test
     void testValidInsuranceNumber3(){
-        Assertions.assertFalse(patient3.validInsuranceNumber(patient4.getInsuranceNumber()));
+        Assertions.assertThrows(AppException.class, () ->{
+            patient4.validInsuranceNumber(patient4.getInsuranceNumber());
+        });
     }
     @Test
     void testValidInsuranceNumber4(){
-        Assertions.assertFalse(patient3.validInsuranceNumber(patient5.getInsuranceNumber()));
+        Assertions.assertThrows(AppException.class, () ->{
+            patient4.validInsuranceNumber(patient6.getInsuranceNumber());
+        });
     }
+
+    @Test
+    void testValidInsuranceNumber5(){
+        Assertions.assertThrows(AppException.class, () ->{
+            patient4.validInsuranceNumber(patient5.getInsuranceNumber());
+        });
+    }
+
+    @Test
+    void testValidToString(){
+        Assertions.assertEquals("Patient{firstname='Mohamed', lastname='Rehouma', gender=MALE, dateOfBirth=1996-02-23, birthCity='Algiers', insuranceNumber='REHM26154978', contact=Contact{address='2054 maisonneuve,h2c 2e2', phone='5149871234', email='ck191923@ens.uqam.ca'}, father='null', mother='null'}",patient.toString());
+    }
+
+    @Test
+    void testClone(){
+        Patient clonePatient = patient.clone();
+        Assertions.assertEquals(patient.toString(),clonePatient.toString()
+        );
+    }
+
+
 
 
 }

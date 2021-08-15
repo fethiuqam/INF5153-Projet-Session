@@ -8,24 +8,33 @@ public class UserTest {
     String username = "Mohamed";
 
     @Test
-    void validValidPassword(){
-        String password = "Al8s3F6";
+    void testValidPassword() throws AppException {
+        String password = "Al8s3F66";
         User user = new User(username,password,null);
-        Assertions.assertFalse(user.validPassword(user.getPassword()));
+        Assertions.assertTrue(user.validPassword(user.getPassword()));
     }
 
     @Test
-    void validValidPassword2(){
-        String password = "Al8s3F6s";
-        User user = new User(username,password,null);
-        Assertions.assertTrue(user.validPassword(user.getPassword()));
+    void testInvalidPassword2(){
+        User user = new User(username,"AlQQ6s",null);
+        Assertions.assertThrows(AppException.class, () ->{
+            user.validPassword(user.getPassword());
+        });
     }
 
     @Test
     void validValidPassword3(){
-        String password = "AAAAAAAAA";
+        String password = "AAAAAAAAA2!1";
         User user = new User(username,password,null);
-        Assertions.assertTrue(user.validPassword(user.getPassword()));
+        Assertions.assertThrows(AppException.class, () ->{
+            user.validPassword(user.getPassword());
+        });    }
+
+    @Test
+    void testToString(){
+        User user = new User("Mohamed","Rehouma",null);
+        Assertions.assertEquals("User{username='Mohamed', password='Rehouma', doctor=null}",user.toString());
     }
+
 
 }

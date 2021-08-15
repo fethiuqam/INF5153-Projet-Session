@@ -33,12 +33,12 @@ public class Doctor implements Cloneable {
 
 
     //Method to validate both first and last name. Length of name must be higher than 1
-    public boolean validName(String name) {
+    public boolean validName(String name) throws AppException {
         return firstname.length() > 1;
     }
 
     //method to validate the speciality of the doctor. Length must be at least 6.
-    public boolean validSpeciality(String specialty) {
+    public boolean validSpeciality(String specialty) throws AppException {
         return specialty.length() > 7;
     }
 
@@ -47,25 +47,21 @@ public class Doctor implements Cloneable {
     public Establishment getEstablishment() {
         return establishment;
     }
-
     public String getFirstname() {
         return firstname;
     }
-
     public String getLastname() {
         return lastname;
     }
-
     public String getPermit() {
         return permit;
     }
-
     public String getSpecialty() {
         return speciality;
     }
 
     @Override
-    protected Doctor clone() {
+    protected Doctor clone() throws CloneNotSupportedException {
         try {
             Doctor clone = (Doctor) super.clone();
             clone.establishment = this.establishment.clone();

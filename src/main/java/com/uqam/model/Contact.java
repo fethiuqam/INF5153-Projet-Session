@@ -11,6 +11,7 @@ public class Contact implements Cloneable{
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     private long id;
+
     private String address;
     private String phone;
     private String email;
@@ -24,29 +25,33 @@ public class Contact implements Cloneable{
     }
 
     //method to validate an adress usign regex
-    public boolean validAddress(String address){
-        return address.matches("[A-Za-z0-9]+");
+    public boolean validAddress(String address) throws AppException{
+        if( !address.matches("[A-Za-z0-9]+")){
+            throw new AppException("L'adresse contient des caracteres invalide. Veuillez entrer une adresse valide.");
+        }
+        return true;
     }
 
     // method tov validate phone numebr using regex
-    public boolean validPhone(String phone){
+    public boolean validPhone(String phone) throws AppException{
         if(!phone.matches("[0-9]+")){
-            return false;
+            throw new AppException("Le numero de telephone est invalide. Veuillez entrer que des chiffres.");
         }
-        return phone.length()!=10;
+        if(!(phone.length() ==10)){
+            throw new AppException(("Le numero est invalide. Veuillez entrer un numero a 10 chiffres."));
+        }
+        return true;
     }
 
 
     //method to validate an email using regex expression
-    public boolean validEmail(String email){
-        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    public boolean validEmail(String email)throws AppException {
+        if( !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")){
+            throw new AppException("Le format du email est invalide.");
+        }
+        return true;
     }
 
-
-    //setters
-    public void setAddress(String address) { this.address = address; }
-    public void setPhone(String phone) {this.phone = phone; }
-    public void setEmail(String email) {this.email = email;}
 
     //getters
     public String getAddress() {

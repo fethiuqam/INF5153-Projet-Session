@@ -15,8 +15,11 @@ public class Diagnostic implements Cloneable {
     private String designation;
 
     //methode to validate the length of the diagnostic name
-    public boolean validDesignation(String designation) {
-        return designation.length() > 2;
+    public boolean validDesignation(String designation) throws AppException {
+        if(!(designation.length() > 2)){
+            throw new AppException("Le diagnostic est trop court. Veuillez etre plus precis.");
+        }
+        return true;
     }
 
     public Diagnostic() {
@@ -36,7 +39,7 @@ public class Diagnostic implements Cloneable {
     }
 
     @Override
-    protected Diagnostic clone() {
+    protected Diagnostic clone() throws CloneNotSupportedException {
         try {
             return (Diagnostic) super.clone();
         } catch (CloneNotSupportedException e) {

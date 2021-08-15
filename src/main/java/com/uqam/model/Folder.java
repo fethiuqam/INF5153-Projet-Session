@@ -59,19 +59,13 @@ public class Folder implements Cloneable, Observer {
         antecedents.add(antecedent);
     }
 
-    //parametrized constructor
-    public Folder(Patient patient) {
-        this.owner = patient;
-    }
+
 
 
     //getters
     public Patient getOwner() {
         return owner;
     }
-
-
-
 
     public Folder duplicate() {
         Folder clone = new Folder();
