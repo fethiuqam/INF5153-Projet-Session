@@ -412,3 +412,38 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
 
 ## Modifications apportées
 
+Dans la première version de notre conception, nous avions trois
+controllers principaux (en plus du controlleur de connexion): PatientControleur, PrescripteurControler et
+HistoriqueControlleur. Nous avons remplacé ces trois controlleurs 
+par un seul controlleur : FolderController. 
+
+Nous avons ensuite rajouté le controleur HomeController qui permet de gérer la transition
+entre la connexion de l'utilisateur (en l'occurrence le médecin) et le dossier du patient auquel le médecin veut accèder.
+Il agit donc comme un intermédiaire entre ces deux classes.
+Une fois connecté, le médecin peut choisir comment accéder au dossier, 
+c'est-à-dire soit par le scan de la carte d'assurance maladie, 
+ou en entrant le numéro d'assurance maladie manuellement. Cette modification nous a permis
+de réattribuer les responsabilités de la classe Session, puisque dans notre première conception, c'est
+elle qui gérait la plupart des communications entre l'utilisateur et les différents objets.
+
+Ensuite, nous avons appliqué le pattern Observer. L'objectif de cette modification
+est de pouvoir mettre à jour les lists view de manière fonctionnelle. En effet,
+dans notre ancienne conception, les listes modifiées étaient passées par référence. 
+Les modifications efféctuées ne s'appliquaient donc pas aux listes originelles lorsqu'on
+voulait sauvegarder les modifications apportées. Dans la nouvelle conception,
+pour cloner un dossier par exemple, nous créons une copie du dossier
+original et si une modification est apportée (dans le dossier cloné), la variable modified de la classe 
+Session est changée (peut être changé par n'importe quel controleur) à True et notifie l'Observer.
+De cette manière, nous vérifions avec la méthode equals() si le dossier original
+est égale au dossier copié. Si c'est le cas, les modifications du dossier cloné sont
+apportés au dossier original. En faisant cela, nous évitons que l'encapsulation soit
+présente dans toute les classes et limite le couplage.
+
+Comme mentionnée plus haut, nous utilisons un dossier original et on en crée une copie pour y apporté
+les modifications nécessaires. Nous appliquons ici le pattern Prototype. On utilise la méthode clone() 
+qui est overidé pour dans chaque classe selon l'objet pour crée une copie. Cela nous permet de faciliter
+l'instanciation d'objet complexe et nous permet d'intergair avec la base de données de manière plus simple.
+
+
+
+
