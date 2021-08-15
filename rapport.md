@@ -394,11 +394,9 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
 
 ![Diagramme de séquence du pattern Builder](models/Diagramme_Pattern/Pattern_builder/sequence_diagram.png)
 
-
 ## Diagramme de classe du pattern Observer
 
 ![Diagramme de classe du pattern Observer](models/Diagramme_Pattern/Pattern_observer/class_diagram.png)
-
 
 ##Diagramme de séquence du pattern Observer
 
@@ -407,7 +405,6 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
 ##Diagramme de classe du pattern Prototype
 
 ![Diagramme de classe du pattern Prototype](models/Diagramme_Pattern/Pattern_prototype/class_diagram.png)
-
 
 ##Diagramme de séquence du pattern Prototype
 
