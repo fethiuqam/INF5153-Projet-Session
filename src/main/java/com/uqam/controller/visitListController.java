@@ -86,7 +86,7 @@ public class visitListController extends ListCell<Visit> {
             setVisitInformation(visit);
 
             // Adjust note indicator
-            if (!visit.getNotes().isEmpty()) {
+            if (visit.getNotes() != null && !visit.getNotes().isEmpty()) {
                 Color notePresentColor = Color.web("#9BC9F6", 1.0);
                 notesNumber.setText("1");
                 notesCircleIndicator.setFill(notePresentColor);

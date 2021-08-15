@@ -157,7 +157,10 @@ VALUES
     ('corticoides'),
     ('anti-inflammatoires non steroidiens'),
     ('thyroxine'),
-    ('acide valproique');
+    ('acide valproique'),
+    ('risperidone'),
+    ('antiHistaminique');
+
 
 INSERT INTO tDiagnostics (designation)
 VALUES
@@ -184,23 +187,23 @@ INSERT INTO tVisits (summary,notes, date_, treatment, diagnostic, folder, doctor
 VALUES
     ('après consultation de la glycémie du patient ','debut de traitement par l''insuline retard à 10 UI le soir', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
     ('controle médicale après 3 mois de prise d''insuline', 'augmentation de la dose d''insuline à 20 UI le soir', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
-    ('', '', strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
-    ('', '', strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
-    ('', '', strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
-    ('', '', strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
-    ('', '', strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
-    ('', '', strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
-    ('', '', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
-    ('', '', strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
+    ('controle medicale de routine', NULL, strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
+    ('', NULL, strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
+    ('', NULL, strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
+    ('', NULL, strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
+    ('', NULL, strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
+    ('', NULL, strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
+    ('', NULL', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
+    ('', NULL, strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
 
 INSERT INTO tAntecedents (biginning, end_, treatment, diagnostic, folder, prescriber)
 VALUES
     (strftime ('%s', '2021-01-06') * 1000.1, NULL, 7, 10, 1, 1 ),
     (strftime ('%s', '2021-02-01') * 1000.1, NULL, 8, 11, 3, 2 ),
     (strftime ('%s', '2020-11-03') * 1000.1, NULL, 9, 12, 5, 3 ),
-    (NULL, NULL, NULL, 4, 4, 2 ),
+    (NULL, NULL, 13, 4, 4, 2 ),
     (strftime ('%s', '2021-05-05') * 1000.1, NULL, 12, 18, 4, 2 ),
-    (strftime ('%s', '2021-06-02') * 1000.1, NULL, NULL, 15, 3, 1 ),
+    (strftime ('%s', '2021-06-02') * 1000.1, NULL, 14, 15, 3, 1 ),
     (strftime ('%s', '2020-10-06') * 1000.1, NULL, 10, 16, 2, 1 ),
     (strftime ('%s', '2021-05-03') * 1000.1, NULL, 11, 17, 1, 1 );
 

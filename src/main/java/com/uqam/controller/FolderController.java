@@ -170,8 +170,6 @@ public class FolderController extends Observable implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         Platform.runLater(() -> {
-
-
             currentPatient = session.getCurrentFolder().getOwner();
             plusToCross = new RotateTransition(Duration.millis(400), plusIcon);
 
@@ -195,7 +193,7 @@ public class FolderController extends Observable implements Initializable {
                 expiryWarningIcon.setVisible(true);
 
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Carte expiréé");
+                alert.setTitle("Carte expirée");
                 alert.setContentText("La carte d'assurance maladie de ce patient est expiréé.");
 
                 alert.show();
@@ -327,7 +325,6 @@ public class FolderController extends Observable implements Initializable {
                 shake.setCycleCount(3);
                 shake.setAutoReverse(true);
                 shake.playFromStart();
-
             }else{
                 errorInterfaceAntecedent.setVisible(true);
             }
@@ -347,33 +344,21 @@ public class FolderController extends Observable implements Initializable {
 
     @FXML
     void showVisitCreator(MouseEvent event) {
-
         String buttonText = addVisitLabel.getText();
-
         if (plusToCross.getStatus() != Animation.Status.RUNNING){
-
             if (buttonText.equals("Ajouter")){
-
                 newVisitFields.setVisible(true);
                 addVisitLabel.setText("Annuler");
-
                 plusToCross.setByAngle(45);
-
             } else {
-
                 newVisitFields.setVisible(false);
                 addVisitLabel.setText("Ajouter");
-
                 plusToCross.setByAngle(-45);
-
             }
-
             plusToCross.setCycleCount(1);
             plusToCross.setInterpolator(Interpolator.EASE_OUT);
             plusToCross.play();
-
         }
-
     }
 
 
@@ -450,6 +435,7 @@ public class FolderController extends Observable implements Initializable {
         connectSession(fxmlLoader, session);
         var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+        mainStage.setTitle("CentRAMQ Accès Médecin - Accueil");
         mainStage.setScene(scene);
     }
 

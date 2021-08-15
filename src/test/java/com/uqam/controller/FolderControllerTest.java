@@ -6,9 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.text.Text;
-import javafx.stage.Window;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,15 +16,19 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.Init;
 import org.testfx.framework.junit5.Start;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.testfx.framework.junit5.Stop;
+import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.matcher.control.ListViewMatchers;
 import org.testfx.matcher.control.TextInputControlMatchers;
 import org.testfx.matcher.control.TextMatchers;
-import org.testfx.service.query.NodeQuery;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -40,39 +43,70 @@ public class FolderControllerTest {
     DataSource dataSourceMock;
     Doctor doctor;
     User user;
-    Patient p1;
-    Treatment t1;
-    Diagnostic d1;
-    Visit v1;
-    Antecedent a1;
-    Folder f1;
+    Patient p1, p2;
+    Treatment t1, t2;
+    Diagnostic d1, d2;
+    Visit v1 , v2;
+    Antecedent a1 , a2;
+    Folder f1 , f2;
     Stage mainStage;
+
+    @Init
+    public void init() throws Exception {
+        FxToolkit.registerStage(() -> new Stage());
+    }
+
+    @Stop
+    public void stop() throws Exception {
+        FxToolkit.hideStage();
+    }
+
     @Start
     private void start(Stage stage) throws IOException, AppException {
         MockitoAnnotations.openMocks(this);
         doctor = new Doctor("aaa", "bbb", "123456", "Cardiologie",
                 new Establishment("111", "CHUM"));
         user = new User("user", "pass", doctor);
+
         p1 = new Patient("Susan", "Morganti", Gender.FEMALE,
                 Date.valueOf("1952-02-04"), "Montreal", "MORS12452196", Date.valueOf("2022-01-03"),
                 new Contact("2401 rue Ontario Ouest Montreal, QC H2X 1Y8", "514-350-9159",
                         "SusanKMorganti@armyspy.com"));
+        p2 = new Patient("David", "Pokorny", Gender.MALE,
+                Date.valueOf("1982-09-03"), "Montreal", "POKD63259145", Date.valueOf("2020-12-31"),
+                new Contact("2864 rue Levy Montreal, QC H3C 5K4", "514-926-9832",
+                        "DavidPokorny@yahoo.com"));
+
         t1 = new Treatment("insuline");
         d1 = new Diagnostic("diabète type I");
+        t2 = new Treatment("antibiotique cephalosporine");
+        d2 = new Diagnostic("bronchite");
+
         v1 = new VisitBuilder(doctor, Date.valueOf("2021-01-06"))
                 .summary("après consultation de la glycémie du patient ")
                 .notes("note 1 pour visite 1")
                 .diagnostic(d1.getDesignation())
                 .treatment(t1.getDesignation())
                 .build();
+        v2 = new VisitBuilder(doctor, Date.valueOf("2021-02-12"))
+                .summary("symptomes de toux et de dyspnée")
+                .diagnostic(d2.getDesignation())
+                .treatment(t2.getDesignation())
+                .build();
+
         a1 = new Antecedent(Date.valueOf("2021-01-06"), null, d1, t1, doctor);
+        a2 = new Antecedent(Date.valueOf("2021-02-12"), null, d2, t2, doctor);
+
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
+        f2 = new Folder(p2, new HashSet(Arrays.asList(new Visit[]{v2})), new HashSet(Arrays.asList(new Antecedent[]{a2})));
 
 
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
-        when(dataSourceMock.findByUsernameAndPassword("", "")).thenReturn(null);
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
-        when(dataSourceMock.findById("")).thenReturn(null);
+        when(dataSourceMock.update(f1)).thenReturn(true);
+        when(dataSourceMock.archiveModification(f1)).thenReturn(true);
+
+
 
         Session session = new Session(dataSourceMock);
         session.login("user", "pass");
@@ -160,9 +194,13 @@ public class FolderControllerTest {
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).eraseText(30);
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
-        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("Le diagnostic et le traitement de l'antécédant sont nécessaires.") );
+        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("message erreur") );
+        robot.closeCurrentWindow();
+        Assertions.assertEquals(1, robot.listWindows().size());
 
-        robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).write("diabète type I");
+        robot.clickOn("#antecedentsListView");
+        Assertions.assertEquals(2, robot.listWindows().size());
+        robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#dateEndPicker"))
                 .write("2022-08-08").push(KeyCode.ENTER);
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
@@ -215,5 +253,19 @@ public class FolderControllerTest {
         robot.clickOn(robot.listWindows().get(2).getScene().lookup("#delete"));
         Assertions.assertEquals(1, robot.listWindows().size());
         FxAssert.verifyThat("#visitListView", ListViewMatchers.hasItems(0));
+    }
+
+    @Test
+    void addVisitTest(FxRobot robot) {
+        String titleHome = "CentRAMQ Accès Médecin - Accueil";
+        Assertions.assertFalse(robot.lookup("#newVisitFields").query().isVisible());
+        robot.clickOn("#addVisitButton");
+        Assertions.assertTrue(robot.lookup("#newVisitFields").query().isVisible());
+        robot.clickOn("#visitDiagnostic").write("exemple diagnostic");
+        robot.clickOn("#save");
+        FxAssert.verifyThat("#errorMessage", TextMatchers.hasText("Le résumé de la visite est nécessaire."));
+        robot.clickOn("#visitSummary").write("exemple résumé");
+        robot.clickOn("#save");
+        assertEquals(titleHome, mainStage.getTitle());
     }
 }

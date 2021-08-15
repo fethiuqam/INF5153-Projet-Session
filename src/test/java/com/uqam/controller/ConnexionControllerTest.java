@@ -13,8 +13,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.Init;
 import org.testfx.framework.junit5.Start;
+import org.testfx.framework.junit5.Stop;
 import org.testfx.matcher.control.LabeledMatchers;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -35,6 +38,17 @@ public class ConnexionControllerTest {
     User user;
     String errorMsg;
     Stage mainStage;
+
+    @Init
+    public void init() throws Exception {
+        FxToolkit.registerStage(() -> new Stage());
+    }
+
+    @Stop
+    public void stop() throws Exception {
+        FxToolkit.hideStage();
+    }
+
     @Start
     private void start(Stage stage) throws IOException, AppException {
         // initialisation du mockObject
