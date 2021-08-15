@@ -76,37 +76,21 @@ public class FolderControllerTest {
                 Date.valueOf("1982-09-03"), "Montreal", "POKD63259145", Date.valueOf("2020-12-31"),
                 new Contact("2864 rue Levy Montreal, QC H3C 5K4", "514-926-9832",
                         "DavidPokorny@yahoo.com"));
-
         t1 = new Treatment("insuline");
         d1 = new Diagnostic("diabète type I");
-        t2 = new Treatment("antibiotique cephalosporine");
-        d2 = new Diagnostic("bronchite");
-
         v1 = new VisitBuilder(doctor, Date.valueOf("2021-01-06"))
                 .summary("après consultation de la glycémie du patient ")
                 .notes("note 1 pour visite 1")
                 .diagnostic(d1.getDesignation())
                 .treatment(t1.getDesignation())
                 .build();
-        v2 = new VisitBuilder(doctor, Date.valueOf("2021-02-12"))
-                .summary("symptomes de toux et de dyspnée")
-                .diagnostic(d2.getDesignation())
-                .treatment(t2.getDesignation())
-                .build();
-
         a1 = new Antecedent(Date.valueOf("2021-01-06"), null, d1, t1, doctor);
-        a2 = new Antecedent(Date.valueOf("2021-02-12"), null, d2, t2, doctor);
-
         f1 = new Folder(p1, new HashSet(Arrays.asList(new Visit[]{v1})), new HashSet(Arrays.asList(new Antecedent[]{a1})));
-        f2 = new Folder(p2, new HashSet(Arrays.asList(new Visit[]{v2})), new HashSet(Arrays.asList(new Antecedent[]{a2})));
-
 
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
         when(dataSourceMock.findById("MORS12452196")).thenReturn(f1);
         when(dataSourceMock.update(f1)).thenReturn(true);
         when(dataSourceMock.archiveModification(f1)).thenReturn(true);
-
-
 
         Session session = new Session(dataSourceMock);
         session.login("user", "pass");
@@ -168,7 +152,6 @@ public class FolderControllerTest {
         FxAssert.verifyThat("#errorMessageAntecedent", TextMatchers.hasText(errorAddAtcd));
         FxAssert.verifyThat("#antecedentsListView", ListViewMatchers.hasItems(1));
 
-
         robot.clickOn("#antecedentTreatment").write("trt");
         robot.clickOn("#antecedentStartDate").write("2020-01-01").push(KeyCode.ENTER);
         robot.clickOn("#antecedentEndDate").write("2021-01-01").push(KeyCode.ENTER);
@@ -194,7 +177,7 @@ public class FolderControllerTest {
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#diagnosticInputField")).eraseText(30);
         robot.clickOn(robot.listWindows().get(1).getScene().lookup("#edit"));
-        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("message erreur") );
+        FxAssert.verifyThat("#errorMessage",TextMatchers.hasText("Le diagnostic et le traitement de l'antécédant sont nécessaires.") );
         robot.closeCurrentWindow();
         Assertions.assertEquals(1, robot.listWindows().size());
 

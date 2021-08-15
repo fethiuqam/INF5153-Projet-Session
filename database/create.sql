@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS tDiagnostics (
 CREATE TABLE IF NOT EXISTS tVisits (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
    	summary TEXT NOT NULL,
-   	notes TEXT NOT NULL,
+   	notes TEXT ,
 	date_ INTEGER NOT NULL,
 	treatment INTEGER REFERENCES tTreatments,
 	diagnostic INTEGER REFERENCES tDiagnostics,
@@ -188,13 +188,13 @@ VALUES
     ('après consultation de la glycémie du patient ','debut de traitement par l''insuline retard à 10 UI le soir', strftime ('%s', '2021-01-06') * 1000.1, 1, 1, 1, 1 ),
     ('controle médicale après 3 mois de prise d''insuline', 'augmentation de la dose d''insuline à 20 UI le soir', strftime ('%s', '2021-04-01') * 1000.1, NULL, NULL, 1, 1 ),
     ('controle medicale de routine', NULL, strftime ('%s', '2021-02-01') * 1000.1, 2, 2, 3, 2 ), -- diabte 2
-    ('', NULL, strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
-    ('', NULL, strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
-    ('', NULL, strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
-    ('', NULL, strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
-    ('', NULL, strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
-    ('', NULL', strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
-    ('', NULL, strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
+    ('résumé 4', NULL, strftime ('%s', '2020-11-03') * 1000.1, 3, 3, 5, 3 ), -- sclerose
+    ('résumé 5', NULL, strftime ('%s', '2020-12-05') * 1000.1, NULL, 4, 4, 2 ), -- autisme
+    ('résumé 6', NULL, strftime ('%s', '2021-05-05') * 1000.1, 6, 9, 4, 2 ), -- epilepsie
+    ('résumé 7', NULL, strftime ('%s', '2021-03-06') * 1000.1, NULL, 5, 3, 1 ), -- gastro
+    ('résumé 8', NULL, strftime ('%s', '2021-06-02') * 1000.1, NULL, 6, 3, 1 ), -- allergie peni
+    ('résumé 9', NULL, strftime ('%s', '2020-10-06') * 1000.1, 4, 7, 2, 1 ), -- crohn
+    ('résumé 10', NULL, strftime ('%s', '2021-05-03') * 1000.1, 5, 8, 1, 1 ); -- thyroide
 
 INSERT INTO tAntecedents (biginning, end_, treatment, diagnostic, folder, prescriber)
 VALUES

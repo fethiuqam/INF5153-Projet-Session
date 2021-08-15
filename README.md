@@ -87,8 +87,8 @@ $ mvn javafx:run
 
 ## Auteurs
 
-- [Fethi bey Abi ayad](abi_ayad.fethi_bey@courrier.uqam.ca)
+- [Fethi bey Abi ayad](mailto:abi_ayad.fethi_bey@courrier.uqam.ca)
 
-- [Hamza Yahi](af491086@ens.uqam.ca)
+- [Hamza Yahi](mailto:af491086@ens.uqam.ca)
 
-- [Mohamed Hocine Rehouma](rehouma.mohamed_hocine@courrier.uqam.ca)
+- [Mohamed Hocine Rehouma](mailto:rehouma.mohamed_hocine@courrier.uqam.ca)

@@ -24,7 +24,7 @@ public class VisitBuilder {
     }
 
     public VisitBuilder diagnostic(String diagnostic) {
-        if (diagnostic != null && ! diagnostic.isEmpty())
+        if (diagnostic != null && !diagnostic.isEmpty())
             this.diagnostic = new Diagnostic(diagnostic);
         return this;
     }
@@ -35,7 +35,8 @@ public class VisitBuilder {
     }
 
     public VisitBuilder notes(String notes) {
-        this.notes = notes;
+        if (notes != null && !notes.isEmpty())
+            this.notes = notes;
         return this;
     }
 
