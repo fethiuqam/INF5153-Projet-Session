@@ -36,11 +36,6 @@ public class Session implements Authenticable {
         return currentFolder;
     }
 
-    DataSource getDataSource() {
-        return dataSource;
-    }
-
-
     public Folder getOriginalFolder() {
         return originalFolder;
     }
@@ -99,7 +94,5 @@ public class Session implements Authenticable {
         currentFolder = originalFolder.duplicate();
         return true;
     }
-
-
 
 }

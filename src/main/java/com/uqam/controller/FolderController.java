@@ -162,8 +162,20 @@ public class FolderController extends Observable implements Initializable {
         return new HashSet<>(visitObservableList);
     }
 
-    public FolderController() {
+    public void setSession (Session session){
+        this.session = session;
+    }
 
+    public static void initialStage(Stage stage , Class cls , Session session) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(cls.getResource("/views/folder.fxml"));
+        Parent folderRoot = fxmlLoader.load();
+        FolderController controller = fxmlLoader.getController();
+        controller.setSession(session);
+        Scene scene = new Scene(folderRoot);
+        stage.getIcons().add(new Image("/images/windowIcon.png"));
+        stage.setTitle("CentRAMQ Accès Médecin - Dossier");
+        stage.setScene(scene);
+        stage.setResizable(false);
     }
 
     @Override
@@ -199,7 +211,6 @@ public class FolderController extends Observable implements Initializable {
                 alert.show();
 
             }
-
 
             // Setting new Visit non modifiable information
             currentVisitDate.setText(new Date(System.currentTimeMillis()).toString());
@@ -289,7 +300,7 @@ public class FolderController extends Observable implements Initializable {
                     }
                 }
             });
-
+            //add current folder as observer
             addObserver(session.getCurrentFolder());
         });
     }
@@ -366,31 +377,9 @@ public class FolderController extends Observable implements Initializable {
     void restoreVisit(MouseEvent event) throws IOException {
 
         session.resetFolder();
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
-        Parent homeRoot = (Parent) fxmlLoader.load();
-
-        connectSessionReload(fxmlLoader, session);
-        var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        mainStage.setScene(scene);
+        FolderController.initialStage(mainStage, getClass(), session);
 
-    }
-
-    public void setSession (Session session){
-        this.session = session;
-    }
-
-    public void connectSession (FXMLLoader fxmlLoader, Session session){
-        //add session to controller
-        HomeController controller = fxmlLoader.getController();
-        controller.setSession(session);
-    }
-
-    public void connectSessionReload (FXMLLoader fxmlLoader, Session session){
-        //add session to controller
-        FolderController controller = fxmlLoader.getController();
-        controller.setSession(session);
     }
 
     public void saveFolder(MouseEvent mouseEvent) throws IOException, AppException {
@@ -426,17 +415,8 @@ public class FolderController extends Observable implements Initializable {
         notifyObservers();
         session.saveFolder();
 
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
-        Parent homeRoot = (Parent) fxmlLoader.load();
-
-        session.reinitializeFolder();
-
-        connectSession(fxmlLoader, session);
-        var scene = new Scene(homeRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-        mainStage.setTitle("CentRAMQ Accès Médecin - Accueil");
-        mainStage.setScene(scene);
+        HomeController.initialStage(mainStage, getClass(), session);
     }
 
 }

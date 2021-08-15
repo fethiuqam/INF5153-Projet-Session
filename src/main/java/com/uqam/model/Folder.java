@@ -39,16 +39,6 @@ public class Folder implements Cloneable, Observer {
         this.antecedents = antecedents;
     }
 
-    //method to return size of visits
-    public int sizeVisit() {
-        return visits.size();
-    }
-
-    //method to return size of antecedent
-    public int sizeAntecedent() {
-        return antecedents.size();
-    }
-
     //methode pour rajouter une visite
     public void addVisit(Visit visite) {
         visits.add(visite);
@@ -58,9 +48,6 @@ public class Folder implements Cloneable, Observer {
     public void addAntecedent(Antecedent antecedent) {
         antecedents.add(antecedent);
     }
-
-
-
 
     //getters
     public Patient getOwner() {
@@ -106,7 +93,6 @@ public class Folder implements Cloneable, Observer {
                 '}';
     }
 
-
     public Set<Visit> getVisits() {
         return new HashSet<>(visits);
     }
@@ -114,14 +100,6 @@ public class Folder implements Cloneable, Observer {
     public Set<Antecedent> getAntecedents() {
         return new HashSet<>(antecedents);
     }
-
-//    public Set<Antecedent> getAntecedents() {
-//        return antecedents;
-//    }
-//
-//    public Set<Visit> getVisits() {
-//        return visits;
-//    }
 
     @Override
     public void update(Observable observable, Object o) {

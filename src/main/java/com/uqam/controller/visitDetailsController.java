@@ -104,25 +104,18 @@ public class visitDetailsController {
         Platform.runLater(() -> {
             showWindow();
         });
-
-
-
     }
 
     @FXML
     void editVisit(MouseEvent event) {
 
        hideText();
-
        showInputFields();
-
        treatmentInputField.setText(treatment.getDesignation());
        diagnosticInputField.setText(diagnostic.getDesignation());
        summaryInputField.setText(summary);
        noteInputField.setText(note);
-
         apply.setVisible(true);
-
     }
 
     @FXML
@@ -144,14 +137,11 @@ public class visitDetailsController {
         }
     }
 
-
     @FXML
     void applyEdit(MouseEvent event) {
 
         if (!summaryInputField.getText().equals("")){
-
             errorInterface.setVisible(false);
-
             Treatment modifiedTreatment = new Treatment(treatmentInputField.getText());
             visit.setTreatment(modifiedTreatment);
 
@@ -165,12 +155,10 @@ public class visitDetailsController {
             visit.setNotes(modifiedNote);
 
             showText();
-
             hideInputFields();
 
             //hide apply button
             apply.setVisible(false);
-
             showWindow();
 
         }else{

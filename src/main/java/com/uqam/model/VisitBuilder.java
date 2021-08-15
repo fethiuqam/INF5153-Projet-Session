@@ -11,7 +11,6 @@ public class VisitBuilder {
     private Treatment treatment;
     private Diagnostic diagnostic;
 
-
     public VisitBuilder(Doctor doctor, Date date) {
         this.doctor = doctor;
         this.date = date;

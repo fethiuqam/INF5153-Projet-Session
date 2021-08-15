@@ -105,16 +105,9 @@ public class HomeControllerTest {
 
         Session session = new Session(dataSourceMock);
         session.login("user", "pass");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/home.fxml"));
-        Parent homeRoot = fxmlLoader.load();
-        HomeController controller = fxmlLoader.getController();
-        controller.setSession(session);
-        Scene scene = new Scene(homeRoot);
-        stage.setScene(scene);
-        stage.setTitle("CentRAMQ Accès Médecin - Accueil");
-        stage.setResizable(false);
-        stage.show();
         mainStage = stage;
+        HomeController.initialStage(stage, getClass(), session );
+        mainStage.show();
     }
 
     @Test

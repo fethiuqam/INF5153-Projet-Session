@@ -61,18 +61,10 @@ public class ConnexionControllerTest {
         when(dataSourceMock.findByUsernameAndPassword("", ""))
                 .thenThrow(new AppException(errorMsg));
         when(dataSourceMock.findByUsernameAndPassword("user", "pass")).thenReturn(user);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent connexionRoot = (Parent) fxmlLoader.load();
-        ConnexionController controller = fxmlLoader.getController();
-        controller.setSession(new Session(dataSourceMock));
-        Scene scene = new Scene(connexionRoot);
-
-        stage.getIcons().add(new Image("/images/windowIcon.png"));
-        stage.setTitle("CentRAMQ Accès Médecin - Connexion");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
         mainStage = stage;
+        ConnexionController.initialStage(stage, getClass(), new Session(dataSourceMock) );
+        mainStage.show();
+
     }
 
     @Test

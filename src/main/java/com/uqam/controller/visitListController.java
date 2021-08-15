@@ -58,6 +58,10 @@ public class visitListController extends ListCell<Visit> {
 
     private Session session;
 
+    public void setSession(Session session){
+        this.session = session;
+    }
+
     @Override
     protected void updateItem(Visit visit, boolean empty) {
         super.updateItem(visit, empty);
@@ -80,7 +84,6 @@ public class visitListController extends ListCell<Visit> {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
 
             setVisitInformation(visit);
@@ -131,10 +134,4 @@ public class visitListController extends ListCell<Visit> {
             summary.setText(visit.getSummary());
 
     }
-
-
-    public void setSession(Session session){
-        this.session = session;
-    }
-
 }

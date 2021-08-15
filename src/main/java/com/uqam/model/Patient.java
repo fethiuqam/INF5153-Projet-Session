@@ -52,7 +52,6 @@ public class Patient implements Cloneable {
        return true;
     }
 
-
     // Method to validate the length of the city's name and to make sure it only contains letter
     public boolean validBirthCity(String city) throws AppException{
         if (city.length() <2) throw new AppException("Le nom est trop court. Veuillez entrer un nom d'au moins 2 chiffres.");
@@ -63,7 +62,6 @@ public class Patient implements Cloneable {
         }
         return true;
     }
-
 
     // MEthod to validate the format of insurance number: ABCD12345678
     public boolean validInsuranceNumber(String num) throws AppException{
@@ -80,8 +78,6 @@ public class Patient implements Cloneable {
         }
         return true;
     }
-
-
 
     //getters
     public String getFirstname() {

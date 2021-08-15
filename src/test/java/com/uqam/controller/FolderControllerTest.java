@@ -43,12 +43,12 @@ public class FolderControllerTest {
     DataSource dataSourceMock;
     Doctor doctor;
     User user;
-    Patient p1, p2;
-    Treatment t1, t2;
-    Diagnostic d1, d2;
-    Visit v1 , v2;
-    Antecedent a1 , a2;
-    Folder f1 , f2;
+    Patient p1;
+    Treatment t1;
+    Diagnostic d1;
+    Visit v1;
+    Antecedent a1 ;
+    Folder f1 ;
     Stage mainStage;
 
     @Init
@@ -72,10 +72,7 @@ public class FolderControllerTest {
                 Date.valueOf("1952-02-04"), "Montreal", "MORS12452196", Date.valueOf("2022-01-03"),
                 new Contact("2401 rue Ontario Ouest Montreal, QC H2X 1Y8", "514-350-9159",
                         "SusanKMorganti@armyspy.com"));
-        p2 = new Patient("David", "Pokorny", Gender.MALE,
-                Date.valueOf("1982-09-03"), "Montreal", "POKD63259145", Date.valueOf("2020-12-31"),
-                new Contact("2864 rue Levy Montreal, QC H3C 5K4", "514-926-9832",
-                        "DavidPokorny@yahoo.com"));
+
         t1 = new Treatment("insuline");
         d1 = new Diagnostic("diabète type I");
         v1 = new VisitBuilder(doctor, Date.valueOf("2021-01-06"))
@@ -96,16 +93,9 @@ public class FolderControllerTest {
         session.login("user", "pass");
         session.downloadFolder("MORS12452196");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
-        Parent folderRoot = fxmlLoader.load();
-        FolderController controller = fxmlLoader.getController();
-        controller.setSession(session);
-        Scene scene = new Scene(folderRoot);
-        stage.setScene(scene);
-        stage.setTitle("CentRAMQ Accès Médecin - Dossier");
-        stage.setResizable(false);
-        stage.show();
         mainStage = stage;
+        FolderController.initialStage(stage, getClass(), session );
+        mainStage.show();
     }
 
     @Test

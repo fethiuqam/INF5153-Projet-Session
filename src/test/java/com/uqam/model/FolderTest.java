@@ -39,22 +39,9 @@ public class FolderTest {
     }
 
 
-    @Test
-    void testValidAddVisit() throws AppException {
-        folder.addVisit(visit);
-        Assertions.assertEquals(1, folder.sizeVisit());
-    }
 
-    @Test
-    void testValidAddAntecedent() throws AppException {
-        String debut = "2021-06-05";
-        String fin = "2021-06-12";
-        Date beginning = Date.valueOf(debut);
-        Date end = Date.valueOf(fin);
-        Antecedent antecedent = new Antecedent(beginning, end, diagnostic, treatment, doctor);
-        folder.addAntecedent(antecedent);
-        Assertions.assertEquals(1, folder.sizeAntecedent());
-    }
+
+
 
 
     @Test

@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,28 +34,11 @@ public class HomeController {
 
     @FXML
     private Label permitNumber;
+
     // ***** User information
 
     @FXML
-    private HBox logoutButton;
-
-    @FXML
-    private AnchorPane scanCard;
-
-    @FXML
-    private Button scanButton;
-
-    @FXML
     private AnchorPane scannerActivated;
-
-    @FXML
-    private Button cancelScanButton;
-
-    @FXML
-    private AnchorPane keyboardCard;
-
-    @FXML
-    private Button searchButton;
 
     @FXML
     private TextField insuranceSearchQuery;
@@ -68,33 +52,36 @@ public class HomeController {
 
     private Session session;
 
+    public void setSession (Session session){
+        this.session = session;
+    }
+
+    public static void initialStage(Stage stage , Class cls , Session session) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(cls.getResource("/views/home.fxml"));
+        Parent homeRoot = fxmlLoader.load();
+        HomeController controller = fxmlLoader.getController();
+        controller.setSession(session);
+        Scene scene = new Scene(homeRoot);
+        stage.getIcons().add(new Image("/images/windowIcon.png"));
+        stage.setTitle("CentRAMQ Accès Médecin - Accueil");
+        stage.setScene(scene);
+        stage.setResizable(false);
+    }
+
     public void initialize() {
-
         Platform.runLater(() -> {
-
             // Doctor information
             Doctor doctor = session.getDoctor();
-
             firstName.setText(doctor.getFirstname());
             lastName.setText(doctor.getLastname());
             permitNumber.setText(doctor.getPermit());
         });
-
     }
-
 
     public void logout(MouseEvent mouseEvent) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent loginRoot = (Parent) fxmlLoader.load();
-
-        ConnexionController controller = fxmlLoader.getController();
-        controller.setSession(session);
-
-        var scene = new Scene(loginRoot);
         Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-        mainStage.setScene(scene);
-        mainStage.setTitle("CentRAMQ Accès Médecin - Connexion");
+        ConnexionController.initialStage(mainStage, getClass(),session);
     }
 
     public void showHideScanCard(MouseEvent mouseEvent) {
@@ -110,15 +97,8 @@ public class HomeController {
         try {
             boolean successful = session.downloadFolder(insuranceSearchQuery.getText());
             if (successful){
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/folder.fxml"));
-                Parent patientRoot = (Parent) fxmlLoader.load();
-
-                connectSession(fxmlLoader, session);
-
-                var scene = new Scene(patientRoot);
                 Stage mainStage = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-                mainStage.setTitle("CentRAMQ Accès Médecin - Dossier");
-                mainStage.setScene(scene);
+                FolderController.initialStage(mainStage, getClass(), session);
             }
         }catch (AppException e){
 
@@ -138,13 +118,4 @@ public class HomeController {
 
     }
 
-    public void setSession (Session session){
-        this.session = session;
-    }
-
-    public void connectSession (FXMLLoader fxmlLoader, Session session){
-        //add session to controller
-        FolderController controller = fxmlLoader.getController();
-        controller.setSession(session);
-    }
 }
