@@ -432,7 +432,7 @@ dans notre ancienne conception, les listes modifiées étaient passées par réf
 Les modifications efféctuées ne s'appliquaient donc pas aux listes originelles lorsqu'on
 voulait sauvegarder les modifications apportées. Dans la nouvelle conception,
 pour cloner un dossier par exemple, nous créons une copie du dossier
-original et si une modification est apportée, la variable modified de la classe 
+original et si une modification est apportée (dans le dossier cloné), la variable modified de la classe 
 Session est changée (peut être changé par n'importe quel controleur) à True et notifie l'Observer.
 De cette manière, nous vérifions avec la méthode equals() si le dossier original
 est égale au dossier copié. Si c'est le cas, les modifications du dossier cloné sont
