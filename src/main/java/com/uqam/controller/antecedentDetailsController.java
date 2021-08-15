@@ -60,12 +60,6 @@ public class antecedentDetailsController {
     private HBox ownerBouttons;
 
     @FXML
-    private HBox delete;
-
-    @FXML
-    private HBox edit;
-
-    @FXML
     private HBox apply;
 
     @FXML
@@ -163,21 +157,13 @@ public class antecedentDetailsController {
 
     @FXML
     void edit(MouseEvent event) {
-
         hideText();
-
         showInputFields();
-
         treatmentInputField.setText(treatment.getDesignation());
         diagnosticInputField.setText(diagnostic.getDesignation());
-
-
         dateBeginning.ifPresent(date -> dateBeginningPicker.setValue(date.toLocalDate()));
-
         dateEnd.ifPresent(date -> dateEndPicker.setValue(date.toLocalDate()));
-
         apply.setVisible(true);
-
     }
 
     private void showWindow() {
@@ -187,7 +173,6 @@ public class antecedentDetailsController {
         this.dateEnd = antecedent.getEnd();
         this.treatment = antecedent.getTreatment();
         this.diagnostic = antecedent.getDiagnostic();
-
 
         doctorContent.setText(doctor.getFirstname()+ " " + doctor.getLastname());
         treatmentContent.setText(treatment.getDesignation());

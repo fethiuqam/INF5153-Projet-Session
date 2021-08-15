@@ -16,21 +16,8 @@ public class MyApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-        Parent connexionRoot = fxmlLoader.load();
-
-        //create session
-
-        //Session session = new Session(new DataSource()) sinon Session session = new Session(DataSource.getInstance());
         Session session = new Session(new DataSource());
-
-        connectSession(fxmlLoader, session);
-
-        var scene = new Scene(connexionRoot);
-        stage.getIcons().add(new Image("/images/windowIcon.png"));
-        stage.setTitle("CentRAMQ Accès Médecin - Connexion");
-        stage.setScene(scene);
-        stage.setResizable(false);
+        ConnexionController.initialStage(stage, getClass(),session);
         stage.show();
     }
 
@@ -38,9 +25,4 @@ public class MyApp extends Application {
         launch();
     }
 
-    public void connectSession(FXMLLoader fxmlLoader, Session session) {
-        //add session to controller
-        ConnexionController controller = fxmlLoader.getController();
-        controller.setSession(session);
-    }
 }
