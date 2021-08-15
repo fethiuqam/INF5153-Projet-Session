@@ -75,7 +75,7 @@ La modélisation de l'application utilisée par le médecin se distingue par la 
 
 Ces deux classes permettent à l'utilisateur de modifier certaines données tel que l'ajout d'une nouvelle visite, l'ajout d'un nouvel antécédent et la modification d'un ancien antécédent lié au medecin utilisateur
 
-![Diagramme de classe du medecin](models/Diagramme_Classes/medecin/class_diagram_medecin_mvc.png)
+![Diagramme de classe du medecin](models/Diagramme_Classes/implementation/class_diagram.png)
 
 
 
@@ -385,4 +385,30 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
     + **Général**<br>
          Faible couplage: Cette classe correspond à l'établissment auquel le médecin est assigné et est composée de deux attributs: le numéro d'identifiaction de l'établissement et son nom. Elle est donc seulement couplée à la classe Médecin. 
 
+
+## Diagramme de classe du pattern: Builder 
+
+![Diagramme de classe du pattern Builder](models/Diagramme_Pattern/Pattern_builder/class_diagram.png)
+
+## Diagramme de séquence du pattern Builder
+
+![Diagramme de séquence du pattern Builder](models/Diagramme_Pattern/Pattern_builder/sequence_diagram.png)
+
+## Diagramme de classe du pattern Observer
+
+![Diagramme de classe du pattern Observer](models/Diagramme_Pattern/Pattern_observer/class_diagram.png)
+
+## Diagramme de séquence du pattern Observer
+
+![Diagramme de séquence du pattern Observer](models/Diagramme_Pattern/Pattern_observer/sequence_diagram.png)
+
+## Diagramme de classe du pattern Prototype
+
+![Diagramme de classe du pattern Prototype](models/Diagramme_Pattern/Pattern_prototype/class_diagram.png)
+
+## Diagramme de séquence du pattern Prototype
+
+![Diagramme de séquence du pattern Prototype](models/Diagramme_Pattern/Pattern_prototype/sequence_diagram.png)
+
+## Modifications apportées
 
