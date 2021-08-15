@@ -53,18 +53,25 @@ $ mvn clean compile
 
 ### tests
 
+- Les tests de la classe `DataSource` dépendent des données de la base de données Sqlite, ce qui nécessite l'initialisation de la base de données selon l'étape d'installation.
+- Les tests du package `controller` utilisent le framwork `testfx` qui utilise l'interface utilisateur pour exécuter les tests, il est impératif de ne pas utiliser la souris, le pavé tactile ou le clavier durant les tests ce qui peut fausser les résultats.
+
 À la racine du projet on exécute la commande maven :
 
 ~~~sh
-$ mvn clean test
+$ mvn  test
 ~~~
+
+Le chemin du rapport généré par le plugin `jacoco` à partir de la racine du projet : `target/site/jacoco/index.html` 
+
+On peut le consulter sur un navigateur
 
 ### Empaquetage
 
 À la racine du projet on exécute la commande maven :
 
 ~~~sh
-$ mvn clean package
+$ mvn package
 ~~~
 
 ### Execution du programme
