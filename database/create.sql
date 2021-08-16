@@ -135,7 +135,7 @@ INSERT INTO tPatients (firstname, lastname, gender, dateOfBirth, birthCity, insu
 VALUES
     ('Susan', 'Morganti', 'FEMALE' , strftime ('%s', '1952-02-04') * 1000.1, 'Montreal', 'MORS12452196',strftime ('%s', '2022-01-31') * 1000.1, 1, null, null),
     ('Alex', 'Pokorny', 'MALE' , strftime ('%s', '1948-10-15') * 1000.1, 'Quebec', 'POKA36952365',strftime ('%s', '2023-07-31') * 1000.1, 2, null, null),
-    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', ',strftime ('%s', '2020-12-31') * 1000.1, 3, 'Alex Pokorny', 'Susan Morganti'),
+    ('David', 'Pokorny', 'MALE' , strftime ('%s', '1982-09-03') * 1000.1, 'Montreal', 'POKD63259145',strftime ('%s', '2020-12-31') * 1000.1, 3, 'Alex Pokorny', 'Susan Morganti'),
     ('William', 'Snider', 'MALE' , strftime ('%s', '1988-03-14') * 1000.1, 'Quebec', 'SNIW65971398',strftime ('%s', '2022-06-30') * 1000.1, 4, null, 'Regina Leslie'),
     ('Regina', 'Leslie', 'FEMALE' , strftime ('%s', '1956-06-13') * 1000.1, 'Trois Rivieres', 'LESRW36946970',strftime ('%s', '2021-08-31') * 1000.1, 5, null, null),
     ('Luis', 'Donaldson', 'MALE' , strftime ('%s', '1970-06-01') * 1000.1, 'Riviere Du Loup', 'DONL98632897',strftime ('%s', '2021-07-31') * 1000.1, 6, null, null);
