@@ -92,7 +92,7 @@ public class HomeController {
         }
     }
 
-    public void newVisite(MouseEvent mouseEvent) throws IOException, AppException {
+    public void loadFolder(MouseEvent mouseEvent) throws IOException, AppException {
 
         try {
             boolean successful = session.downloadFolder(insuranceSearchQuery.getText());

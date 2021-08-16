@@ -4,13 +4,11 @@ hide footbox
 title Diagramme de séquence du patron de conception "Observer"
 
 participant System
-create participant ": PatientController <<ConcreteSubject>>" as CS
+create participant ": FolderController <<ConcreteSubject>>" as CS
 System -> CS : this()
 
 
 participant "currentFolder: Folder <<ConcreteObserver>>" as O1
-participant "session : Session <<ConcreteObserver>>" as O2
-
 
 CS -> CS: addObserver(currentFolder)
 CS -> CS: addObserver(session)
@@ -32,14 +30,6 @@ O1 -> CS: getAntecedents()
 CS --> O1 : Set<Antecedent>
 O1 --> CS
 deactivate O1
-
-CS -> O2: update()
-
-activate O2
-O2 -> O2: this.modified = true
-O2 --> CS
-deactivate O2
-
 
 deactivate CS
 CS --> System

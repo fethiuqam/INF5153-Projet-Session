@@ -46,7 +46,7 @@
 
 [[_TOC_]]
 
-
+# Première partie
 
 ## Diagramme des cas d'utilisations
 
@@ -311,11 +311,9 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
 
     + **AjouterVisite(visite: Visite)**<br>
         Créateur : La classe dossier a la responsabilité d'ajouter les visites car c'est elle qui contient la liste des visites associées au dossier, c'est a dire que c'est elle qui est <b> composée</b> de "Visite".
-
-
+      
     + **AjouterAntecedent(antecdent: Antecedent)**<br> 
         Créateur : La classe dossier a la responsabilité d'ajouter les antecedents car c'est elle qui contient la liste des antecedents associées au dossier, c'est a dire que c'est elle qui est <b> composée</b> de "Antecedents".
-
 
     + **getVisites(List\<Visite\>)**<br>
         Specialiste de l'information : La classe dossier a la responsabilité de recupérer les visites car c'est elle qui contient la liste des visites associées au dossier.
@@ -386,31 +384,67 @@ Ce diagramme nous informe que le système est composé d'un serveur centralisé 
          Faible couplage: Cette classe correspond à l'établissment auquel le médecin est assigné et est composée de deux attributs: le numéro d'identifiaction de l'établissement et son nom. Elle est donc seulement couplée à la classe Médecin. 
 
 
-## Diagramme de classe du pattern: Builder 
+# Deuxième partie :
+
+## Les patrons de conception :
+
+### Le patron de conception Builder:
+
+On a utilisé le patron Builder pour isoler la construction des objets `Visit` et `Antecedent` de leur représentation à partie des champs formulaire que l'utilisateur devra remplir.
+
+Ce patron nous assure de la cohérence des objets créés.
+
+#### Diagramme de classe 
 
 ![Diagramme de classe du pattern Builder](models/Diagramme_Pattern/Pattern_builder/class_diagram.png)
 
-## Diagramme de séquence du pattern Builder
+#### Diagramme de séquence du pattern Builder
 
 ![Diagramme de séquence du pattern Builder](models/Diagramme_Pattern/Pattern_builder/sequence_diagram.png)
 
-## Diagramme de classe du pattern Observer
+### Le patron de conception Observer:
+
+On a utilisé le patron Observer pour découpler le contrôleur de l'interface utilisateur `FolderController` de l'objet du modèle `Folder` et pour préserver l'encapsulation de ce dernier.
+
+Ce patron nous permet de mettre à jour l'objet `currentFolder` à chaque modification subit par le controleur `FolderController` et ses attributs.
+
+#### Diagramme de classe du patron Observer
 
 ![Diagramme de classe du pattern Observer](models/Diagramme_Pattern/Pattern_observer/class_diagram.png)
 
-## Diagramme de séquence du pattern Observer
+#### Diagramme de séquence du patron Observer
 
 ![Diagramme de séquence du pattern Observer](models/Diagramme_Pattern/Pattern_observer/sequence_diagram.png)
 
-## Diagramme de classe du pattern Prototype
+### Le patron de conception Prototype:
+
+On a utilisé le patron prototype pour accélérer la construction de l'objet `Folder` par duplication au lieu de le télécharger de la base de données distante.
+
+Ce patron nous a permis de solutionner le problème de modification du dossier par l'utilisation de deux instances de la classe `Folder` : 
+- L'instance `originalFolder` que l'objet `Session` télécharge une fois pour toute de la base de données, et qui va constituer une référence.
+- L'instance `currentFolder` qui est créer par duplication à partir de `originalFolder` , et qui constitue l'objet recevant les modifications de l'utilisateur.
+
+La restauration de la session par l'utilisateur consistera alors en une nouvelle duplication de l'instance `originalFolder` sans passer par la base de données.
+
+#### Diagramme de classe du patron Prototype
 
 ![Diagramme de classe du pattern Prototype](models/Diagramme_Pattern/Pattern_prototype/class_diagram.png)
 
-## Diagramme de séquence du pattern Prototype
+#### Diagramme de séquence du patron Prototype
 
 ![Diagramme de séquence du pattern Prototype](models/Diagramme_Pattern/Pattern_prototype/sequence_diagram.png)
 
-## Modifications apportées
+## Implémentation de l'application CentRAMQ :
+
+On a utilisé pour notre implémentation le framework `javaFX` pour l'architecture MVC de l'application. L'avantage de ce framework est le d'ecouplage entre les vues affichées à l'utilisateur et les controleurs qui gère cette IHM.
+
+On a également utilisé l'ORM `hibernate` qui est une implémentation du JPA aui a l'avantage de découpler la gestion de la base de données de son type (Sqlite, Mysql , Orqal, SQLServer, Mariadb ...). Il suffit dans ce cas de modifier le fichier de configuration pour passer facilement d'une base de données à une autre. Un autre avantage fournit par l'ORM est la sécurité vis à vis des injections SQL.
+
+On a utilisé pour les tests unitaires le framework `testFX` pour simuler les actions de l'utilsateur sur notre application , et le framework `mockito` pour simuler les requetes de la base de données. 
+
+## Modifications apportées par rapport à la première conception :
+
+![Diagramme de classe pour la nouvelle implementation](models/Diagramme_Classes/implementation/class_diagram.png)
 
 Dans la première version de notre conception, nous avions trois
 controllers principaux (en plus du controlleur de connexion): PatientControleur, PrescripteurControler et
@@ -418,32 +452,12 @@ HistoriqueControlleur. Nous avons remplacé ces trois controlleurs
 par un seul controlleur : FolderController. 
 
 Nous avons ensuite rajouté le controleur HomeController qui permet de gérer la transition
-entre la connexion de l'utilisateur (en l'occurrence le médecin) et le dossier du patient auquel le médecin veut accèder.
-Il agit donc comme un intermédiaire entre ces deux classes.
-Une fois connecté, le médecin peut choisir comment accéder au dossier, 
-c'est-à-dire soit par le scan de la carte d'assurance maladie, 
-ou en entrant le numéro d'assurance maladie manuellement. Cette modification nous a permis
-de réattribuer les responsabilités de la classe Session, puisque dans notre première conception, c'est
-elle qui gérait la plupart des communications entre l'utilisateur et les différents objets.
+entre l'état de connexion de l'utilisateur (en l'occurrence le médecin) et l'état de chargement du dossier du patient auquel le médecin veut accèder.
 
 Ensuite, nous avons appliqué le pattern Observer. L'objectif de cette modification
-est de pouvoir mettre à jour les lists view de manière fonctionnelle. En effet,
-dans notre ancienne conception, les listes modifiées étaient passées par référence. 
-Les modifications efféctuées ne s'appliquaient donc pas aux listes originelles lorsqu'on
-voulait sauvegarder les modifications apportées. Dans la nouvelle conception,
-pour cloner un dossier par exemple, nous créons une copie du dossier
-original et si une modification est apportée (dans le dossier cloné), la variable modified de la classe 
-Session est changée (peut être changé par n'importe quel controleur) à True et notifie l'Observer.
-De cette manière, nous vérifions avec la méthode equals() si le dossier original
-est égale au dossier copié. Si c'est le cas, les modifications du dossier cloné sont
-apportés au dossier original. En faisant cela, nous évitons que l'encapsulation soit
-présente dans toute les classes et limite le couplage.
+est de pouvoir mettre à jour les liste visits et antecedents de l'objet currentFolder à partir des listview du controleur FolderControler.
+En effet, dans notre ancienne conception, les listes modifiées étaient passées par référence, ce qui explosait l'encapsulation de l'objet Folder.
 
-Comme mentionnée plus haut, nous utilisons un dossier original et on en crée une copie pour y apporté
-les modifications nécessaires. Nous appliquons ici le pattern Prototype. On utilise la méthode clone() 
-qui est overidé pour dans chaque classe selon l'objet pour crée une copie. Cela nous permet de faciliter
-l'instanciation d'objet complexe et nous permet d'intergair avec la base de données de manière plus simple.
-
-
-
-
+Une autre modification concerne la détection de modification du dossier, dans la première conception on se basaient sur un attribut `modified` de l'objet Session 
+qu'il fallait mettre à true à chaque modification. On a changé cette logique par l'utilisation du pattern Prototype, et la détection de la modification sera
+faite avant la sauvegarde du dossier par une simple comparaison d'égalité (equals) entre les instances originalFolder et currentFolder de l'objet Session.

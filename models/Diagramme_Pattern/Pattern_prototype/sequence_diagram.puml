@@ -39,7 +39,6 @@ S -> P2: doSomething()
 activate P2
 P2 --> S
 deactivate P2
-S -> S : this.modified = true
 
 [-> S: resetFolder()
 
@@ -53,7 +52,6 @@ P2 --> P1: currentFolder
 deactivate P2
 P1 --> S: currentFolder
 deactivate P1
-S -> S : this.modified = false
 [<-- S:
 deactivate S
 

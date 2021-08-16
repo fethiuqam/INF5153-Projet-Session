@@ -257,7 +257,7 @@
                                        </VBox.margin>
                                        <children>
                                           <TextField fx:id="insuranceSearchQuery" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" />
-                                          <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#newVisite" style="-fx-background-color: #507AA4; -fx-cursor: hand;" text="Rechercher" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                          <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#loadFolder" style="-fx-background-color: #507AA4; -fx-cursor: hand;" text="Rechercher" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>

@@ -19,24 +19,19 @@ interface java.util.Observer {
 
 java.util.Observable "1" -> "0..n" java.util.Observer
 
-class  PatientController  <<ConcreteSubject>> {
+class  FolderController  <<ConcreteSubject>> {
   + getVisits() : Set<Visit>
   + getAntecedents() : Set <Antecedent>
 }
 
-java.util.Observable <|-- PatientController
+java.util.Observable <|-- FolderController
 
 class Folder <<ConcreteObserver>> {
   + ^update(obs : java.util.Observable, arg: Object)
 }
 
-class Session <<ConcreteObserver>> {
-  + ^update(obs : java.util.Observable, arg: Object)
-}
-
 java.util.Observer <|.. Folder
-java.util.Observer <|.. Session
 
-PatientController <. Folder
+FolderController <. Folder
 
 @enduml

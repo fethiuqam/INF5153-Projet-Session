@@ -196,7 +196,7 @@
                                     <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
                                  </padding>
                               </HBox>
-                              <HBox fx:id="restore" alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#restoreVisit" spacing="7.0" style="-fx-background-color: #4C749C; -fx-background-radius: 5; -fx-cursor: hand;">
+                              <HBox fx:id="restore" alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#restoreFolder" spacing="7.0" style="-fx-background-color: #4C749C; -fx-background-radius: 5; -fx-cursor: hand;">
                                  <children>
                                     <Label text="Restaurer" textFill="WHITE">
                                        <font>

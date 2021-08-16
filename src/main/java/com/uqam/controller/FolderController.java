@@ -374,7 +374,7 @@ public class FolderController extends Observable implements Initializable {
 
 
     @FXML
-    void restoreVisit(MouseEvent event) throws IOException {
+    void restoreFolder(MouseEvent event) throws IOException {
 
         session.resetFolder();
         Stage mainStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -410,7 +410,7 @@ public class FolderController extends Observable implements Initializable {
 
 
     }
-    public void logout(MouseEvent mouseEvent) throws IOException, AppException {
+    private void logout(MouseEvent mouseEvent) throws IOException, AppException {
         setChanged();
         notifyObservers();
         session.saveFolder();
